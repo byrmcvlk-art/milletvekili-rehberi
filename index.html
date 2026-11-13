@@ -330,6 +330,87 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .st-party .st-tr{grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr) minmax(0,1.3fr)}.st-party .st-tr>span:nth-child(4){display:none}
 .st-tr{grid-template-columns:minmax(0,1.4fr) minmax(0,.9fr) minmax(0,1.2fr)}
 .st-seg em{display:none}.st-seg{align-items:center;padding:0}.st-seg b{font-size:0}.st-seg b::before{content:attr(data-n);font-size:13px}}
+
+/* ===== Gündem Projeksiyonu (bütçe istatistiklerinin üstü) ===== */
+:root{--gp-red:#B3261E;--gp-amber:#B26A00;--gp-blue:#2F6FB0;--gp-hi:#F2B33D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gp-red:#FF8A80;--gp-amber:#F2B35A;--gp-blue:#7DB3EA}}
+:root[data-theme="dark"]{--gp-red:#FF8A80;--gp-amber:#F2B35A;--gp-blue:#7DB3EA}
+.gp-wrap{margin:0 0 22px;border:2px solid var(--accent);border-radius:12px;background:var(--surface);overflow:hidden;scroll-margin-top:72px}
+.gp-head{background:var(--accent);color:var(--accent-fg);padding:18px 20px}
+.gp-badge{display:inline-block;background:var(--gp-hi);color:#18221D;font:700 11.5px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px;margin-bottom:9px;animation:gp-pulse 2.2s infinite}
+@keyframes gp-pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,179,61,.65)}50%{box-shadow:0 0 0 8px rgba(242,179,61,0)}}
+@media (prefers-reduced-motion:reduce){.gp-badge{animation:none}}
+.gp-head h2{margin:0;font:600 clamp(20px,3.2vw,26px)/1.2 var(--font-display);letter-spacing:-.01em;color:inherit}
+.gp-head p{margin:6px 0 0;font-size:14px;opacity:.9}
+.gp-stats{display:flex;flex-wrap:wrap;gap:10px;padding:14px 20px;background:var(--accent-soft);border-bottom:1px solid var(--line)}
+.gp-stat{flex:1 1 110px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:10px;padding:10px 12px;text-align:center}
+.gp-stat b{display:block;font:600 28px/1 var(--font-display);color:var(--fg);font-variant-numeric:tabular-nums}
+.gp-stat span{font-size:12px;color:var(--muted)}
+.gp-stat.cy{border-top-color:var(--gp-red)}.gp-stat.cy b{color:var(--gp-red)}
+.gp-stat.y{border-top-color:var(--gp-amber)}.gp-stat.y b{color:var(--gp-amber)}
+.gp-stat.oy{border-top-color:var(--gp-blue)}.gp-stat.oy b{color:var(--gp-blue)}
+.gp-body{padding:16px 20px 8px}
+.gp-cat{margin-bottom:18px}
+.gp-cat h3{margin:0 0 10px;font:600 16px/1.3 var(--font-display);color:var(--fg);display:flex;align-items:center;gap:8px}
+.gp-cat h3 i{font:600 13px/1 var(--font-body);font-style:normal;background:var(--accent);color:var(--accent-fg);width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.gp-cat h3 small{font:400 12px var(--font-body);color:var(--muted)}
+.gp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.gp-card{background:var(--hover);border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:8px;padding:11px 13px}
+.gp-card.cy{border-left-color:var(--gp-red)}.gp-card.y{border-left-color:var(--gp-amber)}.gp-card.oy{border-left-color:var(--gp-blue)}
+.gp-card h4{margin:0 0 6px;font:600 14px/1.3 var(--font-body);color:var(--fg)}
+.gp-card p{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+.gp-tag{display:inline-block;font:700 11px/1 var(--font-body);padding:3px 8px;border-radius:999px;margin-bottom:7px;border:1px solid currentColor}
+.cy .gp-tag{color:var(--gp-red)}.y .gp-tag{color:var(--gp-amber)}.oy .gp-tag{color:var(--gp-blue)}
+.gp-tl{padding:4px 20px 18px;border-top:1px solid var(--line)}
+.gp-tl>h3{margin:16px 0 4px;font:600 18px/1.3 var(--font-display);color:var(--fg)}
+.gp-tl>p{margin:0 0 14px;font-size:12.5px;color:var(--muted)}
+.gp-tl-list{margin:0;padding:0 0 0 22px;list-style:none;border-left:3px solid var(--line)}
+.gp-tl-item{position:relative;margin:0 0 10px;padding:10px 13px;background:var(--hover);border:1px solid var(--line);border-radius:8px}
+.gp-tl-item::before{content:"";position:absolute;left:-34px;top:14px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:3px solid var(--gp-amber)}
+.gp-tl-date{display:block;font:700 12px var(--font-body);color:var(--gp-amber);margin-bottom:2px}
+.gp-tl-item h4{margin:0 0 4px;font:600 14px/1.3 var(--font-body);color:var(--fg)}
+.gp-tl-item h4 em{font-style:normal;color:var(--muted);margin-right:6px;font-size:12px}
+.gp-tl-item p{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+.gp-foot{font-size:12px;color:var(--muted);padding:0 20px 14px}
+@media (max-width:600px){.gp-head,.gp-body,.gp-tl{padding-left:14px;padding-right:14px}.gp-stats{padding:12px 14px}.gp-foot{padding-left:14px}}
+
+/* gp: gezinme */
+.gp-head{position:relative}
+.gp-toggle{position:absolute;top:14px;right:14px;display:inline-flex;gap:6px;align-items:center;border:1px solid currentColor;background:transparent;color:inherit;font:600 13px var(--font-body);padding:7px 12px;border-radius:999px;cursor:pointer}
+.gp-toggle:hover{background:var(--accent-fg);color:var(--accent)}
+.gp-toggle:focus-visible,.gp-tab:focus-visible,.gp-mini:focus-visible,.gp-links a:focus-visible,.gp-cat>summary:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.gp-wrap.gp-collapsed #gp-content{display:none}
+.gp-tabs{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:10px 20px 0;border-bottom:1px solid var(--line);background:var(--surface)}
+.gp-tablist{display:flex;gap:4px}
+.gp-tab{font:600 14px var(--font-body);color:var(--muted);background:transparent;border:0;border-bottom:3px solid transparent;padding:9px 12px;cursor:pointer;margin-bottom:-1px}
+.gp-tab span{font-size:11.5px;background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:2px 7px;margin-left:4px}
+.gp-tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
+.gp-tools{display:flex;gap:6px;padding-bottom:8px}
+.gp-mini{font:500 12.5px var(--font-body);color:var(--accent);background:var(--accent-soft);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer}
+.gp-mini:hover{background:var(--accent);color:var(--accent-fg)}
+.gp-cat>summary{list-style:none;cursor:pointer;margin-bottom:10px}
+.gp-cat>summary::-webkit-details-marker{display:none}
+.gp-cat>summary h3{margin:0}
+.gp-cat>summary h3::after{content:"▾";margin-left:auto;color:var(--muted);font-size:14px;transition:transform .15s}
+.gp-cat:not([open])>summary h3::after{transform:rotate(-90deg)}
+.gp-cat:not([open])>summary{margin-bottom:0}
+.gp-cat>summary h3{width:100%}
+.gp-links{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;padding:12px 20px 16px;border-top:1px solid var(--line)}
+.gp-links a{font:600 14px var(--font-body);color:var(--accent);text-decoration:none;padding:8px 12px;border:1px solid var(--accent);border-radius:10px;background:var(--accent-soft)}
+.gp-links a:hover{background:var(--accent);color:var(--accent-fg)}
+.gp-head{padding-right:120px}
+@media (max-width:600px){.gp-tabs{padding:8px 14px 0}.gp-links{padding:12px 14px 16px}.gp-head{padding-right:14px;padding-top:54px}}
+
+/* Başa dön düğmesi */
+.gp-fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:20;display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 16px 0 14px;border:1px solid var(--accent);border-radius:999px;background:var(--accent);color:var(--accent-fg);font:600 14px var(--font-body);cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .2s,transform .2s,visibility .2s}
+.gp-fab.show{opacity:1;visibility:visible;transform:none}
+.gp-fab:hover{filter:brightness(1.1)}
+.gp-fab:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.gp-fab svg{width:18px;height:18px;flex:none}
+@media (max-width:480px){.gp-fab span{display:none}.gp-fab{padding:0 14px}}
+@media print{.gp-fab{display:none}}
+@media (prefers-reduced-motion:reduce){.gp-fab{transition:none}}
+/* ===== /Gündem Projeksiyonu ===== */
 </style>
 </head>
 <body>
@@ -338,7 +419,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     <p class="eyebrow">TBMM · 28. Dönem</p>
     <h1>Milletvekili Rehberi</h1>
     <p class="lede">Ada, ile, partiye göre ara. Sonuçlar yazdıkça güncellenir.</p>
-    <p class="jump"><a href="#ayrilanlar" class="j-gone"><span class="num">8</span><span>Görevden ayrılan vekiller</span><span class="sm">vefat, istifa, düşme ↓</span></a><a href="#komisyon" id="jump-comm" class="j-plan"><span class="num">31</span><span>Plan ve Bütçe Komisyonu</span><span class="sm">üyeler ↓</span></a><a href="#komisyon-saglik" id="jump-comm2" class="j-saglik"><span class="num">26</span><span>Sağlık, Aile, Çalışma ve Sosyal İşler Komisyonu</span><span class="sm">üyeler ↓</span></a><a href="#butce-ist" id="jump-butce" class="j-butce"><span class="num">2025</span><span>Sağlık bütçesi görüşmesi</span><span class="sm">istatistikler ↓</span></a></p>
+    <p class="jump"><a href="#ayrilanlar" class="j-gone"><span class="num">8</span><span>Görevden ayrılan vekiller</span><span class="sm">vefat, istifa, düşme ↓</span></a><a href="#komisyon" id="jump-comm" class="j-plan"><span class="num">31</span><span>Plan ve Bütçe Komisyonu</span><span class="sm">üyeler ↓</span></a><a href="#komisyon-saglik" id="jump-comm2" class="j-saglik"><span class="num">26</span><span>Sağlık, Aile, Çalışma ve Sosyal İşler Komisyonu</span><span class="sm">üyeler ↓</span></a><a href="#gundem-projeksiyonu" id="jump-gp" class="j-butce"><span class="num">13</span><span>Gündem Projeksiyonu</span><span class="sm">16 Kasım oturumu ↓</span></a><a href="#butce-ist" id="jump-butce" class="j-butce"><span class="num">2025</span><span>Sağlık bütçesi görüşmesi</span><span class="sm">istatistikler ↓</span></a></p>
   </header>
   <details class="hemi" id="hemibox">
     <summary><h2 id="hemi-h">Meclis'te sandalye dağılımı</h2><span class="cnt" id="hemi-cnt"></span></summary>
@@ -418,6 +499,114 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   </section>
 
   <section class="gone" id="butce-ist" aria-labelledby="butce-h">
+<section class="gp-wrap" id="gundem-projeksiyonu">
+  <div class="gp-head">
+    <button type="button" class="gp-toggle" id="gp-toggle" aria-expanded="true" aria-controls="gp-content"><span class="gp-tt">Kapat</span> <span aria-hidden="true">▲</span></button><span class="gp-badge">Yeni · 2027 Sağlık Bütçesi</span>
+    <h2>Gündem Projeksiyonu</h2>
+    <p>16 Kasım 2026 Oturumu · kategori, konu, beklenen öncelik ve oturum öngörüsü</p>
+  </div>
+
+  <div id="gp-content"><div class="gp-tabs"><div class="gp-tablist" role="tablist" aria-label="Gündem bölümleri">
+<button type="button" role="tab" id="gp-tab1" aria-controls="gp-p1" aria-selected="true" class="gp-tab">Projeksiyon <span>13</span></button>
+<button type="button" role="tab" id="gp-tab2" aria-controls="gp-p2" aria-selected="false" class="gp-tab" tabindex="-1">Kronoloji <span>13</span></button></div>
+<div class="gp-tools" id="gp-tools"><button type="button" class="gp-mini" id="gp-open-all">Tümünü aç</button><button type="button" class="gp-mini" id="gp-close-all">Tümünü kapat</button></div></div><div role="tabpanel" id="gp-p1" aria-labelledby="gp-tab1"><div class="gp-stats">
+    <div class="gp-stat"><b>13</b><span>gündem başlığı</span></div>
+    <div class="gp-stat cy"><b>5</b><span>Çok Yüksek</span></div>
+    <div class="gp-stat y"><b>6</b><span>Yüksek</span></div>
+    <div class="gp-stat oy"><b>2</b><span>Orta-Yüksek</span></div>
+  </div>
+
+  <div class="gp-body">
+    <details class="gp-cat" open>
+      <summary><h3><i>1</i>Makro Bütçe Verileri <small>1 konu</small></h3></summary>
+      <div class="gp-grid">
+        <div class="gp-card cy"><span class="gp-tag">Çok Yüksek</span><h4>KÖİ / Şehir Hastaneleri Yükü</h4>
+          <p>Sayıştay 2025 bulguları (17 hastanede kesin kabul eksiği, iptal işlere kira ödemesi) ve milyarlık garanti ödemeleri.</p></div>
+      </div>
+    </details>
+
+    <details class="gp-cat" open>
+      <summary><h3><i>2</i>2026 Denetim Aksaklıkları <small>4 konu</small></h3></summary>
+      <div class="gp-grid">
+        <div class="gp-card cy"><span class="gp-tag">Çok Yüksek</span><h4>Tarihi Geçmiş Kanser İlaçları</h4>
+          <p>Bakırköy C. Başsavcılığı koordinesinde 11 ilde operasyon; ambalajı değiştirilen kanser ilaçlarının piyasaya sürülmesi.</p></div>
+        <div class="gp-card cy"><span class="gp-tag">Çok Yüksek</span><h4>Giresun Özel Hastane İnceleme</h4>
+          <p>Özel Ada Hastanesi'nde temizlik personelinin ameliyathaneye girdiğine dair CİMER ihbarı ve müfettiş incelemesi.</p></div>
+        <div class="gp-card cy"><span class="gp-tag">Çok Yüksek</span><h4>Ankara Onkoloji Hastanesi Devri</h4>
+          <p>Dr. Abdurrahman Yurtaslan Ankara Onkoloji EAH'nin onkoloji vasfının kaldırılarak üniversiteye devri iddialarına karşı eylemler.</p></div>
+        <div class="gp-card y"><span class="gp-tag">Yüksek</span><h4>Diğer Özel Hastane &amp; Sahte Doktor Vakaları</h4>
+          <p>Elazığ yoğun bakım usulsüzlükleri, Gaziantep'te sevk ücreti/yanlış ilaç davası, Osmaniye'de sahte diplomalı doktor vakası.</p></div>
+      </div>
+    </details>
+
+    <details class="gp-cat" open>
+      <summary><h3><i>3</i>Hekim Emeği ve Mevzuat <small>3 konu</small></h3></summary>
+      <div class="gp-grid">
+        <div class="gp-card y"><span class="gp-tag">Yüksek</span><h4>Aile Hekimliği &amp; Yönetmelik</h4>
+          <p>Nisan 2026 yönetmelik değişikliği, 'Bireysel Hedef Katsayısı' davası ve 1 Kasım'da devreye giren görüntülü muayene randevusu tepkileri.</p></div>
+        <div class="gp-card y"><span class="gp-tag">Yüksek</span><h4>Personel Alımı ve Kadro Talepleri</h4>
+          <p>38 bin hekim dışı personel alımı ile atama bekleyen diş hekimi, eczacı ve sağlık teknikerlerinin kadro talepleri.</p></div>
+        <div class="gp-card y"><span class="gp-tag">Yüksek</span><h4>Sağlıkta Şiddet &amp; Çalışma Koşulları</h4>
+          <p>TTB'nin 13 maddelik dosyası (etik kurulda bekleyen 1.794 dosya), AYM nöbet ücreti kararı ve artan Beyaz Kod vakaları.</p></div>
+      </div>
+    </details>
+
+    <details class="gp-cat" open>
+      <summary><h3><i>4</i>İlaç, SGK ve Koruyucu Sağlık <small>3 konu</small></h3></summary>
+      <div class="gp-grid">
+        <div class="gp-card y"><span class="gp-tag">Yüksek</span><h4>İlaç Tedariği ve Dijital Sistem</h4>
+          <p>8.845 ilaçlık SGK geri ödeme listesi, 3 Ekim '%1 pazar oranı' kuralı ve 2027 başında devreye girecek dijital raporlu ilaç sistemi.</p></div>
+        <div class="gp-card oy"><span class="gp-tag">Orta-Yüksek</span><h4>HPV Aşısı ve Aşı Reddi</h4>
+          <p>Ücretsiz HPV aşısı vaadinin program dışında kalması tartışmaları ve kızamık/boğmaca gibi hastalıklarda artan aşı reddi.</p></div>
+        <div class="gp-card oy"><span class="gp-tag">Orta-Yüksek</span><h4>İklim ve Yeşil Hastane Vizyonu</h4>
+          <p>Antalya COP31'de açıklanan 2026–2030 İklim Değişikliği ve Sağlık Eylem Planı ve 'İklimden Nefese' projesi.</p></div>
+      </div>
+    </details>
+
+    <details class="gp-cat" open>
+      <summary><h3><i>5</i>Komisyon Dinamikleri <small>2 konu</small></h3></summary>
+      <div class="gp-grid">
+        <div class="gp-card cy"><span class="gp-tag">Çok Yüksek</span><h4>CHP Grubu (Pala, Kanko, Ağbaba, Karaoba)</h4>
+          <p>Bütçe payı düşüşü, Sayıştay raporları, kanser ilacı skandalı, şehir hastaneleri ve usul/görüntü alma tartışmaları.</p></div>
+        <div class="gp-card y"><span class="gp-tag">Yüksek</span><h4>DEM Parti &amp; Diğer Gruplar</h4>
+          <p>Bölgesel uzman hekim eşitsizliği, cezaevi sevkleri, HPV aşısı (YENİ Parti), yaşlı bakımı ve ruh sağlığı kanun teklifi (MHP).</p></div>
+      </div>
+    </details>
+  </div>
+  </div><div role="tabpanel" id="gp-p2" aria-labelledby="gp-tab2" hidden><div class="gp-tl">
+    <h3>2026 Yılı Sağlık Gündemi Kronolojisi</h3>
+    <p>Mevzuat değişiklikleri ve gündem kronolojisi · Nisan – Kasım 2026 · 13 gelişme</p>
+    <ol class="gp-tl-list">
+      <li class="gp-tl-item"><span class="gp-tl-date">9 Nisan 2026</span><h4><em>01</em>Aile Hekimliği Uygulama Yönetmeliği Değişikliği</h4>
+        <p>Esnek mesai kaldırıldı, AHBS veri zorunluluğu getirildi; sendikalar ve AHESEN tepki gösterdi.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">Mayıs–Eylül 2026</span><h4><em>02</em>Elazığ ve Gaziantep Özel Hastane Yoğun Bakım Aksaklıkları</h4>
+        <p>Elazığ'da boş cihazlarla SGK vurgunu (23 gözaltı); Gaziantep'te 7.500 TL sevk ücreti iddiası ve yanlış ilaç davasında müebbet cezaları.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">8 Temmuz 2026</span><h4><em>03</em>Sağlıkta Haklar ve İletişim Yönetmeliği Taslağı</h4>
+        <p>Dijital rıza, 'beyaz yardım' ve şiddet durumunda hizmetten çekilme hakkı düzenlemeleri duyuruldu.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">Temmuz–Ağustos 2026</span><h4><em>04</em>Ücretsiz HPV Aşısı Polemiği</h4>
+        <p>AYM kararı ve Bakan Memişoğlu'nun açıklamaları sonrası Dr. Aylin Yaman ve muhalefet tutulmayan aşı sözünü gündeme taşıdı.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">18 Ağustos 2026</span><h4><em>05</em>TTB MYK'nın 13 Maddelik Talep Dosyası</h4>
+        <p>AYM nöbet ücreti kararı, caydırıcı şiddet yasası ve etik kurulda bekleyen 1.794 dosya Bakanlığa sunuldu.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">24 Eylül 2026</span><h4><em>06</em>Sayıştay 2025 Raporları ve Şehir Hastaneleri</h4>
+        <p>17 şehir hastanesinde kesin kabul eksiği ve iptal edilen işlere kira ödendiği bulguları Meclis gündemine taşındı.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">3 Ekim 2026</span><h4><em>07</em>SGK İlaç Geri Ödeme Yeni Kuralları</h4>
+        <p>Yeni ilaçlar için %1 pazar oranı şartı ve 5 aylık izleme süreci Resmî Gazete'de yayımlandı.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">16–17 Ekim 2026</span><h4><em>08</em>2027 Bütçe Teklifi ve 38 Bin Personel Alımı Duyurusu</h4>
+        <p>Bakanlık bütçesi 1,96 trilyon TL (pay %6,7) olarak sunuldu; 38 bin personel alımı açıklandı, branş dağılımı tartışıldı.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">Ekim 2026</span><h4><em>09</em>Ankara Onkoloji Hastanesi Devir Tartışması</h4>
+        <p>Hastanenin onkoloji vasfının kaldırılarak üniversiteye devredileceği iddialarına karşı Tabip Odası ve vekiller eylem yaptı.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">1 Kasım 2026</span><h4><em>10</em>Aile Hekimlerine Görüntülü Muayene Randevusu</h4>
+        <p>MHRS çizelgelerine görüntülü muayene eklendi; İSTAHED iş yükü ve şiddet riskini artıracağı gerekçesiyle karşı çıktı.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">3 Kasım 2026</span><h4><em>11</em>SGK Geri Ödeme Listesi ve Dijital Rapor Açıklaması</h4>
+        <p>8.845 ilacın listede olduğu ve 2027 başında raporlu ilaçlar için dijital sisteme geçileceği duyuruldu.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">Kasım 2026</span><h4><em>12</em>Tarihi Geçmiş Kanser İlaçları Operasyonu (11 İl)</h4>
+        <p>Bakırköy C. Başsavcılığı soruşturmasında son kullanma tarihi geçmiş kanser ilaçlarının yeniden ambalajlanıp satıldığı ortaya çıktı.</p></li>
+      <li class="gp-tl-item"><span class="gp-tl-date">Kasım 2026</span><h4><em>13</em>Giresun Özel Hastane Ameliyathane Aksaklıkları</h4>
+        <p>Özel Ada Hastanesi'nde temizlik personelinin ameliyata girdiğinin tanıtım videosundan fark edilmesi üzerine müfettiş görevlendirildi.</p></li>
+    </ol>
+  </div>
+  </div><div class="gp-foot">Renkli şerit ve etiketler, her konunun beklenen öncelik düzeyini gösterir.</div>
+<nav class="gp-links" aria-label="Bölümler arası geçiş"><a href="#butce-ist" id="gp-to-stats">Bütçe görüşmesi istatistiklerine geç ↓</a><a href="#top" id="gp-to-top">Başa dön ↑</a></nav></div></section>
 <details class="gonebox" id="butcebox"><summary><h2 id="butce-h">Sağlık Bakanlığı bütçe görüşmesi istatistikleri</h2><span class="cnt">21 Kasım 2025</span></summary>
 <p class="sub">TBMM Plan ve Bütçe Komisyonu 19’uncu Toplantı Tutanak Dergisi’nden (2026 Yılı Merkezi Yönetim Bütçe Kanunu Teklifi ve 2024 Kesin Hesap; Sağlık Bakanlığı, Türkiye Hudut ve Sahiller Sağlık Genel Müdürlüğü, TİTCK ve TÜSEB). Konuşma süreleri tutanaktaki kelime sayısından <b>tahmin edilmiştir</b>; ayrıntı en altta.</p>
 <div class="st-tiles">
@@ -821,6 +1010,33 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   if(S.party)$('hemibox').open=true;
   render();
 })();
+</script>
+<script>
+(function(){
+var w=document.getElementById('gundem-projeksiyonu');if(!w)return;
+var tg=document.getElementById('gp-toggle'),tt=tg.querySelector('.gp-tt'),arrow=tg.lastElementChild;
+function setOpen(o){w.classList.toggle('gp-collapsed',!o);tg.setAttribute('aria-expanded',o);tt.textContent=o?'Kapat':'Aç';arrow.textContent=o?'▲':'▼'}
+tg.addEventListener('click',function(){setOpen(w.classList.contains('gp-collapsed'))});
+var t1=document.getElementById('gp-tab1'),t2=document.getElementById('gp-tab2'),p1=document.getElementById('gp-p1'),p2=document.getElementById('gp-p2'),tools=document.getElementById('gp-tools');
+function tab(n){var one=n===1;t1.setAttribute('aria-selected',one);t2.setAttribute('aria-selected',!one);t1.tabIndex=one?0:-1;t2.tabIndex=one?-1:0;p1.hidden=!one;p2.hidden=one;tools.style.visibility=one?'visible':'hidden'}
+t1.addEventListener('click',function(){tab(1)});t2.addEventListener('click',function(){tab(2)});
+[t1,t2].forEach(function(t){t.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){var n=t===t1?2:1;tab(n);(n===1?t1:t2).focus()}})});
+function cats(o){w.querySelectorAll('details.gp-cat').forEach(function(d){d.open=o})}
+document.getElementById('gp-open-all').addEventListener('click',function(){cats(true)});
+document.getElementById('gp-close-all').addEventListener('click',function(){cats(false)});
+var j=document.getElementById('jump-gp');if(j)j.addEventListener('click',function(){setOpen(true)});
+document.getElementById('gp-to-stats').addEventListener('click',function(e){e.preventDefault();var b=document.getElementById('butcebox');if(b)b.open=true;var s=document.getElementById('butce-ist');if(s)s.scrollIntoView({behavior:'smooth',block:'start'});try{history.replaceState(null,'','#butce-ist')}catch(_){}});
+document.getElementById('gp-to-top').addEventListener('click',function(e){e.preventDefault();window.scrollTo({top:0,behavior:'smooth'})});
+if(location.hash==='#gundem-projeksiyonu')setOpen(true);
+})();
+</script>
+<button type="button" class="gp-fab" id="gp-fab" aria-label="Sayfanın başına dön" title="Sayfanın başına dön"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg><span>Başa dön</span></button>
+<script>
+(function(){var b=document.getElementById('gp-fab');if(!b)return;var t=false;
+function u(){t=false;b.classList.toggle('show',(window.pageYOffset||document.documentElement.scrollTop)>500)}
+window.addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(u)}},{passive:true});
+b.addEventListener('click',function(){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;window.scrollTo({top:0,behavior:r?'auto':'smooth'});var h=document.querySelector('h1');if(h){h.setAttribute('tabindex','-1');setTimeout(function(){h.focus({preventScroll:true})},r?0:400)}});
+u()})();
 </script>
 </body>
 </html>
