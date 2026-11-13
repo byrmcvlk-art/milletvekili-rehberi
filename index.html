@@ -617,6 +617,45 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .ot-ph img{image-rendering:auto}
 .ot-plus svg{width:22px;height:22px}
 /* ===== /Gündem Projeksiyonu ===== */
+/* ===== Sade kart görünümü: renk yalnızca sol şeritte; tek dolu renk Gündem Projeksiyonu kartında ===== */
+.gonebox,.gonebox:not([open]){
+  background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--sf,var(--accent));
+  border-radius:12px;padding:0 16px;box-shadow:0 1px 2px rgba(24,34,29,.06);
+}
+.gonebox[open]{padding-bottom:16px}
+.gonebox>summary{margin:0 -16px;padding:14px 14px 14px 14px;background:transparent;color:var(--fg);filter:none}
+.gonebox>summary:hover{background:var(--hover);filter:none}
+.gonebox[open]>summary{margin-bottom:14px;border-bottom:1px solid var(--line)}
+.gonebox>summary h2{color:var(--fg);font:600 15.5px/1.3 var(--font-body)}
+.gonebox>summary .cnt{color:var(--muted);opacity:1}
+.gonebox>summary .num{background:var(--sb,var(--accent-soft));color:var(--sf,var(--accent));border:1px solid var(--sl,var(--line))}
+/* "Göster ▾" yazılı hap düğme yerine küçük, sade ok */
+.gonebox>summary::after{
+  content:"▾";width:30px;height:30px;padding:0;margin-left:auto;justify-content:center;
+  border:1px solid var(--line);background:var(--surface);color:var(--muted);font:400 14px/1 var(--font-body);
+}
+.gonebox[open]>summary::after{content:"▴";background:var(--sf,var(--accent));border-color:var(--sf,var(--accent));color:var(--surface)}
+.gonebox>summary:hover::after{background:var(--accent-soft);border-color:var(--sl,var(--accent));color:var(--sf,var(--accent))}
+.gonebox[open]>summary:hover::after{background:var(--sf,var(--accent));color:var(--surface)}
+.gonebox>summary:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+
+/* Kart başlık simgeleri: tek renkli çizgi simge, rengi bölüm şeridiyle aynı */
+.gonebox>summary::before{
+  display:block;content:"";flex:none;width:22px;height:22px;border:0;border-radius:0;
+  background:var(--sf,var(--accent));
+  -webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat;
+}
+#butcebox{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 20V10M10 20V4M16 20v-7M22 20H2'/></svg>")}
+#oturmabox{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 11V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4'/><path d='M3 13a2 2 0 0 1 4 0v3h10v-3a2 2 0 0 1 4 0v5H3z'/><path d='M6 18v2M18 18v2'/></svg>")}
+#gonebox{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='8' r='4'/><path d='M2 21v-1a6 6 0 0 1 12 0v1M17 11h6'/></svg>")}
+#statsall{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12A9 9 0 1 1 12 3v9z'/><path d='M15 3.5A9 9 0 0 1 20.5 9H15z'/></svg>")}
+#commbox{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='8' r='3.5'/><path d='M2 21v-1a6 6 0 0 1 12 0v1'/><path d='M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6 6 0 0 1 4 5.5v1'/></svg>")}
+#commbox2{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z'/></svg>")}
+
+/* "Menüye dön" düğmesi: başa dön okunun hemen üstünde */
+.gp-fab.gp-fab-menu{bottom:calc(max(16px,env(safe-area-inset-bottom,0px)) + 58px);background:var(--surface);color:var(--accent);border:1.5px solid var(--accent)}
+.gp-fab.gp-fab-menu:hover{background:var(--accent-soft);filter:none}
+@media (max-width:480px){.gp-fab.gp-fab-menu{padding:0;width:48px;justify-content:center}}
 </style>
 </head>
 <body>
@@ -867,7 +906,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     <div class="list" id="comm2-list"></div>
     </details>
   </section>
-  <p class="note foot">Kaynak: TBMM<br>byRam ©ivelek · Sürüm 1.1 · Son güncelleme: 13 Kasım 2026</p>
+  <p class="note foot">Kaynak: TBMM<br>byRam ©ivelek · Sürüm 1.2 · Son güncelleme: 13 Kasım 2026</p>
 
 
 </div>
@@ -1399,6 +1438,38 @@ if(location.hash==='#gundem-projeksiyonu')setOpen(true);
 function u(){t=false;b.classList.toggle('show',(window.pageYOffset||document.documentElement.scrollTop)>500)}
 window.addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(u)}},{passive:true});
 b.addEventListener('click',function(){var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;window.scrollTo({top:0,behavior:r?'auto':'smooth'});var h=document.querySelector('h1');if(h){h.setAttribute('tabindex','-1');setTimeout(function(){h.focus({preventScroll:true})},r?0:400)}});
+u()})();
+</script>
+<button type="button" class="gp-fab gp-fab-menu" id="gp-menu" aria-label="Menüye git" title="Menüye git"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span id="gp-menu-t">Menüye git</span></button>
+<script>
+(function(){
+var b=document.getElementById('gp-menu');if(!b)return;
+var gp=document.getElementById('gundem-projeksiyonu'),tx=document.getElementById('gp-menu-t'),t=false,cur=null;
+function reduce(){return window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches}
+/* Görüntü alanı açık bir bölümün içindeyse ve başlığı yukarıda kaldıysa o bölümü döndürür */
+function openBox(){
+  var l=document.querySelectorAll('details.gonebox[open]');
+  for(var i=0;i<l.length;i++){var r=l[i].getBoundingClientRect();if(r.top<-40&&r.bottom>120)return l[i]}
+  if(gp&&!gp.classList.contains('gp-collapsed')){var g=gp.getBoundingClientRect();if(g.top<-40&&g.bottom>120)return gp}
+  return null}
+function u(){
+  t=false;var y=window.pageYOffset||document.documentElement.scrollTop;
+  cur=openBox();
+  var above=!!gp&&y>400&&gp.getBoundingClientRect().top>window.innerHeight*0.9;
+  var lbl=cur?'Bölümü kapat, menüye dön':'Menüye git';
+  if(tx.textContent!==lbl){tx.textContent=lbl;b.setAttribute('aria-label',lbl);b.title=lbl}
+  b.classList.toggle('show',!!cur||above)}
+window.addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(u)}},{passive:true});
+window.addEventListener('resize',u);
+document.addEventListener('toggle',u,true);
+b.addEventListener('click',function(){
+  var sm=reduce()?'auto':'smooth',box=cur;
+  if(box){
+    if(box===gp){var tg=document.getElementById('gp-toggle');if(tg)tg.click()}else{box.open=false}
+    var r=box.getBoundingClientRect();
+    window.scrollTo({top:Math.max(0,r.top+(window.pageYOffset||0)-(window.innerHeight-r.height)/2),behavior:sm});
+  }else if(gp){gp.scrollIntoView({behavior:sm,block:'start'})}
+});
 u()})();
 </script>
 <script>
