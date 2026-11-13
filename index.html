@@ -491,6 +491,131 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .jump a:hover .jt{border-color:currentColor}
 .jump a[data-open="1"]:hover .jt{background:var(--jb,var(--accent-fg));color:var(--jf,var(--accent))}
 @media (max-width:480px){.jump .jt{padding:3px 9px;font-size:12px}}
+
+.chip-more{border-style:dashed;border-color:var(--accent);color:var(--accent);font-weight:600;background:var(--accent-soft)}
+.chip-more:hover{background:var(--accent);color:var(--accent-fg)}
+.gp-wrap.gp-collapsed .gp-head{padding-bottom:16px}
+
+.empty.idle{padding:34px 18px;border:1px dashed var(--line);border-radius:12px;background:var(--surface)}
+.empty.idle b{color:var(--fg);font-weight:600;font-size:16px}
+.empty.idle .linkbtn{margin-top:6px;font-weight:600}
+
+/* Üst başlıklar: Göster/Gizle düğmesi */
+.gonebox>summary::after,.hemi>summary::after{content:"Göster  ▾";flex:none;margin-left:12px;display:inline-flex;align-items:center;white-space:nowrap;padding:6px 12px;border:1.5px solid var(--sf,var(--accent));border-radius:999px;background:var(--surface);color:var(--sf,var(--accent));font:700 12.5px var(--font-body)}
+.gonebox[open]>summary::after,.hemi[open]>summary::after{content:"Gizle  ▴";background:var(--sf,var(--accent));color:var(--accent-fg)}
+.gonebox>summary:hover::after,.hemi>summary:hover::after{background:var(--sf,var(--accent));color:var(--accent-fg)}
+@media (max-width:480px){.gonebox>summary::after,.hemi>summary::after{padding:5px 9px;font-size:12px;margin-left:8px}}
+
+/* İstatistikler: tek başlık altında */
+.statskids{display:grid;gap:12px;padding-top:12px}
+.statskids>.gone{margin-top:0}
+.statskids>.hemi{margin:0}
+@media (max-width:600px){.gonebox>summary .cnt{display:none}.gonebox#statsall>summary .cnt{display:none}}
+
+/* Alt menüler: üstteki kısayol görünümü */
+.gonebox>summary .num,.gp-head .num{display:inline-grid;place-items:center;flex:none;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--sf,var(--accent));color:var(--sb,var(--accent-fg));font:700 13px var(--font-body);font-variant-numeric:tabular-nums}
+.gonebox>summary::before{display:none}
+.gonebox{padding:0 16px 0 12px;background:var(--sb,var(--surface));border:1px solid var(--sl,var(--accent));border-radius:10px}
+.gonebox[open]{padding-bottom:16px}
+.gonebox>summary{gap:10px;padding:10px 0}
+.gonebox>summary h2{font:700 15px/1.3 var(--font-body);color:var(--sf,var(--fg));letter-spacing:0}
+.gonebox>summary .cnt{margin-left:0;font:400 13.5px var(--font-body);color:var(--sf,var(--muted));opacity:.85;white-space:normal}
+.gonebox>summary::after{margin-left:auto}
+.gonebox[open]>summary{border-bottom:1px solid var(--sl,var(--line));margin-bottom:6px}
+.gonebox:not([open]){background:var(--sb,var(--surface))}
+#istatistikler .gonebox#statsall{--sf:var(--accent);--sb:var(--accent-soft);--sl:var(--accent)}
+.gonebox .gonebox,.statskids .gonebox{margin:0}
+@media (max-width:600px){.gonebox>summary .cnt{display:none}.gonebox>summary{gap:8px}}
+
+/* Alt menüler: dolu renkli başlık */
+.gonebox{padding:0 16px;overflow:hidden;background:var(--surface);border:1px solid var(--sf,var(--accent));border-radius:10px}
+.gonebox:not([open]){background:var(--sf,var(--accent))}
+.gonebox[open]{padding-bottom:16px}
+.gonebox>summary{margin:0 -16px;padding:10px 16px 10px 12px;background:var(--sf,var(--accent));color:var(--sb,var(--accent-fg));border-bottom:0}
+.gonebox[open]>summary{margin-bottom:14px;border-bottom:0}
+.gonebox>summary:hover{background:var(--sf,var(--accent));filter:brightness(1.08)}
+.gonebox>summary h2{color:var(--sb,var(--accent-fg))}
+.gonebox>summary .cnt{color:var(--sb,var(--accent-fg));opacity:.82}
+.gonebox>summary .num{background:var(--sb,var(--accent-fg));color:var(--sf,var(--accent))}
+.gonebox>summary::after{background:transparent;border:1.5px solid var(--sb,var(--accent-fg));color:var(--sb,var(--accent-fg))}
+.gonebox[open]>summary::after{background:var(--sb,var(--accent-fg));color:var(--sf,var(--accent))}
+.gonebox>summary:hover::after{background:var(--sb,var(--accent-fg));color:var(--sf,var(--accent))}
+.gonebox>summary:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+#istatistikler .gonebox#statsall{--sf:var(--accent);--sb:var(--accent-fg);--sl:var(--accent)}
+
+/* Gündem Projeksiyonu: kompakt başlık */
+.gp-head{padding:12px 16px;padding-right:110px}
+.gp-head .gp-badge{margin-bottom:6px;padding:4px 9px;font-size:11px}
+.gp-head h2{font-size:clamp(18px,2.4vw,21px);line-height:1.15}
+.gp-head p{margin:3px 0 0;font-size:13px}
+.gp-head .gp-toggle{top:12px;right:12px;padding:5px 11px;font-size:12.5px}
+@media (max-width:600px){.gp-head{padding:12px 14px;padding-top:46px}.gp-head .gp-badge{position:absolute;top:12px;left:14px;margin:0}.gp-head .gp-toggle{top:10px}}
+
+/* İstatistikler: mor tema */
+:root{--m-f:#5B3A8C;--m-b:#EFE8F9;--m-l:#8B6BC0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--m-f:#CDB8F2;--m-b:#2A2138;--m-l:#7B62A8}}
+:root[data-theme="dark"]{--m-f:#CDB8F2;--m-b:#2A2138;--m-l:#7B62A8}
+#istatistikler .gonebox#statsall{--sf:var(--m-f);--sb:var(--m-b);--sl:var(--m-l)}
+
+/* ===== Oturma Düzeni ===== */
+:root{--o-f:var(--b-f);--o-b:var(--b-b);--o-l:var(--b-l)}
+#oturma{--sf:var(--o-f);--sb:var(--o-b);--sl:var(--o-l)}
+.ot-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ot-btn{display:inline-flex;align-items:center;font:600 13px var(--font-body);padding:8px 12px;border:1px solid var(--o-l);border-radius:8px;background:var(--surface);color:var(--o-f);cursor:pointer}
+.ot-btn:hover{background:var(--o-b)}
+.ot-btn:focus-visible,.ot-seat:focus-visible,.ot-li:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ot-danger{color:var(--gp-red);border-color:var(--gp-red)}
+.ot-stat{margin-left:auto;font-size:13px;color:var(--muted)}
+.ot-hint{margin:10px 0 0;font-size:13px;color:var(--muted);max-width:70ch}
+.ot-title{margin:14px 0;padding:12px 10px;border:1px solid var(--muted);text-align:center;color:var(--gp-red);font:700 clamp(12px,2.2vw,16px)/1.35 var(--font-display);background:var(--surface)}
+.ot-board{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+@media (max-width:760px){.ot-board{grid-template-columns:1fr}}
+.ot-block{display:grid;border:1px solid var(--muted);background:var(--surface)}
+.ot-block.sr{grid-template-columns:minmax(0,1fr) 30px}
+.ot-block.sl{grid-template-columns:30px minmax(0,1fr)}
+.ot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr 1fr}
+.ot-strips{display:grid;grid-template-rows:1fr 1fr}
+.ot-strip{background:#FFEB3B;color:#111;writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;text-align:center;font:700 10.5px/1.1 var(--font-body);letter-spacing:.05em;padding:4px 0;border-left:1px solid var(--muted);border-right:1px solid var(--muted);overflow:hidden}
+.ot-block.sl .ot-strip{transform:rotate(180deg)}
+.ot-seat{display:flex;flex-direction:column;align-items:stretch;min-width:0;margin:0;padding:0;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;color:inherit;font:inherit;text-align:center;cursor:pointer}
+.ot-ph{display:block;aspect-ratio:4/5;background:var(--hover);overflow:hidden}
+.ot-ph img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.ot-ini{display:grid;place-items:center;width:100%;height:100%;font:600 20px var(--font-display);color:var(--accent);background:var(--accent-soft)}
+.ot-plus{display:grid;place-items:center;color:var(--muted);opacity:.55}
+.ot-plus svg{width:26px;height:26px}
+.ot-nm{display:flex;align-items:flex-end;justify-content:center;min-height:2.6em;padding:4px 3px 0;font:700 clamp(9.5px,1.05vw,11.5px)/1.2 var(--font-body);text-transform:uppercase}
+.ot-il{display:block;padding:1px 2px 5px;font:500 clamp(9px,1vw,11px) var(--font-body);color:var(--muted);min-height:1.3em}
+.ot-seat:not(.ot-fixed):hover{background:var(--o-b)}
+.ot-seat:not(.ot-fixed):hover .ot-plus{opacity:1;color:var(--o-f)}
+.ot-fixed{cursor:default}
+.ot-divan-wrap{margin-top:20px}
+.ot-divan{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));max-width:640px;margin:0 auto;border:1px solid var(--muted);background:var(--surface)}
+.ot-role{display:block;padding:5px 2px;border-top:1px solid var(--line);font:700 12px var(--font-body);color:var(--o-f);background:var(--o-b)}
+.ot-bar{max-width:640px;margin:8px auto 0;padding:7px;background:#FFC000;color:#111;border:1px solid #111;text-align:center;font:700 12px var(--font-body);letter-spacing:.03em}
+.ot-dlg{width:min(520px,calc(100vw - 24px));max-height:calc(100vh - 40px);padding:0;border:1px solid var(--o-l);border-radius:12px;background:var(--surface);color:var(--fg)}
+.ot-dlg::backdrop{background:rgba(0,0,0,.45)}
+.ot-df{display:flex;flex-direction:column;gap:10px;padding:14px 16px 16px;max-height:calc(100vh - 44px)}
+.ot-dh{display:flex;align-items:center;gap:10px}
+.ot-dh h3{margin:0;font:700 15px/1.3 var(--font-body);color:var(--o-f)}
+.ot-x{margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:15px}
+.ot-df input[type=search]{width:100%;height:44px;padding:0 12px;border:2px solid var(--o-l);border-radius:10px;background:var(--surface);color:var(--fg);font:inherit;font-size:16px}
+.ot-chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.ot-list{margin:0;padding:0;list-style:none;overflow:auto;flex:1;min-height:120px;border:1px solid var(--line);border-radius:10px}
+.ot-li{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;border-bottom:1px solid var(--line);background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.ot-li:hover{background:var(--o-b)}
+.ot-th{flex:none;width:36px;height:46px;border-radius:6px;object-fit:cover;object-position:top;background:var(--hover)}
+.ot-li b{display:block;font-size:14px}
+.ot-li small{display:block;font-size:12px;color:var(--muted)}
+.ot-li em{margin-left:auto;font-style:normal;font-size:11px;color:var(--o-f);border:1px solid var(--o-l);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.ot-empty{padding:16px;text-align:center;color:var(--muted);font-size:13px}
+.ot-df-foot{display:flex;gap:8px;justify-content:flex-end}
+@media print{.ot-tools,.ot-hint{display:none}}
+.ot-chk[hidden],.ot-btn[hidden]{display:none}
+
+/* Oturma: fotoğraflar uygulamadaki boyutta (net) */
+.ot-ph{width:68px;max-width:calc(100% - 8px);aspect-ratio:68/90;margin:6px auto 0;border-radius:6px;border:1px solid var(--line)}
+.ot-ph img{image-rendering:auto}
+.ot-plus svg{width:22px;height:22px}
 /* ===== /Gündem Projeksiyonu ===== */
 </style>
 </head>
@@ -499,41 +624,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   <header>
     <p class="eyebrow">TBMM · 28. Dönem</p>
     <h1>Milletvekili Rehberi</h1>
-    <p class="lede">Ada, ile, partiye göre ara. Sonuçlar yazdıkça güncellenir.</p>
-    <p class="jump"><a href="#ayrilanlar" class="j-gone"><span class="num">8</span><span>Görevden ayrılan vekiller</span><span class="sm">vefat, istifa, düşme</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#komisyon" id="jump-comm" class="j-plan"><span class="num">31</span><span>Plan ve Bütçe Komisyonu</span><span class="sm">üyeler</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#komisyon-saglik" id="jump-comm2" class="j-saglik"><span class="num">26</span><span>Sağlık, Aile, Çalışma ve Sosyal İşler Komisyonu</span><span class="sm">üyeler</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#gundem-projeksiyonu" id="jump-gp" class="j-butce"><span class="num">13</span><span>Gündem Projeksiyonu</span><span class="sm">16 Kasım oturumu</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#butce-ist" id="jump-butce" class="j-butce"><span class="num">2025</span><span>Sağlık bütçesi görüşmesi</span><span class="sm">istatistikler</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a></p>
   </header>
-  <details class="hemi" id="hemibox">
-    <summary><h2 id="hemi-h">Meclis'te sandalye dağılımı</h2><span class="cnt" id="hemi-cnt"></span></summary>
-    <div class="hemi-wrap">
-      <svg id="hemi" class="seats" viewBox="0 0 600 322" role="img" aria-label="Sandalye dağılımı"></svg>
-      <div class="hemi-mid" aria-live="polite"><b id="hemi-n">592</b><span id="hemi-l">milletvekili</span><small id="hemi-s">8 boş sandalye</small></div>
-    </div>
-    <div class="hemi-leg" id="hemi-leg" role="group" aria-label="Parti göstergesi"></div>
-    <p class="hemi-hint">Bir partinin sandalyelerine dokunarak listeyi o partiye göre süzebilirsiniz.</p>
-  </details>
-
-  <details class="hemi stats" id="statbox">
-    <summary><h2 id="stat-h">İstatistikler</h2><span class="cnt">yaş · cinsiyet · meslek · dönem</span></summary>
-    <div class="st-ctl"><label for="st-scope">Kapsam</label><select id="st-scope"></select></div>
-    <div class="st-cards" id="st-cards"></div>
-
-    <h3>Parti ve ile göre karşılaştırma</h3>
-    <div class="st-ctl">
-      <span class="lb" id="st-g-l">Grupla</span>
-      <div class="seg" role="group" aria-labelledby="st-g-l"><button type="button" data-g="party" aria-pressed="true">Parti</button><button type="button" data-g="il" aria-pressed="false">İl</button></div>
-      <span class="lb" id="st-m-l">Ölçü</span>
-      <div class="seg" role="group" aria-labelledby="st-m-l"><button type="button" data-m="age" aria-pressed="true">Yaş ortalaması</button><button type="button" data-m="fem" aria-pressed="false">Kadın oranı</button><button type="button" data-m="terms" aria-pressed="false">Ortalama dönem</button></div>
-    </div>
-    <ul class="sbars" id="st-group"></ul>
-    <p class="st-sub" id="st-group-note"></p>
-
-    <h3>Meslek dağılımı</h3>
-    <ul class="sbars" id="st-occ"></ul>
-    <h3>En çok dönem geçirenler</h3>
-    <ul class="sbars" id="st-terms"></ul>
-    <p class="st-sub">Yaş, doğum yılından hesaplanır (bu yıl − doğum yılı). Cinsiyet kaynakta yer almaz; özgeçmişteki "anne/baba" ifadesinden ve addan çıkarılmıştır. Meslek, özgeçmişte ilk yazılan meslektir ve gruplara ayrılmıştır. Dönem sayısı bu dönem dahildir. Meclis ortalaması dikey çizgiyle gösterilir.</p>
-  </details>
-
   <section class="sticky" aria-label="Arama ve filtreler">
     <div class="tools">
       <div class="field grow">
@@ -569,25 +660,11 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   <div class="list" id="list"></div>
   <div class="more"><button id="more" class="btn" type="button" hidden></button></div>
 
-  <section class="gone" id="komisyon" aria-labelledby="comm-h">
-    <details class="gonebox" id="commbox"><summary><h2 id="comm-h">Plan ve Bütçe Komisyonu üyeleri</h2><span class="cnt" id="comm-cnt"></span></summary>
-    <p class="sub">TBMM'nin komisyon üye listesine göre. Üyeler başkan, başkanvekili, sözcü ve kâtip sırasıyla, ardından il sırasıyla gelir.</p>
-    <div class="list" id="comm-list"></div>
-    </details>
-  </section>
-
-  <section class="gone" id="komisyon-saglik" aria-labelledby="comm2-h">
-    <details class="gonebox" id="commbox2"><summary><h2 id="comm2-h">Sağlık, Aile, Çalışma ve Sosyal İşler Komisyonu üyeleri</h2><span class="cnt" id="comm2-cnt"></span></summary>
-    <p class="sub">TBMM'nin komisyon üye listesine göre. Üyeler başkan, başkanvekili, sözcü ve kâtip sırasıyla, ardından il sırasıyla gelir.</p>
-    <div class="list" id="comm2-list"></div>
-    </details>
-  </section>
-
-  <section class="gp-wrap" id="gundem-projeksiyonu">
+  <section class="gp-wrap gp-collapsed" id="gundem-projeksiyonu">
   <div class="gp-head">
-    <button type="button" class="gp-toggle" id="gp-toggle" aria-expanded="true" aria-controls="gp-content"><span class="gp-tt">Kapat</span> <span aria-hidden="true">▲</span></button><span class="gp-badge">Yeni · 2027 Sağlık Bütçesi</span>
+    <button type="button" class="gp-toggle" id="gp-toggle" aria-expanded="false" aria-controls="gp-content"><span class="gp-tt">Göster</span> <span aria-hidden="true">▾</span></button><span class="gp-badge">Yeni · 2027 Sağlık Bütçesi</span>
     <h2>Gündem Projeksiyonu</h2>
-    <p>16 Kasım 2026 Oturumu · kategori, konu, beklenen öncelik ve oturum öngörüsü</p>
+    <p>16 Kasım 2026 Oturumu · öncelik öngörüsü</p>
   </div>
 
   <div id="gp-content"><div class="gp-tabs"><div class="gp-tablist" role="tablist" aria-label="Gündem bölümleri">
@@ -694,7 +771,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 
   <section class="gone" id="butce-ist" aria-labelledby="butce-h">
 
-<details class="gonebox" id="butcebox"><summary><h2 id="butce-h">Sağlık Bakanlığı bütçe görüşmesi istatistikleri</h2><span class="cnt">21 Kasım 2025</span></summary>
+<details class="gonebox" id="butcebox"><summary><span class="num">2025</span><h2 id="butce-h">Sağlık Bakanlığı bütçe görüşmesi istatistikleri</h2><span class="cnt">21 Kasım 2025</span></summary>
 <details class="st-src"><summary>Kaynak ve yöntem notu</summary><p class="sub">TBMM Plan ve Bütçe Komisyonu 19’uncu Toplantı Tutanak Dergisi’nden (2026 Yılı Merkezi Yönetim Bütçe Kanunu Teklifi ve 2024 Kesin Hesap; Sağlık Bakanlığı, Türkiye Hudut ve Sahiller Sağlık Genel Müdürlüğü, TİTCK ve TÜSEB). Konuşma süreleri tutanaktaki kelime sayısından <b>tahmin edilmiştir</b>; ayrıntı en altta.</p></details>
 <div class="st-tiles">
 <div><b>12 sa 29 dk</b><span>10.05 – 22.34 arası toplantı süresi</span></div>
@@ -704,8 +781,26 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 <div><b>15</b><span>önerge verildi, tamamı reddedildi</span></div>
 <div><b>4</b><span>kurumun 2026 bütçesi ve 2024 kesin hesabı kabul edildi</span></div>
 </div><details class="st-sec" id="st-sure"><summary><h3 class="st-h">Oturum çizelgesi</h3></summary><div class="st-secbody"><div class="st-tl" role="img" aria-label="Üç oturumun saat aralıkları"><span class="st-seg" style="left:4.32%;width:17.16%"><b data-n="1.">1. oturum</b><em>10.05–12.24</em></span><span class="st-seg" style="left:30.99%;width:49.38%"><b data-n="2.">2. oturum</b><em>13.41–20.21</em></span><span class="st-seg" style="left:81.23%;width:15.56%"><b data-n="3.">3. oturum</b><em>20.28–22.34</em></span></div><div class="st-ax"><span style="left:3.70%">10.00</span><span style="left:18.52%">12.00</span><span style="left:33.33%">14.00</span><span style="left:48.15%">16.00</span><span style="left:62.96%">18.00</span><span style="left:77.78%">20.00</span><span style="left:92.59%">22.00</span></div><p class="st-note">Süreler: 1. oturum 2 sa 19 dk, 2. oturum 6 sa 40 dk, 3. oturum 2 sa 6 dk. Aralar: 12.24–13.41 (1 sa 17 dk) ve 20.21–20.28 (7 dk).</p><button type="button" class="st-up">▴ Bu bölümü kapat</button></div></details><details class="st-sec" id="st-pay"><summary><h3 class="st-h">Kimin payı ne kadar?</h3></summary><div class="st-secbody"><div class="st-stack" role="img" aria-label="Konuşma payı"><span style="width:86.05%;background:var(--accent)"></span><span style="width:8.94%;background:var(--b-l)"></span><span style="width:5.01%;background:var(--muted)"></span></div><ul class="st-leg"><li><i style="background:var(--accent)"></i>Milletvekilleri <b>%86,0</b> · ≈9 sa 28 dk</li><li><i style="background:var(--b-l)"></i>Sağlık Bakanı Kemal Memişoğlu <b>%8,9</b> · ≈1 sa 3 dk</li><li><i style="background:var(--muted)"></i>Başkan ve oturum başkanları <b>%5,0</b> · ≈34 dk</li></ul><button type="button" class="st-up">▴ Bu bölümü kapat</button></div></details><details class="st-sec" id="st-asama"><summary><h3 class="st-h">Görüşmenin aşamaları</h3></summary><div class="st-secbody"><div class="st-table"><div class="st-tr st-th"><span>Aşama</span><span>Tahmini süre</span><span>Pay</span></div><div class="st-tr"><span>Açılış ve usul tartışması</span><span>≈6 dk</span><span class="st-bar"><i style="--w:0.0097"></i><b>%1,0</b></span></div><div class="st-tr"><span>Bakan sunumu</span><span>≈30 dk</span><span class="st-bar"><i style="--w:0.0457"></i><b>%4,6</b></span></div><div class="st-tr"><span>Milletvekili konuşmaları</span><span>≈9 sa 14 dk</span><span class="st-bar"><i style="--w:0.8328"></i><b>%83,3</b></span></div><div class="st-tr"><span>Kısa soru turu</span><span>≈8 dk</span><span class="st-bar"><i style="--w:0.0124"></i><b>%1,2</b></span></div><div class="st-tr"><span>Bakan cevapları</span><span>≈47 dk</span><span class="st-bar"><i style="--w:0.0714"></i><b>%7,1</b></span></div><div class="st-tr"><span>Önergeler ve oylama</span><span>≈19 dk</span><span class="st-bar"><i style="--w:0.0281"></i><b>%2,8</b></span></div></div><button type="button" class="st-up">▴ Bu bölümü kapat</button></div></details><details class="st-sec" id="st-uzun"><summary><h3 class="st-h">En uzun konuşan milletvekilleri</h3></summary><div class="st-secbody"><ol class="st-top"><li><span class="st-rk">1</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="kayihan.pala">Kayıhan Pala</a></b><small>Bursa · Yeni Parti · öne çıkan konu: Bütçe, ödenek ve kesin hesap</small></div><div class="st-meter"><i style="width:100.0%;background:var(--p-N)"></i></div><span class="st-val">≈31 dk<small>18 söz alma</small></span></li><li><span class="st-rk">2</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-I)"></i><a class="st-mv" href="#list" data-k="erhan.usta">Erhan Usta</a></b><small>Samsun · İYİ Parti · öne çıkan konu: Sağlık çalışanları</small></div><div class="st-meter"><i style="width:77.2%;background:var(--p-I)"></i></div><span class="st-val">≈24 dk<small>24 söz alma</small></span></li><li><span class="st-rk">3</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="ismail.gunes">İsmail Güneş</a></b><small>Uşak · AK Parti · öne çıkan konu: Sağlık çalışanları</small></div><div class="st-meter"><i style="width:74.2%;background:var(--p-A)"></i></div><span class="st-val">≈23 dk<small>35 söz alma</small></span></li><li><span class="st-rk">4</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="veli.agbaba">Veli Ağbaba</a></b><small>Malatya · Yeni Parti · öne çıkan konu: Sağlık çalışanları</small></div><div class="st-meter"><i style="width:61.9%;background:var(--p-N)"></i></div><span class="st-val">≈19 dk<small>61 söz alma</small></span></li><li><span class="st-rk">5</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="irfan.karatutlu">İrfan Karatutlu</a></b><small>Kahramanmaraş · AK Parti · öne çıkan konu: Sağlık çalışanları</small></div><div class="st-meter"><i style="width:61.4%;background:var(--p-A)"></i></div><span class="st-val">≈19 dk<small>16 söz alma</small></span></li><li><span class="st-rk">6</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-B)"></i><a class="st-mv" href="#list" data-k="ahmetesref.fakibaba">Ahmet Eşref Fakıbaba</a></b><small>Ankara · Bağımsız · öne çıkan konu: Sağlık çalışanları</small></div><div class="st-meter"><i style="width:57.9%;background:var(--p-B)"></i></div><span class="st-val">≈18 dk<small>3 söz alma</small></span></li><li><span class="st-rk">7</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-M)"></i><a class="st-mv" href="#list" data-k="pelin.yilik">Pelin Yılık</a></b><small>Çankırı · MHP · öne çıkan konu: Sağlık çalışanları</small></div><div class="st-meter"><i style="width:51.0%;background:var(--p-M)"></i></div><span class="st-val">≈16 dk<small>1 söz alma</small></span></li><li><span class="st-rk">8</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-Y)"></i><a class="st-mv" href="#list" data-k="sadullahkisacik">Sadullah Kısacık</a></b><small>Adana · Yeni Yol · öne çıkan konu: Bütçe, ödenek ve kesin hesap</small></div><div class="st-meter"><i style="width:44.0%;background:var(--p-Y)"></i></div><span class="st-val">≈14 dk<small>20 söz alma</small></span></li><li><span class="st-rk">9</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="umit.ozlale">Ümit Özlale</a></b><small>İzmir · Yeni Parti · öne çıkan konu: Halk sağlığı</small></div><div class="st-meter"><i style="width:43.9%;background:var(--p-N)"></i></div><span class="st-val">≈14 dk<small>13 söz alma</small></span></li><li><span class="st-rk">10</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="cevdet.akay">Cevdet Akay</a></b><small>Karabük · CHP · öne çıkan konu: Bütçe, ödenek ve kesin hesap</small></div><div class="st-meter"><i style="width:43.3%;background:var(--p-C)"></i></div><span class="st-val">≈13 dk<small>7 söz alma</small></span></li><li><span class="st-rk">11</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="heval.bozdag">Heval Bozdağ</a></b><small>Ağrı · DEM Parti · öne çıkan konu: Bütçe, ödenek ve kesin hesap</small></div><div class="st-meter"><i style="width:42.0%;background:var(--p-D)"></i></div><span class="st-val">≈13 dk<small>9 söz alma</small></span></li><li><span class="st-rk">12</span><div class="st-who"><b><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="serkan.sari">Serkan Sarı</a></b><small>Balıkesir · CHP · öne çıkan konu: İlaç, tıbbi cihaz ve TİTCK</small></div><div class="st-meter"><i style="width:41.4%;background:var(--p-C)"></i></div><span class="st-val">≈13 dk<small>6 söz alma</small></span></li></ol><button type="button" class="st-up">▴ Bu bölümü kapat</button></div></details><details class="st-sec" id="st-parti"><summary><h3 class="st-h">Partilere göre konuşma payı</h3></summary><div class="st-secbody"><p class="st-note">Parti, uygulamadaki güncel milletvekili listesine göredir. Koltuk payı bu listedeki 592 vekile göre hesaplandı.</p><div class="st-table st-party"><div class="st-tr st-th"><span>Parti</span><span>Konuşan</span><span>Konuşma payı</span><span>Koltuk payı</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i>Yeni Parti</span><span>15 kişi<small>≈2 sa 30 dk</small></span><span class="st-bar"><i style="--w:0.2633;background:var(--p-N)"></i><b>%26,3</b></span><span class="st-bar st-seat"><i style="--w:0.1520"></i><b>%15,2</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i>AK Parti</span><span>17 kişi<small>≈2 sa 16 dk</small></span><span class="st-bar"><i style="--w:0.2443;background:var(--p-A)"></i><b>%24,4</b></span><span class="st-bar st-seat"><i style="--w:0.4747"></i><b>%47,5</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i>DEM Parti</span><span>9 kişi<small>≈1 sa 13 dk</small></span><span class="st-bar"><i style="--w:0.1280;background:var(--p-D)"></i><b>%12,8</b></span><span class="st-bar st-seat"><i style="--w:0.0946"></i><b>%9,5</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i>CHP</span><span>9 kişi<small>≈1 sa 11 dk</small></span><span class="st-bar"><i style="--w:0.1232;background:var(--p-C)"></i><b>%12,3</b></span><span class="st-bar st-seat"><i style="--w:0.0743"></i><b>%7,4</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-I)"></i>İYİ Parti</span><span>5 kişi<small>≈49 dk</small></span><span class="st-bar"><i style="--w:0.0884;background:var(--p-I)"></i><b>%8,8</b></span><span class="st-bar st-seat"><i style="--w:0.0439"></i><b>%4,4</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-M)"></i>MHP</span><span>4 kişi<small>≈37 dk</small></span><span class="st-bar"><i style="--w:0.0650;background:var(--p-M)"></i><b>%6,5</b></span><span class="st-bar st-seat"><i style="--w:0.0777"></i><b>%7,8</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-Y)"></i>Yeni Yol</span><span>2 kişi<small>≈21 dk</small></span><span class="st-bar"><i style="--w:0.0363;background:var(--p-Y)"></i><b>%3,6</b></span><span class="st-bar st-seat"><i style="--w:0.0338"></i><b>%3,4</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-B)"></i>Bağımsız</span><span>1 kişi<small>≈18 dk</small></span><span class="st-bar"><i style="--w:0.0294;background:var(--p-B)"></i><b>%2,9</b></span><span class="st-bar st-seat"><i style="--w:0.0203"></i><b>%2,0</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-T)"></i>TİP</span><span>1 kişi<small>≈7 dk</small></span><span class="st-bar"><i style="--w:0.0124;background:var(--p-T)"></i><b>%1,2</b></span><span class="st-bar st-seat"><i style="--w:0.0051"></i><b>%0,5</b></span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-E)"></i>EMEP</span><span>1 kişi<small>≈5 dk</small></span><span class="st-bar"><i style="--w:0.0097;background:var(--p-E)"></i><b>%1,0</b></span><span class="st-bar st-seat"><i style="--w:0.0034"></i><b>%0,3</b></span></div></div><button type="button" class="st-up">▴ Bu bölümü kapat</button></div></details><details class="st-sec" id="st-konu"><summary><h3 class="st-h">Konu vurgusu</h3></summary><div class="st-secbody"><p class="st-note">Bakan ve milletvekili konuşmalarındaki anahtar sözcüklerin dağılımı (Başkanlık Divanı hariç). Her konunun payı, tüm konu sözcüklerine göredir.</p><div class="st-table st-theme"><div class="st-tr"><span>Sağlık çalışanları: maaş, şiddet, nöbet, kadro</span><span class="st-bar"><i style="--w:1.0000"></i><b>%27,9</b></span></div><div class="st-tr"><span>Bütçe, ödenek ve kesin hesap</span><span class="st-bar"><i style="--w:0.5054"></i><b>%14,1</b></span></div><div class="st-tr"><span>Yerel yatırım ve il talepleri</span><span class="st-bar"><i style="--w:0.4409"></i><b>%12,3</b></span></div><div class="st-tr"><span>Halk sağlığı: koruyucu hizmet, bağımlılık, kanser</span><span class="st-bar"><i style="--w:0.3763"></i><b>%10,5</b></span></div><div class="st-tr"><span>Randevu, bekleme ve acil servis</span><span class="st-bar"><i style="--w:0.3226"></i><b>%9,0</b></span></div><div class="st-tr"><span>Kamu-özel iş birliği ve şehir hastaneleri</span><span class="st-bar"><i style="--w:0.2366"></i><b>%6,6</b></span></div><div class="st-tr"><span>Aile hekimliği ve birinci basamak</span><span class="st-bar"><i style="--w:0.2294"></i><b>%6,4</b></span></div><div class="st-tr"><span>İlaç, tıbbi cihaz ve TİTCK</span><span class="st-bar"><i style="--w:0.2043"></i><b>%5,7</b></span></div><div class="st-tr"><span>Yerli üretim, Ar-Ge ve sağlık turizmi</span><span class="st-bar"><i style="--w:0.0932"></i><b>%2,6</b></span></div><div class="st-tr"><span>Deprem, afet ve Gazze</span><span class="st-bar"><i style="--w:0.0717"></i><b>%2,0</b></span></div><div class="st-tr"><span>Nüfus, doğurganlık ve aile</span><span class="st-bar"><i style="--w:0.0681"></i><b>%1,9</b></span></div><div class="st-tr"><span>SGK, katılım payı ve ek ücret</span><span class="st-bar"><i style="--w:0.0323"></i><b>%0,9</b></span></div></div><button type="button" class="st-up">▴ Bu bölümü kapat</button></div></details><details class="st-sec" id="st-diger"><summary><h3 class="st-h">Öne çıkan başka veriler</h3></summary><div class="st-secbody"><ul class="st-facts"><li>En çok söz alan: Komisyon Başkanı Mehmet Muş (199 kez), milletvekillerinden Veli Ağbaba (61 kez).</li><li>Tek seferde en uzun konuşma: Kayıhan Pala (≈18 dk, 2.037 kelime).</li><li>Bakan Memişoğlu’nun sunuşu ve cevapları toplam ≈1 sa 3 dk sürdü.</li><li>Toplantı 24 Kasım 2025 Pazartesi günü saat 11.00’e kadar ertelendi.</li></ul><button type="button" class="st-up">▴ Bu bölümü kapat</button></div></details><details class="st-sec st-sec-all" id="st-hepsi"><summary>Tüm konuşmacılar (64 milletvekili)</summary><div class="st-table st-list"><div class="st-tr st-th"><span>Milletvekili</span><span>Söz alma</span><span>Tahmini süre</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="kayihan.pala">Kayıhan Pala</a><small>Bursa · Yeni Parti</small></span><span>18</span><span>≈31 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-I)"></i><a class="st-mv" href="#list" data-k="erhan.usta">Erhan Usta</a><small>Samsun · İYİ Parti</small></span><span>24</span><span>≈24 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="ismail.gunes">İsmail Güneş</a><small>Uşak · AK Parti</small></span><span>35</span><span>≈23 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="veli.agbaba">Veli Ağbaba</a><small>Malatya · Yeni Parti</small></span><span>61</span><span>≈19 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="irfan.karatutlu">İrfan Karatutlu</a><small>Kahramanmaraş · AK Parti</small></span><span>16</span><span>≈19 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-B)"></i><a class="st-mv" href="#list" data-k="ahmetesref.fakibaba">Ahmet Eşref Fakıbaba</a><small>Ankara · Bağımsız</small></span><span>3</span><span>≈18 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-M)"></i><a class="st-mv" href="#list" data-k="pelin.yilik">Pelin Yılık</a><small>Çankırı · MHP</small></span><span>1</span><span>≈16 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-Y)"></i><a class="st-mv" href="#list" data-k="sadullahkisacik">Sadullah Kısacık</a><small>Adana · Yeni Yol</small></span><span>20</span><span>≈14 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="umit.ozlale">Ümit Özlale</a><small>İzmir · Yeni Parti</small></span><span>13</span><span>≈14 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="cevdet.akay">Cevdet Akay</a><small>Karabük · CHP</small></span><span>7</span><span>≈13 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="heval.bozdag">Heval Bozdağ</a><small>Ağrı · DEM Parti</small></span><span>9</span><span>≈13 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="serkan.sari">Serkan Sarı</a><small>Balıkesir · CHP</small></span><span>6</span><span>≈13 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="omerfaruk.gergerlioglu">Ömer Faruk Gergerlioğlu</a><small>Kocaeli · DEM Parti</small></span><span>3</span><span>≈12 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="orhan.yegin">Orhan Yegin</a><small>Ankara · AK Parti</small></span><span>27</span><span>≈12 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="cavit.ari">Cavit Arı</a><small>Antalya · Yeni Parti</small></span><span>23</span><span>≈12 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="nilgun.ok">Nilgün Ök</a><small>Denizli · AK Parti</small></span><span>19</span><span>≈11 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="muhip.kanko">Mühip Kanko</a><small>Kocaeli · Yeni Parti</small></span><span>21</span><span>≈11 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="aylin.yaman">Aylin Yaman</a><small>Ankara · Yeni Parti</small></span><span>5</span><span>≈11 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-I)"></i><a class="st-mv" href="#list" data-k="ayyuce.turkestas">Ayyüce Türkeş Taş</a><small>Adana · İYİ Parti</small></span><span>2</span><span>≈10 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="adalet.kaya">Adalet Kaya</a><small>Diyarbakır · DEM Parti</small></span><span>3</span><span>≈10 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="sirri.sakik">Sırrı Sakik</a><small>Ağrı · DEM Parti</small></span><span>12</span><span>≈10 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="seydi.gulsoy">Seydi Gülsoy</a><small>Osmaniye · AK Parti</small></span><span>4</span><span>≈10 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="yasar.kirkpinar">Yaşar Kırkpınar</a><small>İzmir · AK Parti</small></span><span>9</span><span>≈9 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="mustafa.erdem3">Mustafa Erdem</a><small>Antalya · Yeni Parti</small></span><span>1</span><span>≈9 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="ertugrul.kocacik">Ertuğrul Kocacık</a><small>Sakarya · AK Parti</small></span><span>1</span><span>≈9 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-M)"></i><a class="st-mv" href="#list" data-k="ismailfaruk.aksu">İsmail Faruk Aksu</a><small>İstanbul · MHP</small></span><span>1</span><span>≈8 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="ali.karaoba">Ali Karaoba</a><small>Uşak · CHP</small></span><span>48</span><span>≈8 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="ejder.acikkapi">Ejder Açıkkapı</a><small>Elâzığ · AK Parti</small></span><span>7</span><span>≈8 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-M)"></i><a class="st-mv" href="#list" data-k="tamer.osmanagaoglu">Tamer Osmanağaoğlu</a><small>İzmir · MHP</small></span><span>2</span><span>≈8 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="necmettin.erkan">Necmettin Erkan</a><small>Kırşehir · AK Parti</small></span><span>1</span><span>≈8 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="omerfethi.gurer">Ömer Fethi Gürer</a><small>Niğde · CHP</small></span><span>13</span><span>≈8 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-Y)"></i><a class="st-mv" href="#list" data-k="alifazil.kasap">Ali Fazıl Kasap</a><small>Kütahya · Yeni Yol</small></span><span>12</span><span>≈7 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="kamuran.tanhan">Kamuran Tanhan</a><small>Mardin · DEM Parti</small></span><span>9</span><span>≈7 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="aykut.kaya2">Aykut Kaya</a><small>Antalya · Yeni Parti</small></span><span>2</span><span>≈7 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-T)"></i><a class="st-mv" href="#list" data-k="sera.kadigil">Saliha Sera Kadıgil</a><small>İstanbul · TİP</small></span><span>6</span><span>≈7 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="ersan.aksu">Ersan Aksu</a><small>Samsun · AK Parti</small></span><span>2</span><span>≈7 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="ali.oztunc">Ali Öztunç</a><small>Kahramanmaraş · CHP</small></span><span>4</span><span>≈7 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="murat.can">Murat Çan</a><small>Samsun · Yeni Parti</small></span><span>16</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="nurten.yontar">Nurten Yontar</a><small>Tekirdağ · CHP</small></span><span>14</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="evrim.rizvanoglu">Evrim Rızvanoğlu</a><small>İstanbul · Yeni Parti</small></span><span>2</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="aysu.bankoglu">Aysu Bankoğlu</a><small>Bartın · CHP</small></span><span>7</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="sibel.suicmez">Sibel Suiçmez</a><small>Trabzon · Yeni Parti</small></span><span>13</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="hasan.arslan">Hasan Arslan</a><small>Afyonkarahisar · AK Parti</small></span><span>1</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="vehbi.bakirlioglu">Ahmet Vehbi Bakırlıoğlu</a><small>Manisa · Yeni Parti</small></span><span>6</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-I)"></i><a class="st-mv" href="#list" data-k="selcan.tasci">Selcan Taşcı</a><small>Tekirdağ · İYİ Parti</small></span><span>1</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="huseyin.olan">Hüseyin Olan</a><small>Bitlis · DEM Parti</small></span><span>2</span><span>≈6 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="mehmet.guzelmansur">Mehmet Güzelmansur</a><small>Hatay · CHP</small></span><span>3</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-E)"></i><a class="st-mv" href="#list" data-k="sevdakaraca">Sevda Karaca Demir</a><small>Gaziantep · EMEP</small></span><span>3</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="mehmetzeki.irmez">Mehmet Zeki İrmez</a><small>Şırnak · DEM Parti</small></span><span>4</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-M)"></i><a class="st-mv" href="#list" data-k="halil.ozturk">Halil Öztürk</a><small>Kırıkkale · MHP</small></span><span>4</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="salihe.aydeniz">Salihe Aydeniz</a><small>Mardin · DEM Parti</small></span><span>4</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-D)"></i><a class="st-mv" href="#list" data-k="burcugul.cubuk">Burcugül Çubuk</a><small>İzmir · DEM Parti</small></span><span>8</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="ummugulsen.ozturk">Ümmügülşen Öztürk</a><small>İstanbul · AK Parti</small></span><span>15</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-C)"></i><a class="st-mv" href="#list" data-k="gursel.erol">Gürsel Erol</a><small>Elâzığ · CHP</small></span><span>1</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="orhan.erdem">Orhan Erdem</a><small>Konya · AK Parti</small></span><span>3</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="nail.ciler">Nail Çiler</a><small>Kocaeli · Yeni Parti</small></span><span>4</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-I)"></i><a class="st-mv" href="#list" data-k="yuksel.arslan">Yüksel Arslan</a><small>Ankara · İYİ Parti</small></span><span>1</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-I)"></i><a class="st-mv" href="#list" data-k="senolsunat">Şenol Sunat</a><small>Manisa · İYİ Parti</small></span><span>1</span><span>≈5 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="sengul.karsli">Şengül Karslı</a><small>İstanbul · AK Parti</small></span><span>11</span><span>≈4 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="aliye.cosar">Aliye Coşar</a><small>Antalya · Yeni Parti</small></span><span>1</span><span>≈4 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-N)"></i><a class="st-mv" href="#list" data-k="talih.ozcan">Talih Özcan</a><small>Düzce · Yeni Parti</small></span><span>1</span><span>≈4 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="resul.kurt">Resul Kurt</a><small>Adıyaman · AK Parti</small></span><span>2</span><span>≈1 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="erol.keles">Erol Keleş</a><small>Elâzığ · AK Parti</small></span><span>4</span><span>≈0 dk</span></div><div class="st-tr"><span><i class="st-dot" style="background:var(--p-A)"></i><a class="st-mv" href="#list" data-k="huseyin.altinsoy">Hüseyin Altınsoy</a><small>Aksaray · AK Parti</small></span><span>1</span><span>≈0 dk</span></div></div></details><p class="st-note st-method"><b>Yöntem.</b> Tutanakta her konuşmanın başlangıç ve bitiş saati yazmaz; yalnızca oturumların açılış-kapanış saatleri vardır. Bu yüzden her oturumun süresi, o oturumdaki konuşmaların kelime sayısına orantılı dağıtıldı. Süreler gerçek konuşma süresinin <b>yaklaşık</b> karşılığıdır; ara sıra yapılan kısa müdahaleler konuşmacıya ayrı söz alma olarak sayıldı. Oturum Başkanı olarak konuşanlar (Orhan Erdem, Nilgün Ök) Başkanlık Divanı payına, milletvekili olarak konuşmaları ise milletvekili payına eklendi. Konu vurgusu anahtar sözcük sayımıdır; yorum içermez.</p></details></section>
+
+  <section class="gone" id="oturma" aria-labelledby="oturma-h">
+    <details class="gonebox" id="oturmabox"><summary><h2 id="oturma-h">Oturma Düzeni</h2><span class="cnt">Plan ve Bütçe Komisyonu · D-121 salonu</span></summary>
+    <div class="ot-tools">
+      <button type="button" class="ot-btn" id="ot-preset">PDF'teki yerleşimi yükle</button>
+      <label class="ot-btn ot-file">Dosyadan yükle (JSON)<input type="file" id="ot-file" accept=".json,application/json" hidden></label>
+      <button type="button" class="ot-btn" id="ot-export">Dışa aktar / şablon indir</button>
+      <button type="button" class="ot-btn ot-danger" id="ot-reset">Tümünü boşalt</button>
+      <span class="ot-stat" id="ot-stat" role="status" aria-live="polite"></span>
+    </div>
+    <p class="ot-hint">Boş koltuğa dokunarak milletvekili seçin; dolu koltuğa dokunarak değiştirin veya boşaltın. Başkanlık divanı sabittir. Yerleşim bu tarayıcıda saklanır.</p>
+    <div class="ot-title">PLAN VE BÜTÇE KOMİSYONU D-121 NUMARALI TOPLANTI SALONU OTURMA DÜZENİ</div>
+    <div id="oturma-board" class="ot-board"></div>
+    <div class="ot-divan-wrap"><div class="ot-divan" id="ot-divan"></div><div class="ot-bar">KOMİSYON BAŞKANLIK DİVANI</div></div>
+    </details>
+  </section>
+
+
   <section class="gone" id="ayrilanlar" aria-labelledby="gone-h">
-    <details class="gonebox" id="gonebox" open><summary><h2 id="gone-h">Görevden ayrılan milletvekilleri</h2><span class="cnt">8 kişi</span></summary>
+    <details class="gonebox" id="gonebox"><summary><h2 id="gone-h">Görevden ayrılan milletvekilleri</h2><span class="cnt">8 kişi</span></summary>
     <p class="sub">28. Dönem’de vefat, istifa, milletvekilliğinin düşmesi ya da bakanlık görevi nedeniyle ayrılan 8 vekil. Bu sandalyeler şu an boş; bu yüzden yukarıdaki listede 592 kişi var.</p>
     <ul class="gone-sum"><li><b>2</b> vefat</li><li><b>4</b> istifa (belediye başkanlığı)</li><li><b>1</b> milletvekilliği düşmesi</li><li><b>1</b> bakanlık ataması</li></ul>
     <div class="list">
@@ -720,7 +815,59 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     </div>
     </details>
   </section>
-  <p class="note foot">Kaynak: TBMM<br>byRam ©ivelek · Sürüm 1.0 · Son güncelleme: 11 Kasım 2026</p>
+
+  <section class="gone" id="istatistikler" aria-labelledby="stats-h">
+    <details class="gonebox" id="statsall"><summary><h2 id="stats-h">İstatistikler</h2><span class="cnt">sandalye dağılımı · milletvekili profili</span></summary>
+    <div class="statskids">
+  <details class="hemi" id="hemibox">
+    <summary><h2 id="hemi-h">Meclis'te sandalye dağılımı</h2><span class="cnt" id="hemi-cnt"></span></summary>
+    <div class="hemi-wrap">
+      <svg id="hemi" class="seats" viewBox="0 0 600 322" role="img" aria-label="Sandalye dağılımı"></svg>
+      <div class="hemi-mid" aria-live="polite"><b id="hemi-n">592</b><span id="hemi-l">milletvekili</span><small id="hemi-s">8 boş sandalye</small></div>
+    </div>
+    <div class="hemi-leg" id="hemi-leg" role="group" aria-label="Parti göstergesi"></div>
+    <p class="hemi-hint">Bir partinin sandalyelerine dokunarak listeyi o partiye göre süzebilirsiniz.</p>
+  </details>
+
+  <details class="hemi stats" id="statbox">
+    <summary><h2 id="stat-h">Milletvekili profili</h2><span class="cnt">yaş · cinsiyet · meslek · dönem</span></summary>
+    <div class="st-ctl"><label for="st-scope">Kapsam</label><select id="st-scope"></select></div>
+    <div class="st-cards" id="st-cards"></div>
+
+    <h3>Parti ve ile göre karşılaştırma</h3>
+    <div class="st-ctl">
+      <span class="lb" id="st-g-l">Grupla</span>
+      <div class="seg" role="group" aria-labelledby="st-g-l"><button type="button" data-g="party" aria-pressed="true">Parti</button><button type="button" data-g="il" aria-pressed="false">İl</button></div>
+      <span class="lb" id="st-m-l">Ölçü</span>
+      <div class="seg" role="group" aria-labelledby="st-m-l"><button type="button" data-m="age" aria-pressed="true">Yaş ortalaması</button><button type="button" data-m="fem" aria-pressed="false">Kadın oranı</button><button type="button" data-m="terms" aria-pressed="false">Ortalama dönem</button></div>
+    </div>
+    <ul class="sbars" id="st-group"></ul>
+    <p class="st-sub" id="st-group-note"></p>
+
+    <h3>Meslek dağılımı</h3>
+    <ul class="sbars" id="st-occ"></ul>
+    <h3>En çok dönem geçirenler</h3>
+    <ul class="sbars" id="st-terms"></ul>
+    <p class="st-sub">Yaş, doğum yılından hesaplanır (bu yıl − doğum yılı). Cinsiyet kaynakta yer almaz; özgeçmişteki "anne/baba" ifadesinden ve addan çıkarılmıştır. Meslek, özgeçmişte ilk yazılan meslektir ve gruplara ayrılmıştır. Dönem sayısı bu dönem dahildir. Meclis ortalaması dikey çizgiyle gösterilir.</p>
+  </details>
+
+    </div>
+    </details>
+  </section>
+  <section class="gone" id="komisyon" aria-labelledby="comm-h">
+    <details class="gonebox" id="commbox"><summary><h2 id="comm-h">Plan ve Bütçe Komisyonu üyeleri</h2><span class="cnt" id="comm-cnt"></span></summary>
+    <p class="sub">TBMM'nin komisyon üye listesine göre. Üyeler başkan, başkanvekili, sözcü ve kâtip sırasıyla, ardından il sırasıyla gelir.</p>
+    <div class="list" id="comm-list"></div>
+    </details>
+  </section>
+
+  <section class="gone" id="komisyon-saglik" aria-labelledby="comm2-h">
+    <details class="gonebox" id="commbox2"><summary><h2 id="comm2-h">Sağlık, Aile, Çalışma ve Sosyal İşler Komisyonu üyeleri</h2><span class="cnt" id="comm2-cnt"></span></summary>
+    <p class="sub">TBMM'nin komisyon üye listesine göre. Üyeler başkan, başkanvekili, sözcü ve kâtip sırasıyla, ardından il sırasıyla gelir.</p>
+    <div class="list" id="comm2-list"></div>
+    </details>
+  </section>
+  <p class="note foot">Kaynak: TBMM<br>byRam ©ivelek · Sürüm 1.1 · Son güncelleme: 13 Kasım 2026</p>
 
 
 </div>
@@ -767,7 +914,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   const $=id=>document.getElementById(id);
   const qEl=$('q'),ilEl=$('il'),sortEl=$('sort'),chipsEl=$('chips'),barEl=$('bar'),
     countEl=$('count'),clearEl=$('clear'),listEl=$('list'),moreEl=$('more'),shareEl=$('share');
-  const S={q:'',il:'',party:'',sort:'il',shown:PAGE};
+  const S={q:'',il:'',party:'',sort:'il',shown:PAGE};let moreP=false,showAllMv=false;const TOPP=5;
 
   const ilCounts={};
   ROWS.forEach(r=>ilCounts[r.il]=(ilCounts[r.il]||0)+1);
@@ -821,10 +968,15 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     base.forEach(r=>counts[r.p]=(counts[r.p]||0)+1);
     const list=(S.party?base.filter(r=>r.p===S.party):base.slice()).sort(SORTS[S.sort]);
 
-    chipsEl.innerHTML=ORDER.filter(k=>counts[k]||S.party===k).map(k=>
+    const allK=ORDER.filter(k=>counts[k]||S.party===k);
+    let showK=moreP?allK:allK.slice(0,TOPP);
+    if(!moreP&&S.party&&showK.indexOf(S.party)<0)showK=showK.concat([S.party]);
+    const restN=allK.length-showK.length;
+    chipsEl.innerHTML=showK.map(k=>
       '<button class="chip" type="button" data-p="'+k+'" aria-pressed="'+(S.party===k)+'">'+
       pmark(k)+esc(PARTY[k])+
-      ' <span class="n">'+(counts[k]||0)+'</span></button>').join('');
+      ' <span class="n">'+(counts[k]||0)+'</span></button>').join('')+
+      (allK.length>TOPP?'<button class="chip chip-more" type="button" data-more="1" aria-expanded="'+moreP+'">'+(moreP?'Daha az göster ▴':'Diğer '+restN+' parti ▾')+'</button>':'');
     barEl.innerHTML=base.length?ORDER.filter(k=>counts[k]).map(k=>
       '<span style="width:'+(counts[k]/base.length*100)+'%;background:var(--p-'+k+')"></span>').join(''):'';
 
@@ -833,12 +985,14 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     clearEl.hidden=!active;shareEl.hidden=!active;
     writeURL();
 
-    if(!list.length){
+    if(!active&&!showAllMv){
+      listEl.innerHTML='<div class="empty idle"><p><b>Milletvekili aramak için yukarıya ad, il veya parti yazın.</b></p><p>Ya da bir parti veya il seçin; sonuçlar burada listelenir.</p><button class="linkbtn" type="button" data-showall>Tüm milletvekillerini listele ('+ROWS.length+')</button></div>';
+    }else if(!list.length){
       listEl.innerHTML='<div class="empty"><p>Eşleşen milletvekili yok.</p><button class="linkbtn" type="button" data-clear>Filtreleri temizle</button></div>';
     }else{
       listEl.innerHTML=list.slice(0,S.shown).map(rowHtml).join('');
     }
-    const rest=list.length-S.shown;
+    const rest=(!active&&!showAllMv)?0:list.length-S.shown;
     moreEl.hidden=rest<=0;
     if(rest>0) moreEl.textContent='Daha fazla göster ('+rest+' kişi daha)';
     goneFilter();hemiSync();commFilter();
@@ -884,16 +1038,17 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   sortEl.addEventListener('change',()=>{S.sort=sortEl.value;reset()});
   chipsEl.addEventListener('click',e=>{
     const b=e.target.closest('.chip');if(!b)return;
+    if(b.dataset.more){moreP=!moreP;render();return}
     S.party=S.party===b.dataset.p?'':b.dataset.p;reset();
   });
   function clearAll(){
-    S.q='';S.il='';S.party='';qEl.value='';ilEl.value='';reset();
+    S.q='';S.il='';S.party='';qEl.value='';ilEl.value='';showAllMv=false;reset();
   }
   clearEl.addEventListener('click',clearAll);
   moreEl.addEventListener('click',()=>{S.shown+=100;render()});
   /* Bütçe istatistiklerindeki isme tıklayınca ilgili milletvekili kartına git */
   function gotoMv(key){
-    S.q='';S.il='';S.party='';qEl.value='';ilEl.value='';
+    S.q='';S.il='';S.party='';qEl.value='';ilEl.value='';showAllMv=true;
     const ordered=ROWS.slice().sort(SORTS[S.sort]);
     const i=ordered.findIndex(r=>r.key===key);if(i<0)return;
     S.shown=Math.max(PAGE,i+1);render();
@@ -917,6 +1072,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     const pb=e.target.closest('.ico.place');
     if(pb){const open=pb.getAttribute('aria-expanded')!=='true';closePops(pb);
       pb.setAttribute('aria-expanded',String(open));pb.nextElementSibling.hidden=!open;return}
+    if(e.target.closest('[data-showall]')){showAllMv=true;reset();return}
     if(e.target.closest('[data-clear]')){clearAll();return}
     const b=e.target.closest('.copy');if(!b)return;
     const t=b.dataset.copy;let ok=false;
@@ -946,7 +1102,6 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     goneSec.hidden=active&&n===0;goneSec.classList.toggle('filtered',active);
     goneCnt.textContent=active?n+' eşleşme':goneCards.length+' kişi';
   }
-  document.querySelector('.jump a').addEventListener('click',()=>{goneBox.open=true});
 
   /* Sandalye şeması: 600 koltuk, partiler büyükten küçüğe soldan sağa dizilir; son koltuklar boş. */
   /* Plan ve Bütçe Komisyonu (TBMM komisyon üye listesi) */
@@ -973,16 +1128,137 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
       sec.hidden=active&&n===0;
       cnt.textContent=active?n+' eşleşme':rows.length+' kişi';
     });
-    $(jumpId).addEventListener('click',()=>{$(boxId).open=true});
   }
   (function(){
     const sec=$('butce-ist');
     commFilters.push(function(){sec.hidden=!!(S.q||S.il||S.party)});
-    $('jump-butce').addEventListener('click',()=>{$('butcebox').open=true});
   })();
   const commFilter=()=>commFilters.forEach(f=>f());
   mkComm('komisyon','comm-list','comm-cnt','commbox','jump-comm',COMM);
   mkComm('komisyon-saglik','comm2-list','comm2-cnt','commbox2','jump-comm2',COMM2);
+
+  /* ===== Oturma Düzeni ===== */
+  (function(){
+    const board=$('oturma-board');if(!board)return;
+    const LS='mv-oturma-v1';
+    const BL=[
+      {id:'b1',pos:'sr',strips:[['MİLLİYETÇİ HAREKET PARTİSİ',1,2,'M']]},
+      {id:'b2',pos:'sl',strips:[['YENİ YOL PARTİSİ',1,1,'Y'],['İYİ PARTİ',2,2,'I']]},
+      {id:'b3',pos:'sr',strips:[['ADALET VE KALKINMA PARTİSİ',1,2,'A']]},
+      {id:'b4',pos:'sl',strips:[['HALKLARIN EŞİTLİK VE DEMOKRASİ PARTİSİ',1,2,'D']]},
+      {id:'b5',pos:'sr',strips:[['ADALET VE KALKINMA PARTİSİ',1,2,'A']]},
+      {id:'b6',pos:'sl',strips:[['CUMHURİYET HALK PARTİSİ',1,2,'C']]}
+    ];
+    const DIVAN=[['orhan.erdem','Sözcü'],['mehmet.mus','Başkan'],['ismailfaruk.aksu','Başkanvekili'],['nilgun.ok','Katip']];
+    const PRESET={
+      'b1-1-3':'mustafabaki.ersoy','b1-1-4':'ismailfaruk.aksu','b1-2-4':'mustafa.kalayci',
+      'b2-1-1':'sadullahkisacik','b2-2-1':'erhan.usta','b2-2-2':'ayyuce.turkestas',
+      'b3-1-2':'ahmet.kilic','b3-1-3':'suleyman.sahan','b3-1-4':'ismail.gunes','b3-2-2':'seydi.gulsoy','b3-2-3':'orhan.erdem','b3-2-4':'orhan.yegin',
+      'b4-1-1':'adalet.kaya','b4-1-2':'kamuran.tanhan','b4-2-1':'saruhanoluc',
+      'b5-1-1':'ersan.aksu','b5-1-2':'necmettin.erkan','b5-1-3':'huseyin.altinsoy','b5-1-4':'yasar.kirkpinar',
+      'b5-2-1':'ertugrul.kocacik','b5-2-2':'ejder.acikkapi','b5-2-3':'resul.kurt','b5-2-4':'nilgun.ok',
+      'b6-1-1':'veli.agbaba','b6-1-2':'vehbi.bakirlioglu','b6-1-3':'mustafa.erdem3',
+      'b6-2-1':'rahmiaskin.tureli','b6-2-2':'cavit.ari','b6-2-3':'cevdet.akay','b6-2-4':'tahsin.ocakli'
+    };
+    const ids=[];BL.forEach(b=>{for(let r=1;r<=2;r++)for(let c=1;c<=4;c++)ids.push(b.id+'-'+r+'-'+c)});
+    const idOk=id=>/^b[1-6]-[12]-[1-4]$/.test(id);
+    let seats={};
+    try{const j=JSON.parse(localStorage.getItem(LS)||'{}');Object.keys(j).forEach(id=>{if(idOk(id)&&byKey[j[id]])seats[id]=j[id]})}catch(_){}
+    const save=()=>{try{localStorage.setItem(LS,JSON.stringify(seats))}catch(_){}};
+    const photoOf=r=>PHOTOS[r.sort+'|'+r.il]||PHOTOS[r.sort];
+    const ini=r=>r.name.split(' ').filter(Boolean).map(w=>w[0]).slice(0,2).join('').toLocaleUpperCase(TR);
+    const PLUS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+    const phHtml=r=>{const ph=photoOf(r);return '<span class="ot-ph">'+(ph?'<img src="'+ph+'" alt="" loading="lazy">':'<span class="ot-ini">'+esc(ini(r))+'</span>')+'</span>'};
+    const nameHtml=r=>'<span class="ot-nm">'+esc(r.name)+'</span><span class="ot-il">('+esc(r.il)+')</span>';
+    const rowName=(b,r)=>{const st=b.strips.find(x=>r>=x[1]&&r<=x[2]);return st?st[0]:''};
+    const rowParty=(b,r)=>{const st=b.strips.find(x=>r>=x[1]&&r<=x[2]);return st?st[3]:''};
+    function render(){
+      board.innerHTML=BL.map(b=>{
+        let cells='';
+        for(let r=1;r<=2;r++)for(let c=1;c<=4;c++){
+          const id=b.id+'-'+r+'-'+c,m=byKey[seats[id]],lbl=rowName(b,r)+' · '+r+'. sıra · '+c+'. koltuk';
+          cells+=m
+            ?'<button type="button" class="ot-seat" data-seat="'+id+'" aria-label="'+esc(lbl+': '+m.name+' — değiştir')+'">'+phHtml(m)+nameHtml(m)+'</button>'
+            :'<button type="button" class="ot-seat" data-seat="'+id+'" aria-label="'+esc(lbl+': boş — milletvekili seç')+'"><span class="ot-ph ot-plus">'+PLUS+'</span><span class="ot-nm"></span><span class="ot-il"></span></button>';
+        }
+        const strips='<div class="ot-strips">'+b.strips.map(st=>'<div class="ot-strip" style="grid-row:'+st[1]+(st[2]>st[1]?'/'+(st[2]+1):'')+'">'+esc(st[0])+'</div>').join('')+'</div>';
+        const grid='<div class="ot-grid">'+cells+'</div>';
+        return '<div class="ot-block '+b.pos+'">'+(b.pos==='sl'?strips+grid:grid+strips)+'</div>';
+      }).join('');
+      $('ot-divan').innerHTML=DIVAN.map(([k,role])=>{const m=byKey[k];
+        return m?'<div class="ot-seat ot-fixed">'+phHtml(m)+nameHtml(m)+'<span class="ot-role">'+role+'</span></div>':''}).join('');
+      const n=Object.keys(seats).length;
+      $('ot-stat').textContent=n+' / '+ids.length+' koltuk dolu';
+    }
+    /* seçim penceresi */
+    const dlg=document.createElement('dialog');dlg.className='ot-dlg';dlg.setAttribute('aria-labelledby','ot-dt');
+    dlg.innerHTML='<form method="dialog" class="ot-df"><div class="ot-dh"><h3 id="ot-dt"></h3><button value="x" class="ot-x" aria-label="Kapat">✕</button></div>'+
+      '<input type="search" id="ot-q" placeholder="Ad, il veya parti ara…" autocomplete="off" spellcheck="false">'+
+      '<label class="ot-chk"><input type="checkbox" id="ot-all"> Tüm partilerden ara</label>'+
+      '<ul class="ot-list" id="ot-list"></ul>'+
+      '<div class="ot-df-foot"><button type="button" id="ot-clear" class="ot-btn ot-danger">Koltuğu boşalt</button><button value="x" class="ot-btn">Kapat</button></div></form>';
+    document.body.appendChild(dlg);
+    let cur=null,hint='';
+    const seatOf=key=>Object.keys(seats).find(id=>seats[id]===key);
+    function fillList(){
+      const q=norm($('ot-q').value.trim().replace(/\s+/g,' ')),toks=q.split(' ').filter(Boolean),all=$('ot-all').checked||!hint;
+      const hit=ROWS.filter(r=>(all||r.p===hint)&&toks.every(t=>r.hay.includes(t))).sort(SORTS.name);
+      const lim=hit.slice(0,60);
+      $('ot-list').innerHTML=lim.length?lim.map(r=>{const ph=photoOf(r),s=seatOf(r.key);
+        return '<li><button type="button" class="ot-li" data-k="'+esc(r.key)+'">'+(ph?'<img class="ot-th" src="'+ph+'" alt="">':'<span class="ot-th"></span>')+
+          '<span><b>'+esc(r.name)+'</b><small>'+esc(r.il)+' · '+esc(PARTY[r.p])+'</small></span>'+(s&&s!==cur?'<em>başka koltukta</em>':'')+'</button></li>'}).join('')
+        +(hit.length>60?'<li class="ot-empty">'+(hit.length-60)+' kişi daha var, aramayı daraltın.</li>':'')
+        :'<li class="ot-empty">Eşleşen milletvekili yok.</li>';
+    }
+    function openSeat(id){
+      cur=id;const [bid,r,c]=id.split('-'),b=BL.find(x=>x.id===bid);hint=rowParty(b,+r);
+      $('ot-dt').textContent=rowName(b,+r)+' · '+r+'. sıra · '+c+'. koltuk';
+      $('ot-q').value='';$('ot-all').checked=false;$('ot-all').parentNode.hidden=!hint;
+      $('ot-clear').hidden=!seats[id];
+      fillList();dlg.showModal();
+      if(!matchMedia('(pointer:coarse)').matches)$('ot-q').focus();
+    }
+    $('ot-q').addEventListener('input',fillList);
+    $('ot-all').addEventListener('change',fillList);
+    $('ot-list').addEventListener('click',e=>{
+      const b=e.target.closest('.ot-li');if(!b||!cur)return;
+      const key=b.dataset.k,old=seatOf(key);if(old)delete seats[old];
+      seats[cur]=key;save();render();dlg.close();
+    });
+    $('ot-clear').addEventListener('click',()=>{if(cur){delete seats[cur];save();render()}dlg.close()});
+    dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+    board.addEventListener('click',e=>{const b=e.target.closest('.ot-seat');if(b&&b.dataset.seat)openSeat(b.dataset.seat)});
+    /* araçlar */
+    const say=t=>{$('ot-stat').textContent=t;setTimeout(render,3500)};
+    $('ot-preset').addEventListener('click',()=>{
+      if(Object.keys(seats).length&&!confirm('Mevcut yerleşim silinip PDF’teki yerleşim yüklensin mi?'))return;
+      seats={};Object.keys(PRESET).forEach(id=>{if(byKey[PRESET[id]])seats[id]=PRESET[id]});save();render();
+    });
+    $('ot-reset').addEventListener('click',()=>{if(!Object.keys(seats).length)return;if(confirm('Tüm koltuklar boşaltılsın mı? (Divan sabit kalır)')){seats={};save();render()}});
+    $('ot-export').addEventListener('click',()=>{
+      const out={};ids.forEach(id=>out[id]=seats[id]||null);
+      const blob=new Blob([JSON.stringify({surum:1,aciklama:'Koltuk kimliği: blok-sıra-koltuk (b1..b6, 1-2, 1-4). Değer: milletvekili anahtarı (ör. orhan.erdem) ya da tam ad; boş için null.',seats:out},null,2)],{type:'application/json'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='oturma-duzeni.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    });
+    const resolve=v=>{if(v==null||v==='')return null;v=String(v).trim();if(byKey[v])return v;const n=norm(v),m=ROWS.filter(r=>norm(r.name)===n);return m.length===1?m[0].key:null};
+    $('ot-file').addEventListener('change',e=>{
+      const f=e.target.files&&e.target.files[0];if(!f)return;
+      const rd=new FileReader();
+      rd.onload=()=>{
+        try{
+          const j=JSON.parse(rd.result),src=j&&j.seats?j.seats:j,next={};let bad=0;
+          Object.keys(src).forEach(id=>{if(!idOk(id)){if(id!=='surum'&&id!=='aciklama')bad++;return}
+            if(src[id]==null||src[id]==='')return;const k=resolve(src[id]);if(k)next[id]=k;else bad++});
+          const used={};Object.keys(next).forEach(id=>{if(used[next[id]])delete next[id],bad++;else used[next[id]]=1});
+          seats=next;save();render();
+          say(Object.keys(next).length+' koltuk yüklendi'+(bad?' · '+bad+' satır eşleşmedi':''));
+        }catch(_){say('Dosya okunamadı: geçerli bir JSON değil')}
+        e.target.value='';
+      };
+      rd.readAsText(f);
+    });
+    render();
+  })();
   const hemiEl=$('hemi'),hemiN=$('hemi-n'),hemiL=$('hemi-l'),hemiS=$('hemi-s');
   const TOTAL=600,EMPTY=Math.max(0,TOTAL-ROWS.length);
   const seatCnt={};ROWS.forEach(r=>seatCnt[r.p]=(seatCnt[r.p]||0)+1);
@@ -1102,7 +1378,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 (function(){
 var w=document.getElementById('gundem-projeksiyonu');if(!w)return;
 var tg=document.getElementById('gp-toggle'),tt=tg.querySelector('.gp-tt'),arrow=tg.lastElementChild;
-function setOpen(o){w.classList.toggle('gp-collapsed',!o);tg.setAttribute('aria-expanded',o);tt.textContent=o?'Kapat':'Aç';arrow.textContent=o?'▲':'▼'}
+function setOpen(o){w.classList.toggle('gp-collapsed',!o);tg.setAttribute('aria-expanded',o);tt.textContent=o?'Gizle':'Göster';arrow.textContent=o?'▴':'▾'}
 tg.addEventListener('click',function(){setOpen(w.classList.contains('gp-collapsed'))});
 var t1=document.getElementById('gp-tab1'),t2=document.getElementById('gp-tab2'),p1=document.getElementById('gp-p1'),p2=document.getElementById('gp-p2'),tools=document.getElementById('gp-tools');
 function tab(n){var one=n===1;t1.setAttribute('aria-selected',one);t2.setAttribute('aria-selected',!one);t1.tabIndex=one?0:-1;t2.tabIndex=one?-1:0;p1.hidden=!one;p2.hidden=one;tools.style.visibility=one?'visible':'hidden'}
@@ -1139,16 +1415,7 @@ e.preventDefault();q.focus();q.select();q.scrollIntoView({block:'center',behavio
 document.querySelectorAll('#butcebox .st-up').forEach(function(b){b.addEventListener('click',function(){var d=b.closest('details.st-sec');if(!d)return;d.open=false;var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.scrollIntoView({behavior:r?'auto':'smooth',block:'center'})})});
 })();
 </script>
-<script>
-(function(){
-var map=[['a[href="#ayrilanlar"]','gonebox'],['#jump-comm','commbox'],['#jump-comm2','commbox2'],['#jump-butce','butcebox'],['#jump-gp','gp']];
-function isOpen(k){if(k==='gp'){var w=document.getElementById('gundem-projeksiyonu');return !!w&&!w.classList.contains('gp-collapsed')}var d=document.getElementById(k);return !!d&&d.open}
-function sync(){map.forEach(function(m){var a=document.querySelector('.jump '+m[0]);if(!a)return;var o=isOpen(m[1]);a.setAttribute('data-open',o?'1':'0');var t=a.querySelector('.jt');if(t)t.textContent=o?'Açık ✓':'Göster ▾'})}
-map.forEach(function(m){var d=document.getElementById(m[1]);if(d&&d.tagName==='DETAILS')d.addEventListener('toggle',sync)});
-var w=document.getElementById('gundem-projeksiyonu');if(w&&window.MutationObserver)new MutationObserver(sync).observe(w,{attributes:true,attributeFilter:['class']});
-document.querySelector('.jump').addEventListener('click',function(){setTimeout(sync,0);setTimeout(sync,300)});
-sync();
-})();
-</script>
+
+
 </body>
 </html>
