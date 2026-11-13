@@ -484,6 +484,13 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   .st-tiles b{font-size:17px}
   .st-tiles span{font-size:12px;margin-top:3px;line-height:1.3}
 }
+
+/* Bölüm kısayolları: açılabilir göstergesi */
+.jump .jt{flex:none;margin-left:2px;padding:4px 11px;border:1.5px solid currentColor;border-radius:999px;font:700 12.5px var(--font-body);white-space:nowrap;background:transparent;color:inherit}
+.jump a[data-open="1"] .jt{background:var(--jf,var(--accent));color:var(--jb,var(--accent-fg));border-color:var(--jf,var(--accent))}
+.jump a:hover .jt{border-color:currentColor}
+.jump a[data-open="1"]:hover .jt{background:var(--jb,var(--accent-fg));color:var(--jf,var(--accent))}
+@media (max-width:480px){.jump .jt{padding:3px 9px;font-size:12px}}
 /* ===== /Gündem Projeksiyonu ===== */
 </style>
 </head>
@@ -493,7 +500,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     <p class="eyebrow">TBMM · 28. Dönem</p>
     <h1>Milletvekili Rehberi</h1>
     <p class="lede">Ada, ile, partiye göre ara. Sonuçlar yazdıkça güncellenir.</p>
-    <p class="jump"><a href="#ayrilanlar" class="j-gone"><span class="num">8</span><span>Görevden ayrılan vekiller</span><span class="sm">vefat, istifa, düşme ↓</span></a><a href="#komisyon" id="jump-comm" class="j-plan"><span class="num">31</span><span>Plan ve Bütçe Komisyonu</span><span class="sm">üyeler ↓</span></a><a href="#komisyon-saglik" id="jump-comm2" class="j-saglik"><span class="num">26</span><span>Sağlık, Aile, Çalışma ve Sosyal İşler Komisyonu</span><span class="sm">üyeler ↓</span></a><a href="#gundem-projeksiyonu" id="jump-gp" class="j-butce"><span class="num">13</span><span>Gündem Projeksiyonu</span><span class="sm">16 Kasım oturumu ↓</span></a><a href="#butce-ist" id="jump-butce" class="j-butce"><span class="num">2025</span><span>Sağlık bütçesi görüşmesi</span><span class="sm">istatistikler ↓</span></a></p>
+    <p class="jump"><a href="#ayrilanlar" class="j-gone"><span class="num">8</span><span>Görevden ayrılan vekiller</span><span class="sm">vefat, istifa, düşme</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#komisyon" id="jump-comm" class="j-plan"><span class="num">31</span><span>Plan ve Bütçe Komisyonu</span><span class="sm">üyeler</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#komisyon-saglik" id="jump-comm2" class="j-saglik"><span class="num">26</span><span>Sağlık, Aile, Çalışma ve Sosyal İşler Komisyonu</span><span class="sm">üyeler</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#gundem-projeksiyonu" id="jump-gp" class="j-butce"><span class="num">13</span><span>Gündem Projeksiyonu</span><span class="sm">16 Kasım oturumu</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a><a href="#butce-ist" id="jump-butce" class="j-butce"><span class="num">2025</span><span>Sağlık bütçesi görüşmesi</span><span class="sm">istatistikler</span><span class="jt" data-st="Göster ▾">Göster ▾</span></a></p>
   </header>
   <details class="hemi" id="hemibox">
     <summary><h2 id="hemi-h">Meclis'te sandalye dağılımı</h2><span class="cnt" id="hemi-cnt"></span></summary>
@@ -1130,6 +1137,17 @@ e.preventDefault();q.focus();q.select();q.scrollIntoView({block:'center',behavio
 <script>
 (function(){
 document.querySelectorAll('#butcebox .st-up').forEach(function(b){b.addEventListener('click',function(){var d=b.closest('details.st-sec');if(!d)return;d.open=false;var r=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;d.scrollIntoView({behavior:r?'auto':'smooth',block:'center'})})});
+})();
+</script>
+<script>
+(function(){
+var map=[['a[href="#ayrilanlar"]','gonebox'],['#jump-comm','commbox'],['#jump-comm2','commbox2'],['#jump-butce','butcebox'],['#jump-gp','gp']];
+function isOpen(k){if(k==='gp'){var w=document.getElementById('gundem-projeksiyonu');return !!w&&!w.classList.contains('gp-collapsed')}var d=document.getElementById(k);return !!d&&d.open}
+function sync(){map.forEach(function(m){var a=document.querySelector('.jump '+m[0]);if(!a)return;var o=isOpen(m[1]);a.setAttribute('data-open',o?'1':'0');var t=a.querySelector('.jt');if(t)t.textContent=o?'Açık ✓':'Göster ▾'})}
+map.forEach(function(m){var d=document.getElementById(m[1]);if(d&&d.tagName==='DETAILS')d.addEventListener('toggle',sync)});
+var w=document.getElementById('gundem-projeksiyonu');if(w&&window.MutationObserver)new MutationObserver(sync).observe(w,{attributes:true,attributeFilter:['class']});
+document.querySelector('.jump').addEventListener('click',function(){setTimeout(sync,0);setTimeout(sync,300)});
+sync();
 })();
 </script>
 </body>
