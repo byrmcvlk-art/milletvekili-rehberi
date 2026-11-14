@@ -757,6 +757,9 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .bp-pk-list em{font-style:normal;color:var(--o-f);font-weight:600}
 .bp-pk-info{margin:6px 0 0!important}
 .bp-or{margin:10px 0 4px;font-size:12.5px;color:var(--muted)}
+
+.bp-pk-list button.bp-pk-dep{display:flex;align-items:center;gap:10px}
+.bp-pk-dep .ot-th{width:40px;height:40px;border-radius:6px;object-fit:cover;flex:none}
 </style>
 </head>
 <body>
@@ -931,13 +934,14 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     <p class="ot-hint ot-rel"><b>İki sekme aynı salonun (Bütçe Salonu, D-121) iki görünümüdür.</b> Tüm Salon Planı, Parti/Milletvekili Koltukları'na ek olarak Bütçe Başkanlığı, yasama uzmanları ve stenograf koltuklarını da gösterir.</p>
     <div class="ot-view" id="ot-view-d121">
     <div class="ot-tools">
-      <button type="button" class="ot-btn" id="ot-preset">PDF'teki yerleşimi yükle</button>
+      <label class="ot-btn ot-file">PDF'den yükle<input type="file" id="ot-pdf" accept=".pdf,application/pdf" hidden></label>
+      <button type="button" class="ot-btn" id="ot-preset">Hazır yerleşimi yükle</button>
       <label class="ot-btn ot-file">Dosyadan yükle (JSON)<input type="file" id="ot-file" accept=".json,application/json" hidden></label>
       <button type="button" class="ot-btn" id="ot-export">Dışa aktar / şablon indir</button>
       <button type="button" class="ot-btn ot-danger" id="ot-reset">Tümünü boşalt</button>
       <span class="ot-stat" id="ot-stat" role="status" aria-live="polite"></span>
     </div>
-    <p class="ot-hint">Boş koltuğa dokunarak milletvekili seçin; dolu koltuğa dokunarak değiştirin veya boşaltın. Başkanlık divanı sabittir. Yerleşim bu tarayıcıda saklanır.</p>
+    <p class="ot-hint">Boş koltuğa dokunarak milletvekili seçin; dolu koltuğa dokunarak değiştirin veya boşaltın. Yerleşimi hazır bir PDF'den de yükleyebilirsiniz (PDF'de milletvekili adları yazılı olmalı; metin olarak seçilebilen PDF gerekir). Başkanlık divanı sabittir. Yerleşim bu tarayıcıda saklanır.</p>
     <div class="ot-title">PLAN VE BÜTÇE KOMİSYONU D-121 NUMARALI TOPLANTI SALONU OTURMA DÜZENİ</div>
     <div id="oturma-board" class="ot-board"></div>
     <div class="ot-divan-wrap"><div class="ot-divan" id="ot-divan"></div><div class="ot-bar">KOMİSYON BAŞKANLIK DİVANI</div></div>
@@ -957,7 +961,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
       <dialog class="bp-dlg" id="bp-edit"><form id="bp-edit-form" method="dialog">
         <h3 id="bp-e-seat">Koltuk</h3>
         <div class="bp-pick" id="bp-pick" hidden>
-          <div class="bp-pk-tabs" role="group" aria-label="Liste seçimi"><button type="button" class="ot-btn" id="bp-pk-a" aria-pressed="true"></button><button type="button" class="ot-btn" id="bp-pk-b" aria-pressed="false"></button></div>
+          <div class="bp-pk-tabs" role="group" aria-label="Liste seçimi"><button type="button" class="ot-btn" id="bp-pk-b" aria-pressed="true"></button><button type="button" class="ot-btn" id="bp-pk-a" aria-pressed="false"></button></div>
           <input type="search" id="bp-pk-q" placeholder="Listeden ara: ad, unvan veya kurum" autocomplete="off" aria-label="Listeden ara">
           <ul id="bp-pk-list" class="bp-pk-list"></ul>
           <p class="ot-hint bp-pk-info" id="bp-pk-info"></p>
@@ -1415,6 +1419,58 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
       if(Object.keys(seats).length&&!confirm('Mevcut yerleşim silinip PDF’teki yerleşim yüklensin mi?'))return;
       seats={};Object.keys(PRESET).forEach(id=>{if(byKey[PRESET[id]])seats[id]=PRESET[id]});save();render();
     });
+
+    /* ===== PDF'den yerleşim yükleme ===== */
+    const PARTY_LETTERS=new Set();BL.forEach(b=>b.strips.forEach(st=>PARTY_LETTERS.add(st[3])));
+    const blk=p=>p==='N'?'C':p; /* CHP bloğunda oturan Yeni Parti üyeleri (hazır yerleşimdeki gibi) CHP bloğuna yazılır */
+    const seatsOfParty=L=>{const out=[];BL.forEach(b=>{for(let r=1;r<=2;r++){if(rowParty(b,r)!==L)continue;for(let c=1;c<=4;c++)out.push(b.id+'-'+r+'-'+c)}});return out};
+    async function pdfItems(buf){
+      if(window.__otPdfItems)return window.__otPdfItems;
+      if(!window.pdfjsLib){await new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';sc.onload=res;sc.onerror=()=>rej(new Error('net'));document.head.appendChild(sc)});
+        pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'}
+      const pdf=await pdfjsLib.getDocument({data:buf}).promise,items=[];
+      for(let p=1;p<=pdf.numPages;p++){const tc=await(await pdf.getPage(p)).getTextContent();
+        tc.items.forEach(it=>{if(it.str&&it.str.trim())items.push({pg:p,s:it.str.trim(),x:it.transform[4],y:it.transform[5],w:it.width||0,h:Math.abs(it.height||it.transform[3]||8)})})}
+      return items;
+    }
+    /* metin parçalarını koltuk kutularına (alt alta duran satırlar) göre grupla */
+    function clusterItems(items){
+      const cl=[];
+      items.slice().sort((a,b)=>a.pg-b.pg||b.y-a.y||a.x-b.x).forEach(it=>{
+        const cx=it.x+it.w/2;
+        const c=cl.find(c=>c.pg===it.pg&&Math.abs(c.cx-cx)<Math.max(c.w,it.w)*0.6+4&&c.y-it.y>0&&c.y-it.y<Math.max(it.h,c.h)*2.2);
+        if(c){c.parts.push(it.s);c.y=it.y;c.h=Math.max(c.h,it.h);c.w=Math.max(c.w,it.w);c.cx=(c.cx+cx)/2}
+        else cl.push({pg:it.pg,cx,x:it.x,y:it.y,y0:it.y,h:it.h,w:it.w,parts:[it.s]})});
+      return cl;
+    }
+    function planFromItems(items){
+      const cands=ROWS.filter(r=>PARTY_LETTERS.has(blk(r.p))).map(r=>({r,tok:norm(r.name).split(' ').filter(Boolean)})).filter(c=>c.tok.length>=2);
+      const found=[],seen=new Set();
+      clusterItems(items).forEach(c=>{
+        const words=new Set(norm(c.parts.join(' ')).split(' ').filter(Boolean));
+        let best=null;
+        cands.forEach(m=>{if(seen.has(m.r.key))return;if(m.tok.every(t=>words.has(t))&&(!best||m.tok.length>best.tok.length))best=m});
+        if(best){seen.add(best.r.key);found.push({key:best.r.key,p:blk(best.r.p),pg:c.pg,x:c.x,y:c.y0})}});
+      const placed={},extra=[];
+      PARTY_LETTERS.forEach(L=>{
+        const list=found.filter(f=>f.p===L).sort((a,b)=>a.pg-b.pg||Math.round(b.y/8)-Math.round(a.y/8)||a.x-b.x),ids=seatsOfParty(L);
+        list.forEach((f,i)=>{if(i<ids.length)placed[ids[i]]=f.key;else extra.push(f.key)})});
+      return {found:found.length,placed,extra};
+    }
+    $('ot-pdf').addEventListener('change',async e=>{
+      const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+      say('PDF okunuyor…');
+      try{
+        const buf=await f.arrayBuffer(),items=await pdfItems(buf);
+        if(!items.length){say('PDF’de seçilebilir metin yok (taranmış görüntü olabilir)');return}
+        const pl=planFromItems(items),n=Object.keys(pl.placed).length;
+        if(!n){say('PDF’de eşleşen milletvekili adı bulunamadı');return}
+        const msg=pl.found+' milletvekili adı bulundu, '+n+' koltuğa yerleştirilecek'+(pl.extra.length?' ('+pl.extra.length+' kişi için partisinin koltuğu yetmedi)':'')+'.\nMevcut yerleşim silinip değiştirilsin mi?';
+        if(Object.keys(seats).length&&!confirm(msg))return;
+        seats=pl.placed;save();render();
+        say(n+' koltuk PDF’den yüklendi'+(pl.extra.length?' · '+pl.extra.length+' kişi sığmadı':'')+'. Gerekirse koltuklara dokunup düzeltin.');
+      }catch(err){say(/net/.test(String(err&&err.message))?'PDF okuyucu yüklenemedi (internet bağlantısı gerekli)':'PDF okunamadı')}
+    });
     $('ot-reset').addEventListener('click',()=>{if(!Object.keys(seats).length)return;if(confirm('Tüm koltuklar boşaltılsın mı? (Divan sabit kalır)')){seats={};save();render()}});
     $('ot-export').addEventListener('click',()=>{
       const out={};ids.forEach(id=>out[id]=seats[id]||null);
@@ -1507,10 +1563,11 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     let bs=null;
     try{const j=JSON.parse(localStorage.getItem(BKEY));if(j&&typeof j==='object'&&!Array.isArray(j))bs=j}catch(_){}
     if(!bs)bs=JSON.parse(JSON.stringify(DEFAULT_SEATS));
-    const saveB=()=>{try{localStorage.setItem(BKEY,JSON.stringify(bs))}catch(_){}};
+    const LOCKED={y3:1};const lockY=()=>{Object.keys(LOCKED).forEach(id=>{bs[id]=Object.assign({},DEFAULT_SEATS[id])})};
+    const saveB=()=>{lockY();try{localStorage.setItem(BKEY,JSON.stringify(bs))}catch(_){}};
     const statB=$('bp-stat');
     const cleanSeats=o=>{const r={};Object.keys(o||{}).forEach(id=>{const v=o[id];if(SBY[id]&&v&&typeof v.n==='string'&&v.n.trim())r[id]={n:v.n.trim().slice(0,80),t:String(v.t||'').trim().slice(0,80),k:String(v.k||'').trim().slice(0,80)};if(typeof v.p==='string'&&v.p.indexOf('data:image/')===0)r[id].p=v.p});return r};
-    bs=cleanSeats(bs);
+    bs=cleanSeats(bs);lockY();
     Object.keys(DEFAULT_SEATS).forEach(id=>{const d=DEFAULT_SEATS[id];if(bs[id]&&!bs[id].p&&bs[id].n===d.n)bs[id].p=d.p});
     const clip=(t,max)=>t.length>max?t.slice(0,Math.max(1,max-1))+'…':t;
     const wrapTxt=(t,max,maxL)=>{const w=String(t).split(/\s+/).filter(Boolean),L=[];let cur='';w.forEach(x=>{if(cur&&(cur+' '+x).length>max){L.push(cur);cur=x}else cur=cur?cur+' '+x:x});if(cur)L.push(cur);if(L.length>maxL){L.length=maxL;L[maxL-1]=clip(L[maxL-1],max)}return L.map(l=>clip(l,max))};
@@ -1554,23 +1611,27 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     /* ===== Listeden seçim (Bürokrat koltukları) ===== */
     const LIST_A=[["Hasan Güler","Bakan Danışmanı","Sağlık Bakanlığı"],["Abdurrahman Tığ","Bakan Danışmanı","Sağlık Bakanlığı"],["Abdulhamit Kılıçdere","Bakan Danışmanı","Sağlık Bakanlığı"],["Gülsemin Filiz","Basın Müşaviri","Basın Müşavirliği"],["Eray Çınar","Genel Müdür","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Şükrü Yorulmaz","Genel Müdür Yardımcısı","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Erdal Çenesiz","Daire Başkanı","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["İlyas Çavuş","Daire Başkanı","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Kerem Dost Bilmez","Daire Başkanı","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Muhammed Saltuk Deniz","Daire Başkanı","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Murat Genç","Daire Başkanı","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Şamil Kurgun","Daire Başkanı","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Aziz Alper Biten","Genel Müdür","Avrupa Birliği ve Dış İlişkiler Genel Müdürlüğü"],["Azmi Ekmen","Daire Başkanı","Avrupa Birliği ve Dış İlişkiler Genel Müdürlüğü"],["Ercan Kurnaz","Daire Başkanı","Avrupa Birliği ve Dış İlişkiler Genel Müdürlüğü"],["Yusuf Irmak","Daire Başkanı","Avrupa Birliği ve Dış İlişkiler Genel Müdürlüğü"],["Celal Orhun Ecemiş","Daire Başkanı","Avrupa Birliği ve Dış İlişkiler Genel Müdürlüğü"],["Güvenç Güngör","Daire Başkanı","Avrupa Birliği ve Dış İlişkiler Genel Müdürlüğü"],["Erdoğan Öz","Genel Müdür V.","Halk Sağlığı Genel Müdürlüğü"],["Hamit Harun Bağcı","Genel Müdür Yardımcısı","Halk Sağlığı Genel Müdürlüğü"],["Murat Ağırtaş","Genel Müdür Yardımcısı","Halk Sağlığı Genel Müdürlüğü"],["Ömer Bircan","Genel Müdür Yardımcısı V.","Halk Sağlığı Genel Müdürlüğü"],["Mehmet Balcı","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Halil Şen","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Yüksel Hakan Aydoğmuş","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Tuba Esra Şahlar","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Ayşe Gökçen Gündoğmuş","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Hüseyin Alperen Güldiken","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Faruk Çağlar","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Tuğba Güler Sönmez","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Tacettin Kızılboğa","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Muhammed Zahid Kaya","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Aslıhan Külekçi Uğur","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Salih Ayan","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Burak Şentürk","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Edibe Nurzen Namlı Bozkurt","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Kanuni Keklik","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Nurgül Özcan","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Seher Topluoğlu","Daire Başkanı","Halk Sağlığı Genel Müdürlüğü"],["Ülker Kuğu","Genel Müdür","Hukuk Hizmetleri Genel Müdürlüğü"],["Hakan Bozkurt","Genel Müdür Yardımcısı","Hukuk Hizmetleri Genel Müdürlüğü"],["Olcay Kutlubay","Genel Müdür Yardımcısı V.","Hukuk Hizmetleri Genel Müdürlüğü"],["Çağrı Çeliköz","Daire Başkanı","Hukuk Hizmetleri Genel Müdürlüğü"],["Çiçek Zeytinoğlu","Daire Başkanı","Hukuk Hizmetleri Genel Müdürlüğü"],["Hamza Keleş","Daire Başkanı","Hukuk Hizmetleri Genel Müdürlüğü"],["Özge Bahadır Coşkun","Daire Başkanı","Hukuk Hizmetleri Genel Müdürlüğü"],["Muhammed Emin Demirkol","Genel Müdür","Kamu Hastaneleri Genel Müdürlüğü"],["Muhammed Nur Ögün","Genel Müdür Yardımcısı","Kamu Hastaneleri Genel Müdürlüğü"],["Alparslan Kürşat Hacımustafaoğlu","Genel Müdür Yardımcısı","Kamu Hastaneleri Genel Müdürlüğü"],["Asibe Özkan","Genel Müdür Yardımcısı","Kamu Hastaneleri Genel Müdürlüğü"],["Bahar Aydınlı","Genel Müdür Yardımcısı","Kamu Hastaneleri Genel Müdürlüğü"],["Özkan Arslan","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Suat Çoban","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Yasin Şahin Oğuz","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Erman Eker","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Halil Beyazkendir","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Osman Bahçekapılı","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Mustafa Taşkın","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Pınar Koçatakan","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Rıdvan Erdin","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Ömer Lütfü Şentürk","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Emre Şahin","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Serkan Kuran","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Adil Emre Gezer","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Ayhan Demircan","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Füsun Afşar","Daire Başkanı","Kamu Hastaneleri Genel Müdürlüğü"],["Kenan Volkan Demirel","Genel Müdür","Sağlığın Geliştirilmesi Genel Müdürlüğü"],["Çağrı Emin Şahin","Genel Müdür Yardımcısı","Sağlığın Geliştirilmesi Genel Müdürlüğü"],["Arife Arslan Bucak","Daire Başkanı","Sağlığın Geliştirilmesi Genel Müdürlüğü"],["Şeyma Halaç","Daire Başkanı","Sağlığın Geliştirilmesi Genel Müdürlüğü"],["Betül Zehra Pirdal","Daire Başkanı","Sağlığın Geliştirilmesi Genel Müdürlüğü"],["Özgür Sezer","Genel Müdür","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Muhammed Şakir Toprak","Genel Müdür Yardımcısı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Cihan Nişancı","Genel Müdür Yardımcısı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Berrak Bora Başara","Daire Başkanı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Derya Şimşek","Daire Başkanı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Esra Muş","Daire Başkanı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Gamze Cimilli","Daire Başkanı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Mert Özcan","Daire Başkanı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Ali Çetin Kaya","Daire Başkanı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Nihat Barış Sebik","Daire Başkanı","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Hasan Basri Velioğlu","Genel Müdür","Sağlık Hizmetleri Genel Müdürlüğü"],["Mustafa Yenilmez","Genel Müdür Yardımcısı","Sağlık Hizmetleri Genel Müdürlüğü"],["Yusuf Akdoğan","Genel Müdür Yardımcısı","Sağlık Hizmetleri Genel Müdürlüğü"],["Sacit Türüdü","Genel Müdür Yardımcısı","Sağlık Hizmetleri Genel Müdürlüğü"],["Şehmus Ertekin","Genel Müdür Yardımcısı","Sağlık Hizmetleri Genel Müdürlüğü"],["Hamit Küçükünlü","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Muhammed Emin Başer","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Mehmet Ziya Kelat","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Gülsen Topaktaş","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Seher Taş","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Dilek Tarhan","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Bilgen Kibaroğlu","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Sultan Oğraş","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Avşar Aslan","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Kağan Karakaya","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Murat Gülşen","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Mustafa Kosdak","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Erkan Ölçücüoğlu","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Erkan Sanmak","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Nurullah İshak Işık","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Ali Serinoğlu","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["İbrahim Karakuş","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Elif Ceren Köker","Daire Başkanı","Sağlık Hizmetleri Genel Müdürlüğü"],["Adem Yılmaz","Genel Müdür","Sağlık Yatırımları Genel Müdürlüğü"],["İbrahim Söyler","Genel Müdür Yardımcısı","Sağlık Yatırımları Genel Müdürlüğü"],["Burkay Şimşek","Genel Müdür Yardımcısı","Sağlık Yatırımları Genel Müdürlüğü"],["Suat Diller","Genel Müdür Yardımcısı","Sağlık Yatırımları Genel Müdürlüğü"],["Hüseyin Yaşar","Genel Müdür Yardımcısı","Sağlık Yatırımları Genel Müdürlüğü"],["Yusuf Durnagöl","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Sara Sarıkahya","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Mücahit Uzunkaya","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Mustafa Sakarya","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Mehmet Yalınkılıç","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Ayşe Köse","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Mustafa Ulu","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Filiz Dölek","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Demet Keskin","Daire Başkanı","Sağlık Yatırımları Genel Müdürlüğü"],["Engin Karabaş","Strateji Geliştirme Başkanı","Strateji Geliştirme Başkanlığı"],["Abdullah Yusuf Uğuz","Daire Başkanı","Strateji Geliştirme Başkanlığı"],["Hasan Baytar","Daire Başkanı","Strateji Geliştirme Başkanlığı"],["Songül Doğan","Daire Başkanı","Strateji Geliştirme Başkanlığı"],["Türkan Algın","Daire Başkanı","Strateji Geliştirme Başkanlığı"],["Yalçın Özmutlu","Daire Başkanı","Strateji Geliştirme Başkanlığı"],["Yusuf Kara","Daire Başkanı","Strateji Geliştirme Başkanlığı"],["Erkan Hacıfazlıoğlu","Teftiş Kurulu Başkanı","Teftiş Kurulu Başkanlığı"],["Cengiz Yıldırım","Daire Başkanı","Teftiş Kurulu Başkanlığı"],["Sinem Aytekin Öğe","Daire Başkanı","Teftiş Kurulu Başkanlığı"],["Hüseyin Çelik","Kurum Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Ufuk Sovuksu","Kurum Başkan Yardımcısı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Eray Kaplan","Kurum Başkan Yardımcısı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["İbrahim Muaz Yaradılmış","Kurum Başkan Yardımcısı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Muhammet Tayfun Arık","Kurum Başkan Yardımcısı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Ömer Hakan Şimşek","Kurum Başkan Yardımcısı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Osman Gökbörü Han Kazancı","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Esra Gizem Türkcanoğlu","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Abdullah İbrahim Büyükkurt","Daire Başkanı","Titck Denetim Hizmetleri Başkan Yardımcılığı"],["Harun Cengiz Özmen","Daire Başkanı","Titck Denetim Hizmetleri Başkan Yardımcılığı"],["Muhammed Merve Öztürk","Daire Başkanı","Titck Denetim Hizmetleri Başkan Yardımcılığı"],["Zerrin Acar","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Hasan Coşkun","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Fatma İşli","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Hilal İnce","Daire Başkanı","Titck Destek Hizmetleri Başkan Yardımcılığı"],["Mümtaz Işık","Daire Başkanı","Titck Destek Hizmetleri Başkan Yardımcılığı"],["Sami Ayan","Daire Başkanı","Titck Destek Hizmetleri Başkan Yardımcılığı"],["Ayşegül Çelikkanat Öztürk","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Elif Avaner","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Sevinç Ayla Özsar","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Mehmet Zafer Kalaycı","Daire Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Osman Kan","Genel Müdür","Türkiye Hudut ve Sahiller Sağlık Genel Müdürlüğü"],["Fulya Kahraman Aydoğan","Genel Müdür Yardımcısı","Türkiye Hudut ve Sahiller Sağlık Genel Müdürlüğü"],["Ali Ulvi Ülker","Daire Başkanı","Türkiye Hudut ve Sahiller Sağlık Genel Müdürlüğü"],["Münip Ferruh Ersoy","Daire Başkanı","Thssgm İnsan Kaynakları Daire Başkanlığı"],["Bünyamin Bilgiç","Daire Başkanı","Thssgm Sağlık Hizmetleri Daire Başkanlığı"],["İbrahim Polat","Daire Başkanı","Thssgm Strateji Geliştirme Daire Başkanlığı"],["Rıza Çubukcu","Daire Başkanı","Thssgm Türk Boğazları ve Sağlık Denetimleri Daire Başkanlığı"],["İsmail Öztürk","Genel Müdür","Yönetim Hizmetleri Genel Müdürlüğü"],["İsmail Kaya","Genel Müdür Yardımcısı","Yönetim Hizmetleri Genel Müdürlüğü"],["Cihan Kudu","Genel Müdür Yardımcısı","Yönetim Hizmetleri Genel Müdürlüğü"],["Cihad Çağlayan","Genel Müdür Yardımcısı V.","Yönetim Hizmetleri Genel Müdürlüğü"],["Adem Tuncer","Genel Müdür Yardımcısı","Yönetim Hizmetleri Genel Müdürlüğü"],["Mehmet Akbayır","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Yunus Deniz","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Özer Çinar","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Muhsin Coştur","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Abdulkadir Bektaş","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Serdar Kızıl","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Zabit Melikoğulları","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Mehmet Sait Dikel","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Özgür İsmet Tamer","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Gökhan Aktürk","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Ertan Yılmaz","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Remzi Bozgan","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Erkan Çavuşoğlu","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Fuat Çalışkan","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Bekir Yigit","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Salim Yıldırım","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Mustafa Al","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Necati Akbaş","Daire Başkanı","Yönetim Hizmetleri Genel Müdürlüğü"],["Gökhan Yılmaz","Müstakil Daire Başkanı","Acil Durumlar ve Savunma Planlaması Dairesi Başkanlığı"]];
     const LIST_B=[["Hasan Güler","Bakan Danışmanı","Sağlık Bakanlığı"],["Abdurrahman Tığ","Bakan Danışmanı","Sağlık Bakanlığı"],["Abdulhamit Kılıçdere","Bakan Danışmanı","Sağlık Bakanlığı"],["Gülsemin Filiz","Basın Müşaviri","Basın Müşavirliği"],["Eray Çınar","Genel Müdür","Acil Sağlık Hizmetleri Genel Müdürlüğü"],["Aziz Alper Biten","Genel Müdür","Avrupa Birliği ve Dış İlişkiler Genel Müdürlüğü"],["Erdoğan Öz","Genel Müdür V.","Halk Sağlığı Genel Müdürlüğü"],["Ülker Kuğu","Genel Müdür","Hukuk Hizmetleri Genel Müdürlüğü"],["Muhammed Emin Demirkol","Genel Müdür","Kamu Hastaneleri Genel Müdürlüğü"],["Kenan Volkan Demirel","Genel Müdür","Sağlığın Geliştirilmesi Genel Müdürlüğü"],["Özgür Sezer","Genel Müdür","Sağlık Bilgi Sistemleri Genel Müdürlüğü"],["Hasan Basri Velioğlu","Genel Müdür","Sağlık Hizmetleri Genel Müdürlüğü"],["Adem Yılmaz","Genel Müdür","Sağlık Yatırımları Genel Müdürlüğü"],["Engin Karabaş","Strateji Geliştirme Başkanı","Strateji Geliştirme Başkanlığı"],["Erkan Hacıfazlıoğlu","Teftiş Kurulu Başkanı","Teftiş Kurulu Başkanlığı"],["Hüseyin Çelik","Kurum Başkanı","Türkiye İlaç ve Tıbbi Cihaz Kurumu"],["Osman Kan","Genel Müdür","Türkiye Hudut ve Sahiller Sağlık Genel Müdürlüğü"],["İsmail Öztürk","Genel Müdür","Yönetim Hizmetleri Genel Müdürlüğü"],["Gökhan Yılmaz","Müstakil Daire Başkanı","Acil Durumlar ve Savunma Planlaması Dairesi Başkanlığı"]];
-    const NA='Birim Amirleri',NB='Bürokrat Listesi';
+    const NA='Bakanlık Listesi',NB='Bürokrat Listesi';
     const nk=x=>String(x||'').replace(/\b(Prof|Doç|Dr|Öğr|Üyesi)\./g,'').replace(/\s+/g,' ').trim().toLocaleLowerCase('tr').replace(/ı/g,'i').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const DEPS=['y1','y2','y4','y5'].map(k=>DEFAULT_SEATS[k]).sort((a,b)=>a.n.localeCompare(b.n,'tr'));
     let pkList='A';
     const pkBox=$('bp-pick'),pkQ=$('bp-pk-q'),pkUl=$('bp-pk-list'),pkInfo=$('bp-pk-info');
     function pkSeated(){const m={};Object.keys(bs).forEach(id=>{if(id!==editId)m[nk(bs[id].n)]=SBY[id].no});return m}
     function pkRender(){
-      const src=pkList==='A'?LIST_A:LIST_B,q=nk(pkQ.value),seated=pkSeated();
+      const D=pkList==='D',src=D?DEPS:pkList==='A'?LIST_A:LIST_B,q=nk(pkQ.value),seated=pkSeated();
       $('bp-pk-a').setAttribute('aria-pressed',String(pkList==='A'));$('bp-pk-b').setAttribute('aria-pressed',String(pkList==='B'));
-      const hit=src.filter(it=>!q||nk(it.join(' ')).indexOf(q)>-1);
-      const free=src.filter(it=>!seated[nk(it[0])]).length;
-      pkUl.innerHTML=hit.slice(0,80).map((it,i)=>{const at=seated[nk(it[0])];
+      const hit=src.filter(it=>!q||nk(D?it.n+' '+it.t:it.join(' ')).indexOf(q)>-1);
+      const free=src.filter(it=>!seated[nk(D?it.n:it[0])]).length;
+      pkUl.innerHTML=hit.slice(0,80).map((it,i)=>{
+        if(D){const at=seated[nk(it.n)];return '<li><button type="button" class="bp-pk-dep" data-i="'+src.indexOf(it)+'"><img class="ot-th" src="'+it.p+'" alt=""><span><b>'+esc(it.n)+(at?' <em>· '+at+'\'te oturuyor, yer değiştirir</em>':'')+'</b><small>'+esc(it.t)+'</small></span></button></li>'}
+        const at=seated[nk(it[0])];
         return '<li><button type="button" data-i="'+src.indexOf(it)+'"'+(at?' disabled':'')+'><b>'+esc(it[0])+(at?' <em>· '+at+'\'te oturuyor</em>':'')+'</b><small>'+esc(it[1])+' · '+esc(it[2])+'</small></button></li>'}).join('')||'<li><small style="padding:8px 10px">Eşleşen kişi yok.</small></li>';
-      pkInfo.textContent=(pkList==='A'?NA:NB)+': '+src.length+' kişi · '+free+' kişi henüz koltuğa yerleştirilmedi'+(hit.length>80?' · ilk 80 sonuç gösteriliyor, aramayı daraltın':'')+'.';
+      pkInfo.textContent=D?('Bakan Yardımcıları: '+src.length+' kişi · isteğe bağlı seçim; fotoğraflı kişi koltuğa yerleşir.'):(pkList==='A'?NA:NB)+': '+src.length+' kişi · '+free+' kişi henüz koltuğa yerleştirilmedi'+(hit.length>80?' · ilk 80 sonuç gösteriliyor, aramayı daraltın':'')+'.';
     }
     function pkOpen(s){
-      const isB=s.k==='b';pkBox.hidden=!isB;if(!isB)return;
-      const n=+s.id.slice(1);pkList=n<=22?'A':'B';
+      pkBox.hidden=false;const isB=s.k==='b';document.querySelector('.bp-pk-tabs').hidden=!isB;
+      if(!isB){pkList='D';pkQ.value='';pkRender();return}
+      const n=+s.id.slice(1);pkList=n<=22?'B':'A';
       $('bp-pk-a').textContent=NA+' ('+LIST_A.length+')';$('bp-pk-b').textContent=NB+' ('+LIST_B.length+')';
       pkQ.value='';pkRender();
     }
@@ -1578,9 +1639,13 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     $('bp-pk-a').addEventListener('click',()=>{pkList='A';pkRender()});
     $('bp-pk-b').addEventListener('click',()=>{pkList='B';pkRender()});
     pkUl.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b||b.disabled)return;
+      if(pkList==='D'){const d=DEPS[+b.dataset.i];if(!d)return;const prev=bs[editId]?Object.assign({},bs[editId]):null;
+        const oid=Object.keys(bs).find(id=>id!==editId&&SBY[id].k==='y'&&!LOCKED[id]&&bs[id].n===d.n);
+        if(oid){if(prev)bs[oid]=prev;else delete bs[oid]}
+        bs[editId]=Object.assign({},d);saveB();draw();closeDlg(dlgE);return}
       const it=(pkList==='A'?LIST_A:LIST_B)[+b.dataset.i];if(!it)return;
       bs[editId]={n:it[0].slice(0,80),t:it[1].slice(0,80),k:it[2].slice(0,80)};saveB();draw();closeDlg(dlgE)});
-    function openEdit(id){const s=SBY[id],v=bs[id]||{};editId=id;
+    function openEdit(id){if(LOCKED[id])return;const s=SBY[id],v=bs[id]||{};editId=id;
       $('bp-e-seat').textContent=(s.k==='y'?'Yürütme':'Bürokrat')+' koltuğu · '+s.no+(s.lab?' ('+s.lab.toLocaleLowerCase(TR)+')':'');
       $('bp-e-n').value=v.n||'';$('bp-e-t').value=v.t||(s.lab==='BAKAN'?'Sağlık Bakanı':s.lab?'Sağlık Bakan Yardımcısı':'');$('bp-e-k').value=v.k||'';
       if(!v.n&&s.k==='y')$('bp-e-k').value='Sağlık Bakanlığı';
@@ -1700,7 +1765,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     const dl=(name,mime,txt)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:mime}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
     $('bp-tpl').addEventListener('click',()=>dl('butce-salonu-burokrat-sablonu.csv','text/csv;charset=utf-8','﻿Koltuk;Ad Soyad;Unvan;Kurum;Bölüm\r\n;Örnek Ad Soyad;Bakan Yardımcısı;Sağlık Bakanlığı;Yürütme\r\nB1;Örnek Ad Soyad;Genel Müdür;Sağlık Bakanlığı;Bürokrat\r\n;Örnek Ad Soyad;Daire Başkanı;Strateji Geliştirme Başkanlığı;Bürokrat\r\n'));
     $('bp-exp').addEventListener('click',()=>dl('butce-salonu-yerlesim.json','application/json',JSON.stringify({version:1,seats:bs},null,1)));
-    $('bp-clr').addEventListener('click',()=>{if(!Object.keys(bs).length)return;if(confirm('Tüm Yürütme ve Bürokrat koltukları boşaltılsın mı?')){bs={};saveB();draw()}});
+    $('bp-clr').addEventListener('click',()=>{if(!Object.keys(bs).length)return;if(confirm('Tüm Yürütme ve Bürokrat koltukları boşaltılsın mı? (Bakan sabittir, boşaltılmaz.)')){bs={};saveB();draw()}});
     /* Başkanlık Divanı kartları */
     const dvEl=$('bp-divan');
     if(dvEl)dvEl.innerHTML='<h3>Komisyon Başkanlık Divanı</h3><ul>'+memD.map(m=>{const ph=photoOf(m.r);
