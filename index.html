@@ -761,14 +761,73 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .bp-pk-list button.bp-pk-dep{display:flex;align-items:center;gap:10px}
 .bp-pk-dep .ot-th{width:40px;height:40px;border-radius:6px;object-fit:cover;flex:none}
 
-/* Sürüm notu ve güncelleme bildirimi */
-.ver-note{max-width:520px;margin:10px auto 0;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:13px;color:var(--muted);text-align:left}
-.ver-note b{color:var(--fg)}.ver-note ul{margin:6px 0 0;padding-left:18px}
-.upd-bar{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 32px);padding:10px 12px 10px 16px;border-radius:12px;background:var(--fg);color:var(--bg);font-size:13.5px;box-shadow:0 6px 24px rgba(0,0,0,.28)}
-.upd-bar[hidden]{display:none}
-.upd-bar button{height:34px;padding:0 14px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-fg);font-weight:600;cursor:pointer}
-.upd-bar .upd-x{background:none;color:inherit;opacity:.7;padding:0 6px;font-size:18px}
-.upd-bar button:focus-visible{outline:2px solid var(--bg);outline-offset:2px}
+.cepbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0 6px;font-size:13px;color:var(--muted)}
+.cep-b{height:32px;font-size:12.5px}
+.cep-msg{flex:1 0 100%;font-size:12.5px;color:var(--fg)}
+a.ico.place.cep-call{display:inline-flex;text-decoration:none}
+
+.ot-seat{position:relative}
+.ot-nb{position:absolute;top:4px;right:4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:var(--accent-fg);font:600 11px/18px var(--font-body);text-align:center;z-index:1}
+.ot-cdlg{width:min(560px,94vw);max-height:92vh;overflow:auto}
+.ot-cdlg .row{border:0;padding:6px 0}
+.ot-notes{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+.ot-notes h4{margin:0 0 8px;font-size:15px}
+.ot-nl{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:8px}
+.ot-n{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:8px 10px}
+.ot-n-not{border-left-color:var(--muted)}
+.ot-n p{margin:4px 0 0;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.ot-nm2{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted)}
+.ot-nm2 b{color:var(--fg)}
+.ot-nd{margin-left:auto;background:transparent;border:0;color:var(--muted);cursor:pointer;font:inherit;text-decoration:underline}
+.ot-n-empty{font-size:13px;color:var(--muted)}
+.ot-nf textarea{width:100%;box-sizing:border-box;margin:8px 0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
+.ot-nt{display:flex;gap:6px}.ot-nt .ot-btn{padding:5px 12px;min-height:0}
+.ot-nfa{display:flex;align-items:center;gap:8px;justify-content:space-between}
+
+#sorubox{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z'/><path d='M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 16.5v.01'/></svg>")}
+.sq-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.sq-top input[type=search]{flex:1 1 200px;min-width:0;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
+.sq-chips{display:flex;flex-wrap:wrap;gap:6px;flex:1 0 100%}
+.sq-chips .ot-btn{padding:5px 11px;min-height:0;font-size:13px}
+.sq-list{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:8px}
+.sq-i{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:9px 11px}
+.sq-i[data-s="cevaplandi"]{border-left-color:#2e7d32}
+.sq-i[data-s="ertelendi"]{border-left-color:var(--muted)}
+.sq-i[data-s="soruldu"]{border-left-color:#c9822b}
+.sq-who{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;font-size:12.5px;color:var(--muted)}
+.sq-mv{background:transparent;border:0;padding:0;font:inherit;font-weight:700;font-size:14px;color:var(--fg);cursor:pointer;text-decoration:underline;text-align:left}
+.sq-i p{margin:5px 0;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.sq-ans{font-size:13px;color:var(--muted)}
+.sq-ans b{color:var(--fg)}
+.sq-st{margin-left:auto;display:flex;gap:6px;align-items:center;font-size:12px}
+select.ot-st{padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--fg);font:inherit;font-size:12.5px}
+textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit;font-size:13px}
+
+.sq-st select.ot-st,.ot-nm2 select.ot-st{width:auto;height:30px;min-height:0;padding:2px 22px 2px 8px;font-size:12.5px}
+.sq-st{flex-wrap:nowrap;white-space:nowrap}
+
+.sq-add{margin:0 0 12px;border:1px dashed var(--accent);border-radius:8px;padding:0 12px}
+.sq-add>summary{cursor:pointer;padding:9px 0;font-weight:600;color:var(--accent);font-size:14px}
+.sq-form{padding:0 0 12px}
+.sq-form input[type=search],.sq-form textarea{width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
+.sq-form textarea{margin:8px 0}
+.sq-res{list-style:none;margin:6px 0 0;padding:0;border:1px solid var(--line);border-radius:8px;max-height:200px;overflow:auto}
+.sq-res:empty{display:none}
+.sq-res li{border-bottom:1px solid var(--line)}.sq-res li:last-child{border-bottom:0}
+.sq-res button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:7px 10px;color:var(--fg);font:inherit;cursor:pointer}
+.sq-res button:hover,.sq-res button:focus-visible{background:var(--hover)}
+.sq-res small{display:block;color:var(--muted);font-size:12px}
+.sq-sel{margin:8px 0 0;padding:7px 10px;border-radius:8px;background:var(--accent-soft);font-size:14px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+.sq-sel button{background:transparent;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
+.sq-fa{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sq-fa .ot-hint{flex:1 1 120px;margin:0}
+.sq-out{font-weight:400;color:var(--muted);font-size:12px}
+
+.wa{display:inline-flex;align-items:center;gap:5px;color:#128c4a;text-decoration:none!important;font-weight:600}
+.ot-btn.wa{border-color:#128c4a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .wa{color:#5fd68a}:root:not([data-theme="light"]) .ot-btn.wa{border-color:#5fd68a}}
+:root[data-theme="dark"] .wa{color:#5fd68a}:root[data-theme="dark"] .ot-btn.wa{border-color:#5fd68a}
+
+.xl{display:inline-flex;align-items:center;gap:6px}
 </style>
 </head>
 <body>
@@ -947,10 +1006,11 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
       <button type="button" class="ot-btn" id="ot-preset">Hazır yerleşimi yükle</button>
       <label class="ot-btn ot-file">Dosyadan yükle (JSON)<input type="file" id="ot-file" accept=".json,application/json" hidden></label>
       <button type="button" class="ot-btn" id="ot-export">Dışa aktar / şablon indir</button>
+      <button type="button" class="ot-btn" id="ot-nexp">Soru/notları dışa aktar</button>
       <button type="button" class="ot-btn ot-danger" id="ot-reset">Tümünü boşalt</button>
       <span class="ot-stat" id="ot-stat" role="status" aria-live="polite"></span>
     </div>
-    <p class="ot-hint">Boş koltuğa dokunarak milletvekili seçin; dolu koltuğa dokunarak değiştirin veya boşaltın. Yerleşimi hazır bir PDF'den de yükleyebilirsiniz (PDF'de milletvekili adları yazılı olmalı; metin olarak seçilebilen PDF gerekir). Başkanlık divanı sabittir. Yerleşim bu tarayıcıda saklanır.</p>
+    <p class="ot-hint">Boş koltuğa dokunarak milletvekili seçin; dolu koltuğa dokunarak milletvekilinin kartını açın, soru ve not ekleyin (koltuğu da oradan değiştirebilirsiniz). Yerleşimi hazır bir PDF'den de yükleyebilirsiniz (PDF'de milletvekili adları yazılı olmalı; metin olarak seçilebilen PDF gerekir). Başkanlık divanı sabittir. Yerleşim bu tarayıcıda saklanır.</p>
     <div class="ot-title">PLAN VE BÜTÇE KOMİSYONU D-121 NUMARALI TOPLANTI SALONU OTURMA DÜZENİ</div>
     <div id="oturma-board" class="ot-board"></div>
     <div class="ot-divan-wrap"><div class="ot-divan" id="ot-divan"></div><div class="ot-bar">KOMİSYON BAŞKANLIK DİVANI</div></div>
@@ -989,6 +1049,22 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
         <div class="acts"><button type="button" class="ot-btn" id="bp-i-x">Vazgeç</button><button type="submit" class="ot-btn" style="background:var(--o-f);color:var(--surface)">Şablona yerleştir</button></div>
       </form></dialog>
     </div>
+    </details>
+  </section>
+
+  <section class="gone" id="sorular" aria-labelledby="soru-h">
+    <details class="gonebox" id="sorubox"><summary><h2 id="soru-h">Soru Takibi</h2><span class="cnt" id="soru-cnt"></span></summary>
+    <p class="sub">Milletvekili kartlarına eklediğiniz sorular burada toplanır. Soruyu Oturma Düzeni'nde milletvekilinin koltuğuna dokunarak ya da aşağıdaki “Soru ekle” ile (koltukta olmayan milletvekili için) ekleyebilirsiniz. Durumu güncelleyin, cevabı kaydedin. Kayıtlar yalnızca bu cihazda saklanır.</p>
+    <details class="sq-add" id="sq-add"><summary>+ Soru ekle (milletvekili koltukta olmasa da)</summary>
+      <div class="sq-form"><input type="search" id="sq-mq" placeholder="Milletvekili ara: ad, il veya parti" autocomplete="off" aria-label="Milletvekili ara">
+      <ul class="sq-res" id="sq-mres"></ul><div class="sq-sel" id="sq-sel" hidden></div>
+      <textarea id="sq-nx" rows="3" maxlength="1000" placeholder="Soruyu yazın…" aria-label="Soru"></textarea>
+      <div class="sq-fa"><select class="ot-st" id="sq-ns" aria-label="Durum"></select><span class="ot-hint" id="sq-nm" role="status"></span><button type="button" class="ot-btn" id="sq-nadd">Ekle</button></div></div></details>
+    <div class="sq-top"><div class="sq-chips" id="sq-chips" role="group" aria-label="Duruma göre süz"></div>
+    <input type="search" id="sq-q" placeholder="Soru, cevap, ad veya parti ara" autocomplete="off" aria-label="Soru ara">
+    <button type="button" class="ot-btn xl" id="sq-csv" title="Tüm soruları Excel’de açılacak dosya olarak indirir"><svg viewBox='0 0 24 24' width='16' height='16' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><rect x='3' y='3' width='18' height='11' rx='1.5'/><path d='M3 8.5h18M9 3v11M15 3v11'/><path d='M12 16.5v4M9.5 18.5l2.5 2.5 2.5-2.5'/></svg>Excel için indir</button>
+    <button type="button" class="ot-btn wa" id="sq-wall"><svg viewBox='0 0 24 24' width='15' height='15' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' aria-hidden='true'><path d='M20 11.5a8 8 0 0 1-11.9 7L3 20l1.5-4.9A8 8 0 1 1 20 11.5z'/><path d='M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2-2l.8-1-1-2z'/></svg>Bekleyenleri WhatsApp’la gönder</button></div>
+    <ul class="sq-list" id="sq-list"></ul>
     </details>
   </section>
 
@@ -1061,12 +1137,11 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     <div class="list" id="comm2-list"></div>
     </details>
   </section>
-  <p class="note foot">Kaynak: TBMM<br>byRam ©ivelek · Sürüm <span id="app-ver">1.3</span> · Son güncelleme: 14 Kasım 2026
-  · <button type="button" class="linkbtn" id="ver-note-btn" aria-expanded="false" aria-controls="ver-note">Sürüm notu</button></p>
-  <div class="ver-note" id="ver-note" hidden>
-    <b>Sürüm 1.3 · 14 Kasım 2026</b>
-    <ul><li>Yeni sürüm yayınlandığında sayfa bunu otomatik fark eder ve “Yenile” bildirimi gösterir.</li></ul>
-  </div>
+  <div class="cepbar" id="cepbar"><span>Cep numaraları (yalnızca bu cihazda saklanır): <b id="cep-n">yüklenmedi</b></span>
+    <label class="ico cep-b">Liste yükle (Excel / CSV)<input type="file" id="cep-file" accept=".xlsx,.xls,.csv,.txt,.tsv" hidden></label>
+    <button type="button" class="ico cep-b" id="cep-tog" hidden></button><button type="button" class="ico cep-b" id="cep-del" hidden>Listeyi sil</button>
+    <span class="cep-msg" id="cep-msg" role="status" aria-live="polite"></span></div>
+  <p class="note foot">Kaynak: TBMM<br>byRam ©ivelek · Sürüm 1.2 · Son güncelleme: 13 Kasım 2026</p>
 
 
 </div>
@@ -1139,6 +1214,17 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     tel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>',
     pin:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/></svg>'
   };
+  /* ===== Cep numaraları: yalnızca bu cihazda saklanır, dosyaya gömülü değildir ===== */
+  const CEPK='mv-cep-v1',CEPS='mv-cep-show';
+  let CEP={},CEP_SHOW=true;
+  try{CEP=JSON.parse(localStorage.getItem(CEPK)||'{}')||{};CEP_SHOW=localStorage.getItem(CEPS)!=='0'}catch(_){}
+  const NOTEK='mv-notes-v1';
+  let NOTES={};
+  try{NOTES=JSON.parse(localStorage.getItem(NOTEK)||'{}')||{}}catch(_){}
+  const saveNotes=()=>{try{localStorage.setItem(NOTEK,JSON.stringify(NOTES))}catch(_){}};
+  const noteN=k=>(NOTES[k]||[]).length;
+  const cepTel=n=>{const d=String(n).replace(/\D/g,'');if(d.length===11&&d[0]==='0')return '+9'+d;if(d.length===10&&d[0]==='5')return '+90'+d;if(d.length===12&&d.slice(0,2)==='90')return '+'+d;return d};
+  const cepFmt=n=>{const d=String(n).replace(/\D/g,'');const m=d.length===11?d:d.length===10?'0'+d:d.length===12&&d.slice(0,2)==='90'?'0'+d.slice(2):'';return m?m.replace(/^(\d{4})(\d{3})(\d{2})(\d{2})$/,'$1 $2 $3 $4'):String(n)};
   function rowHtml(r){
     const photo=PHOTOS[r.sort+'|'+r.il]||PHOTOS[r.sort];
     const phoneAll=r.tel.length?tel(r.tel[0])+r.tel.slice(1).map(x=>' / '+x).join(''):'';
@@ -1153,6 +1239,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
         '<span class="placewrap"><button class="ico place" type="button" aria-expanded="false" aria-label="Oda bilgisini göster: '+esc(r.name)+'">'+IC.pin+'</button><span class="pop" role="status" hidden>'+esc(r.oda)+'</span></span>'+
         btn('mail','E-posta',r.email,r.email)+
         (r.tel.length?btn('tel','Telefon',tel(r.tel[0]),phoneAll+faxTxt):'')+
+        (CEP_SHOW&&CEP[r.key]?btn('tel','Cep',cepFmt(CEP[r.key]),'Cep '+cepFmt(CEP[r.key]))+'<a class="ico place cep-call" href="tel:'+esc(cepTel(CEP[r.key]))+'" aria-label="Cep numarasını ara: '+esc(r.name)+'" title="Ara: '+esc(cepFmt(CEP[r.key]))+'">'+IC.tel+'</a>':'')+
       '</div>'+bioHtml(r)+'</article>';
   }
 
@@ -1232,6 +1319,57 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
   });
   /* Claude içinde açılan sayfada pano ve adres ekleri engelli; bağlantı kopyalama yalnızca kendi sitede çalışır. */
   if(window.claude)shareEl.remove();
+
+  /* Cep listesi yükleme: Ad Soyad + Cep sütunu (Excel / CSV) */
+  (function(){
+    const nEl=$('cep-n'),tog=$('cep-tog'),del=$('cep-del'),msg=$('cep-msg');
+    if(!nEl)return;
+    const say=t=>{msg.textContent=t};
+    function sync(){const n=Object.keys(CEP).length;nEl.textContent=n?n+' kişi':'yüklenmedi';tog.hidden=del.hidden=!n;tog.textContent=CEP_SHOW?'Numaraları gizle':'Numaraları göster'}
+    const byName={};ROWS.forEach(r=>{const k=norm(r.name);(byName[k]=byName[k]||[]).push(r)});
+    const parseCSV=txt=>{txt=txt.replace(/^﻿/,'');const first=txt.split(/\r?\n/)[0]||'';const d=[';','\t',','].map(c=>[c,first.split(c).length]).sort((a,b)=>b[1]-a[1])[0][0];
+      const rows=[];let row=[],cur='',q=false;
+      for(let i=0;i<txt.length;i++){const c=txt[i];
+        if(q){if(c==='"'){if(txt[i+1]==='"'){cur+='"';i++}else q=false}else cur+=c}
+        else if(c==='"')q=true;else if(c===d){row.push(cur);cur=''}else if(c==='\n'||c==='\r'){if(c==='\r'&&txt[i+1]==='\n')i++;row.push(cur);cur='';rows.push(row);row=[]}else cur+=c}
+      if(cur||row.length){row.push(cur);rows.push(row)}return rows};
+    async function readRows(f){
+      if(/\.(xlsx|xls)$/i.test(f.name)){
+        if(!window.XLSX)await new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';sc.onload=res;sc.onerror=()=>rej(new Error('net'));document.head.appendChild(sc)});
+        const wb=XLSX.read(await f.arrayBuffer(),{type:'array'});return XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:'',raw:false})}
+      return parseCSV(await f.text());
+    }
+    function build(rows){
+      rows=rows.map(r=>r.map(c=>String(c==null?'':c).trim())).filter(r=>r.some(Boolean));
+      const hs=(rows[0]||[]).map(norm),ix=re=>hs.findIndex(x=>re.test(x));
+      let cName=ix(/^(ad soyad|adi soyadi|isim|ad-soyad|milletvekili)/),cAd=ix(/^(ad|adi)$/),cSoy=ix(/^(soyad|soyadi)$/),cTel=ix(/cep|gsm|mobil|telefon|tel/);
+      const hasHead=cTel>-1||cName>-1||cAd>-1;
+      if(!hasHead){cName=0;cTel=1}else rows.shift();
+      if(cTel<0)cTel=hs.length>1?1:-1;
+      const out={},bad=[];
+      rows.forEach(r=>{
+        const nm=cName>-1?r[cName]:(cAd>-1?(r[cAd]+' '+(cSoy>-1?r[cSoy]:'')):r[0]),ph=r[cTel]||'';
+        if(!nm||!/\d{7,}/.test(ph.replace(/\D/g,'')))return;
+        const hit=byName[norm(nm.replace(/\s+/g,' ').trim())];
+        if(hit&&hit.length===1)out[hit[0].key]=ph.trim();else bad.push(nm)});
+      return {out,bad};
+    }
+    $('cep-file').addEventListener('change',async e=>{
+      const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+      say('Liste okunuyor…');
+      try{
+        const {out,bad}=build(await readRows(f)),n=Object.keys(out).length;
+        if(!n){say('Eşleşen milletvekili bulunamadı. Sütunlar “Ad Soyad” ve “Cep” olmalı.');return}
+        if(Object.keys(CEP).length&&!confirm('Mevcut cep listesi ('+Object.keys(CEP).length+' kişi) silinip yeni liste ('+n+' kişi) yüklensin mi?'))return;
+        CEP=out;try{localStorage.setItem(CEPK,JSON.stringify(CEP))}catch(_){}
+        sync();render();
+        say(n+' milletvekilinin cep numarası yüklendi'+(bad.length?' · '+bad.length+' satır eşleşmedi: '+bad.slice(0,4).join(', ')+(bad.length>4?'…':''):'')+'.');
+      }catch(err){say(/net/.test(String(err&&err.message))?'Excel okuyucu yüklenemedi (internet gerekli); dosyayı CSV olarak kaydedip deneyin.':'Dosya okunamadı.')}
+    });
+    tog.addEventListener('click',()=>{CEP_SHOW=!CEP_SHOW;try{localStorage.setItem(CEPS,CEP_SHOW?'1':'0')}catch(_){}sync();render()});
+    del.addEventListener('click',()=>{if(!confirm('Cep numarası listesi bu cihazdan silinsin mi?'))return;CEP={};try{localStorage.removeItem(CEPK)}catch(_){}sync();render();say('Cep listesi silindi.')});
+    sync();
+  })();
   qEl.addEventListener('input',()=>{S.q=qEl.value;reset()});
   ilEl.addEventListener('change',()=>{S.il=ilEl.value;reset()});
   sortEl.addEventListener('change',()=>{S.sort=sortEl.value;reset()});
@@ -1377,7 +1515,7 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
         for(let r=1;r<=2;r++)for(let c=1;c<=4;c++){
           const id=b.id+'-'+r+'-'+c,m=byKey[seats[id]],lbl=rowName(b,r)+' · '+r+'. sıra · '+c+'. koltuk';
           cells+=m
-            ?'<button type="button" class="ot-seat" data-seat="'+id+'" aria-label="'+esc(lbl+': '+m.name+' — değiştir')+'">'+phHtml(m)+nameHtml(m)+'</button>'
+            ?'<button type="button" class="ot-seat" data-seat="'+id+'" aria-label="'+esc(lbl+': '+m.name+(noteN(m.key)?' ('+noteN(m.key)+' not/soru)':'')+' — kartı aç')+'">'+(noteN(m.key)?'<span class="ot-nb" aria-hidden="true">'+noteN(m.key)+'</span>':'')+phHtml(m)+nameHtml(m)+'</button>'
             :'<button type="button" class="ot-seat" data-seat="'+id+'" aria-label="'+esc(lbl+': boş — milletvekili seç')+'"><span class="ot-ph ot-plus">'+PLUS+'</span><span class="ot-nm"></span><span class="ot-il"></span></button>';
         }
         const strips='<div class="ot-strips">'+b.strips.map(st=>'<div class="ot-strip" style="grid-row:'+st[1]+(st[2]>st[1]?'/'+(st[2]+1):'')+'">'+esc(st[0])+'</div>').join('')+'</div>';
@@ -1426,7 +1564,106 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
     });
     $('ot-clear').addEventListener('click',()=>{if(cur){delete seats[cur];save();render()}dlg.close()});
     dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
-    board.addEventListener('click',e=>{const b=e.target.closest('.ot-seat');if(b&&b.dataset.seat)openSeat(b.dataset.seat)});
+
+    /* ===== Milletvekili kartı + soru/not penceresi ===== */
+    const cdlg=document.createElement('dialog');cdlg.className='ot-dlg ot-cdlg';cdlg.setAttribute('aria-label','Milletvekili kartı');
+    cdlg.innerHTML='<div class="ot-df"><div class="ot-dh"><h3>Milletvekili kartı</h3><button type="button" class="ot-x" id="ot-cx" aria-label="Kapat">✕</button></div>'+
+      '<div id="ot-card"></div>'+
+      '<section class="ot-notes" aria-labelledby="ot-nh"><h4 id="ot-nh">Sorular ve notlar <span id="ot-nc"></span></h4><ul id="ot-nl" class="ot-nl"></ul>'+
+      '<div class="ot-nf"><div class="ot-nt" role="group" aria-label="Tür"><button type="button" class="ot-btn" data-t="soru" aria-pressed="true">Soru</button><button type="button" class="ot-btn" data-t="not" aria-pressed="false">Not</button></div>'+
+      '<textarea id="ot-nx" rows="3" maxlength="1000" placeholder="Bu milletvekiline sorulacak soruyu ya da notunuzu yazın…" aria-label="Soru veya not"></textarea>'+
+      '<div class="ot-nfa"><span class="ot-hint" id="ot-nm">Yalnızca bu cihazda saklanır.</span><button type="button" class="ot-btn" id="ot-na">Ekle</button></div></div></section>'+
+      '<div class="ot-df-foot"><button type="button" class="ot-btn" id="ot-cchg">Koltuğu değiştir</button><button type="button" class="ot-btn ot-danger" id="ot-cclr">Koltuğu boşalt</button><button type="button" class="ot-btn" id="ot-cclose">Kapat</button></div></div>';
+    document.body.appendChild(cdlg);
+    const SQ_ST=[['sorulacak','Sorulacak'],['soruldu','Soruldu'],['cevaplandi','Cevaplandı'],['ertelendi','Ertelendi']],sqSt=n=>n.s||'sorulacak';
+    const WA_IC='<svg viewBox=\'0 0 24 24\' width=\'15\' height=\'15\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' aria-hidden=\'true\'><path d=\'M20 11.5a8 8 0 0 1-11.9 7L3 20l1.5-4.9A8 8 0 1 1 20 11.5z\'/><path d=\'M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2-2l.8-1-1-2z\'/></svg>';
+    const waOpen=t=>{const u='https://wa.me/?text='+encodeURIComponent(t);const w=window.open(u,'_blank','noopener');if(!w)location.href=u};
+    const waMsg=(k,n)=>{const r=byKey[k];return '*Soru* · '+(r?r.name+' ('+PARTY[r.p]+' · '+r.il+')':k)+'\n'+n.x+'\nDurum: '+(SQ_ST.find(x=>x[0]===(n.s||'sorulacak'))||[,''])[1]+(n.a?'\nCevap: '+n.a:'')};
+    let cSeat='',cKey='',cType='soru';
+    const fmtTs=ts=>new Date(ts).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    function renderNotes(){
+      const l=NOTES[cKey]||[];$('ot-nc').textContent=l.length?'('+l.length+')':'';
+      $('ot-nl').innerHTML=l.length?l.map(n=>'<li class="ot-n ot-n-'+n.t+'"><div class="ot-nm2"><b>'+(n.t==='soru'?'Soru':'Not')+'</b><span>'+esc(fmtTs(n.ts))+'</span>'+(n.t==='soru'?'<select class="ot-st" data-id="'+n.id+'" aria-label="Durum">'+SQ_ST.map(([k,v])=>'<option value="'+k+'"'+(sqSt(n)===k?' selected':'')+'>'+v+'</option>').join('')+'</select>':'')+(n.t==='soru'?'<button type="button" class="ot-nd ot-wa wa" data-id="'+n.id+'">'+WA_IC+'WhatsApp</button>':'')+'<button type="button" class="ot-nd" data-id="'+n.id+'" aria-label="Sil">Sil</button></div><p>'+esc(n.x).replace(/\n/g,'<br>')+'</p>'+(n.t==='soru'?'<textarea class="ot-ans" rows="2" data-id="'+n.id+'" maxlength="1000" placeholder="Cevap ya da gelişme notu" aria-label="Cevap">'+esc(n.a||'')+'</textarea>':'')+'</li>').join(''):'<li class="ot-n-empty">Henüz soru ya da not eklenmedi.</li>';
+    }
+    function openCard(id,key){
+      cSeat=id||'';cKey=key||seats[id];const r=byKey[cKey];if(!r){if(id)openSeat(id);return}
+      $('ot-cchg').hidden=$('ot-cclr').hidden=!cSeat;
+      $('ot-card').innerHTML=rowHtml(r);cType='soru';
+      cdlg.querySelectorAll('.ot-nt button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.t===cType)));
+      $('ot-nx').value='';renderNotes();if(!cdlg.open)cdlg.showModal();cdlg.scrollTop=0;
+    }
+    cdlg.querySelector('.ot-nt').addEventListener('click',e=>{const b=e.target.closest('button[data-t]');if(!b)return;cType=b.dataset.t;cdlg.querySelectorAll('.ot-nt button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
+    $('ot-na').addEventListener('click',()=>{
+      const x=$('ot-nx').value.trim();if(!x){$('ot-nm').textContent='Önce yazı yazın.';return}
+      (NOTES[cKey]=NOTES[cKey]||[]).push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:cType,x:x.slice(0,1000),ts:Date.now()});
+      saveNotes();$('ot-nx').value='';$('ot-nm').textContent='Eklendi. Yalnızca bu cihazda saklanır.';renderNotes();render();renderSoru();
+    });
+    $('ot-nl').addEventListener('click',e=>{const w=e.target.closest('.ot-wa');if(w){const n=(NOTES[cKey]||[]).find(x=>x.id===w.dataset.id);if(n)waOpen(waMsg(cKey,n));return}
+      const b=e.target.closest('.ot-nd');if(!b||!confirm('Bu kayıt silinsin mi?'))return;
+      NOTES[cKey]=(NOTES[cKey]||[]).filter(n=>n.id!==b.dataset.id);if(!NOTES[cKey].length)delete NOTES[cKey];saveNotes();renderNotes();render();renderSoru()});
+    $('ot-nl').addEventListener('change',e=>{const el=e.target,n=(NOTES[cKey]||[]).find(x=>x.id===el.dataset.id);if(!n)return;
+      if(el.classList.contains('ot-st'))n.s=el.value;else if(el.classList.contains('ot-ans'))n.a=el.value.trim().slice(0,1000);else return;n.ut=Date.now();saveNotes();renderSoru()});
+    $('ot-cx').addEventListener('click',()=>cdlg.close());$('ot-cclose').addEventListener('click',()=>cdlg.close());
+    cdlg.addEventListener('click',e=>{if(e.target===cdlg)cdlg.close()});
+    $('ot-cchg').addEventListener('click',()=>{const id=cSeat;cdlg.close();openSeat(id)});
+    $('ot-cclr').addEventListener('click',()=>{if(cSeat&&confirm('Koltuk boşaltılsın mı? (Soru ve notlar silinmez)')){delete seats[cSeat];save();render()}cdlg.close()});
+    const nx=document.getElementById('ot-nexp');
+    if(nx)nx.addEventListener('click',()=>{
+      const out=Object.keys(NOTES).map(k=>({milletvekili:byKey[k]?byKey[k].name:k,anahtar:k,kayitlar:NOTES[k].map(n=>({tur:n.t==='soru'?'Soru':'Not',metin:n.x,durum:n.t==='soru'?(SQ_ST.find(x=>x[0]===sqSt(n))||[,''])[1]:undefined,cevap:n.a||undefined,tarih:new Date(n.ts).toISOString()}))}));
+      const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({surum:1,notlar:out},null,2)],{type:'application/json'}));a.download='soru-ve-notlar.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),500)});
+    board.addEventListener('click',e=>{const b=e.target.closest('.ot-seat');if(b&&b.dataset.seat){if(seats[b.dataset.seat])openCard(b.dataset.seat);else openSeat(b.dataset.seat)}});
+
+    /* ===== Soru Takibi paneli ===== */
+    let sqF='hepsi';
+    const sqLbl=k=>(SQ_ST.find(x=>x[0]===k)||[,k])[1];
+    function sqAll(){const out=[];Object.keys(NOTES).forEach(k=>{const r=byKey[k];(NOTES[k]||[]).forEach(n=>{if(n.t==='soru')out.push({k,r,n})})});return out}
+    function renderSoru(){
+      const list=$('sq-list');if(!list)return;
+      const all=sqAll(),cnt={hepsi:all.length};SQ_ST.forEach(([k])=>cnt[k]=all.filter(x=>sqSt(x.n)===k).length);
+      $('sq-chips').innerHTML=[['hepsi','Tümü']].concat(SQ_ST).map(([k,v])=>'<button type="button" class="ot-btn" data-f="'+k+'" aria-pressed="'+(sqF===k)+'">'+v+' ('+cnt[k]+')</button>').join('');
+      $('soru-cnt').textContent=all.length?all.length+' soru · '+cnt.sorulacak+' sorulacak · '+cnt.cevaplandi+' cevaplandı':'Henüz soru eklenmedi';
+      const q=norm($('sq-q').value.trim().replace(/\s+/g,' ')),toks=q.split(' ').filter(Boolean),ord={sorulacak:0,soruldu:1,ertelendi:2,cevaplandi:3};
+      const hit=all.filter(x=>(sqF==='hepsi'||sqSt(x.n)===sqF)&&toks.every(t=>norm([x.r?x.r.name:x.k,x.r?PARTY[x.r.p]:'',x.r?x.r.il:'',x.n.x,x.n.a||''].join(' ')).includes(t)))
+        .sort((a,b)=>ord[sqSt(a.n)]-ord[sqSt(b.n)]||b.n.ts-a.n.ts);
+      list.innerHTML=hit.length?hit.map(x=>'<li class="sq-i" data-s="'+sqSt(x.n)+'"><div class="sq-who"><button type="button" class="sq-mv" data-k="'+esc(x.k)+'">'+esc(x.r?x.r.name:x.k)+'</button>'+(x.r?'<span>'+esc(PARTY[x.r.p])+' · '+esc(x.r.il)+(Object.keys(seats).some(i=>seats[i]===x.k)?'':' · <i class="sq-out">koltukta değil</i>')+'</span>':'')+
+        '<span class="sq-st"><span>'+esc(fmtTs(x.n.ts))+'</span><select class="ot-st" data-k="'+esc(x.k)+'" data-id="'+x.n.id+'" aria-label="Durum">'+SQ_ST.map(([k,v])=>'<option value="'+k+'"'+(sqSt(x.n)===k?' selected':'')+'>'+v+'</option>').join('')+'</select><button type="button" class="ot-nd sq-wa wa" data-k="'+esc(x.k)+'" data-id="'+x.n.id+'">'+WA_IC+'WhatsApp</button></span></div>'+
+        '<p>'+esc(x.n.x).replace(/\n/g,'<br>')+'</p>'+(x.n.a?'<p class="sq-ans"><b>Cevap:</b> '+esc(x.n.a).replace(/\n/g,'<br>')+'</p>':'')+'</li>').join(''):'<li class="ot-n-empty">'+(all.length?'Bu süzgece uyan soru yok.':'Soru eklemek için yukarıdaki “Soru ekle”yi kullanın ya da Oturma Düzeni’nde milletvekilinin koltuğuna dokunun.')+'</li>';
+    }
+    $('sq-chips').addEventListener('click',e=>{const b=e.target.closest('button[data-f]');if(b){sqF=b.dataset.f;renderSoru()}});
+    $('sq-q').addEventListener('input',renderSoru);
+    $('sq-list').addEventListener('click',e=>{const w=e.target.closest('.sq-wa');if(w){const n=(NOTES[w.dataset.k]||[]).find(x=>x.id===w.dataset.id);if(n)waOpen(waMsg(w.dataset.k,n));return}
+      const b=e.target.closest('.sq-mv');if(b&&window.mvOpenCard)window.mvOpenCard(b.dataset.k)});
+    $('sq-wall').addEventListener('click',()=>{const p=sqAll().filter(x=>['sorulacak','soruldu'].includes(sqSt(x.n))).sort((a,b)=>a.n.ts-b.n.ts);if(!p.length){alert('Cevap bekleyen soru yok.');return}
+      let t='*Cevap bekleyen sorular ('+p.length+')*\n',used=0;for(const x of p){const line='\n'+(used+1)+'. '+(x.r?x.r.name+' ('+PARTY[x.r.p]+'): ':'')+x.n.x;if((t+line).length>3500)break;t+=line;used++}
+      if(used<p.length)t+='\n\n… ve '+(p.length-used)+' soru daha (listeyi uygulamadan görün).';waOpen(t)});
+    $('sq-list').addEventListener('change',e=>{const el=e.target;if(!el.classList.contains('ot-st'))return;
+      const n=(NOTES[el.dataset.k]||[]).find(x=>x.id===el.dataset.id);if(!n)return;n.s=el.value;n.ut=Date.now();saveNotes();renderSoru()});
+    $('sq-csv').addEventListener('click',()=>{
+      const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"',rows=[['Milletvekili','Parti','İl','Soru','Durum','Cevap','Tarih']];
+      sqAll().sort((a,b)=>a.n.ts-b.n.ts).forEach(x=>rows.push([x.r?x.r.name:x.k,x.r?PARTY[x.r.p]:'',x.r?x.r.il:'',x.n.x,sqLbl(sqSt(x.n)),x.n.a||'',fmtTs(x.n.ts)]));
+      const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+rows.map(r=>r.map(q).join(';')).join('\r\n')],{type:'text/csv;charset=utf-8'}));a.download='soru-takibi.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),500)});
+    renderSoru();
+
+    /* Koltukta olmayan milletvekili için soru ekleme */
+    let sqSel='';
+    $('sq-ns').innerHTML=SQ_ST.map(([k,v])=>'<option value="'+k+'">'+v+'</option>').join('');
+    function sqFindMv(){
+      const q=norm($('sq-mq').value.trim().replace(/\s+/g,' ')),toks=q.split(' ').filter(Boolean);
+      if(!toks.length){$('sq-mres').innerHTML='';return}
+      $('sq-mres').innerHTML=ROWS.filter(r=>toks.every(t=>r.hay.includes(t))).sort(SORTS.name).slice(0,8).map(r=>'<li><button type="button" data-k="'+esc(r.key)+'"><b>'+esc(r.name)+'</b><small>'+esc(PARTY[r.p])+' · '+esc(r.il)+'</small></button></li>').join('')||'<li><small style="padding:7px 10px;display:block">Eşleşen milletvekili yok.</small></li>';
+    }
+    function sqShowSel(){const r=byKey[sqSel],el=$('sq-sel');el.hidden=!r;if(r)el.innerHTML='<span><b>'+esc(r.name)+'</b> · '+esc(PARTY[r.p])+' · '+esc(r.il)+'</span><button type="button" id="sq-chg">Değiştir</button>'}
+    $('sq-mq').addEventListener('input',sqFindMv);
+    $('sq-mres').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;sqSel=b.dataset.k;$('sq-mq').value='';$('sq-mres').innerHTML='';sqShowSel();$('sq-nx').focus()});
+    $('sq-sel').addEventListener('click',e=>{if(e.target.id==='sq-chg'){sqSel='';sqShowSel();$('sq-mq').focus()}});
+    $('sq-nadd').addEventListener('click',()=>{
+      const x=$('sq-nx').value.trim(),m=$('sq-nm');
+      if(!sqSel){m.textContent='Önce milletvekilini seçin.';return}
+      if(!x){m.textContent='Soruyu yazın.';return}
+      (NOTES[sqSel]=NOTES[sqSel]||[]).push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,5),t:'soru',x:x.slice(0,1000),s:$('sq-ns').value,ts:Date.now()});
+      saveNotes();const nm=byKey[sqSel].name;$('sq-nx').value='';sqSel='';sqShowSel();m.textContent=nm+' için soru eklendi.';renderSoru();render();
+    });
+    window.mvOpenCard=key=>openCard(Object.keys(seats).find(i=>seats[i]===key)||'',key);
     /* araçlar */
     const say=t=>{$('ot-stat').textContent=t;setTimeout(render,3500)};
     $('ot-preset').addEventListener('click',()=>{
@@ -1999,27 +2236,18 @@ document.querySelectorAll('#butcebox .st-up').forEach(function(b){b.addEventList
 </script>
 
 
-<div class="upd-bar" id="upd-bar" role="status" hidden><span id="upd-msg">Yeni sürüm var.</span><button type="button" id="upd-go">Yenile</button><button type="button" class="upd-x" id="upd-x" aria-label="Kapat">×</button></div>
+<div id="mv-ver" style="margin:18px auto 24px;text-align:center;font:12px/1.4 system-ui,sans-serif;opacity:.65">Sürüm <span id="mv-ver-no">1.3</span> · güncelleme bildirimi eklendi</div>
+<div id="mv-upd" hidden style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9999;max-width:92vw;background:#1f2a24;color:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:14px/1.4 system-ui,sans-serif;display:flex;gap:12px;align-items:center"><span id="mv-upd-t">Yeni sürüm var.</span><button type="button" id="mv-upd-b" style="background:#f0a04b;color:#1f2a24;border:0;border-radius:8px;padding:6px 12px;font-weight:600;cursor:pointer">Yenile</button><button type="button" id="mv-upd-x" aria-label="Kapat" style="background:none;border:0;color:#fff;font-size:18px;cursor:pointer">×</button></div>
 <script>
-(function(){
-  var cur=(document.getElementById('app-ver')||{}).textContent||'';
-  var bar=document.getElementById('upd-bar'),msg=document.getElementById('upd-msg'),busy=false,seen='';
-  var nb=document.getElementById('ver-note-btn'),nt=document.getElementById('ver-note');
-  if(nb&&nt)nb.addEventListener('click',function(){var o=nt.hidden;nt.hidden=!o;nb.setAttribute('aria-expanded',o?'true':'false')});
-  function check(){
-    if(busy||!cur||location.protocol==='file:')return;busy=true;
-    fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(d){
-      busy=false;if(!d||!d.version||String(d.version)===cur||String(d.version)===seen)return;
-      msg.textContent='Yeni sürüm var ('+d.version+')'+(d.note?': '+d.note:'.');bar.hidden=false;bar.dataset.v=d.version;
-    }).catch(function(){busy=false});
-  }
-  document.getElementById('upd-go').addEventListener('click',function(){
-    var u=new URL(location.href);u.searchParams.set('_v',bar.dataset.v||Date.now());location.replace(u.toString());
-  });
-  document.getElementById('upd-x').addEventListener('click',function(){seen=bar.dataset.v||'';bar.hidden=true});
-  document.addEventListener('visibilitychange',function(){if(!document.hidden)check()});
-  window.addEventListener('pageshow',check);
-  check();
+(function(){var CUR="1.3";
+var u=document.getElementById('mv-upd');u.style.display='none';
+function nv(a,b){var x=String(a).split('.'),y=String(b).split('.');for(var i=0;i<Math.max(x.length,y.length);i++){var p=+x[i]||0,q=+y[i]||0;if(p!==q)return p>q}return false}
+document.getElementById('mv-upd-b').onclick=function(){location.reload()};
+document.getElementById('mv-upd-x').onclick=function(){u.style.display='none'};
+function chk(){if(location.protocol==='file:')return;
+fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
+if(j&&j.version&&nv(j.version,CUR)){document.getElementById('mv-upd-t').textContent='Yeni sürüm '+j.version+' var'+(j.note?' — '+j.note:'')+'.';u.style.display='flex'}}).catch(function(){})}
+chk();setInterval(chk,600000);document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 })();
 </script>
 </body>
