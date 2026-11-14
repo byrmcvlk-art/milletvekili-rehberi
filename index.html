@@ -94,8 +94,11 @@ input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid 
 .chip .pm{width:22px;height:22px}.chip .pm.tx{width:auto;height:18px}
 .dot{display:inline-block;flex:none;width:9px;height:9px;border-radius:50%}
 .chip[aria-pressed="true"] .dot{box-shadow:0 0 0 1.5px var(--accent-fg)}
-.bar{display:flex;height:6px;margin-top:14px;border-radius:3px;overflow:hidden;background:var(--line)}
-.bar span{display:block;height:100%}
+.bar{display:flex;height:10px;margin-top:14px;border-radius:5px;overflow:hidden;background:var(--line)}
+.bar button{display:block;height:100%;min-width:3px;padding:0;margin:0;border:0;border-radius:0;background:none;cursor:pointer;transition:opacity .15s,filter .15s}
+.bar button:hover{filter:brightness(1.25)}
+.bar button:focus-visible{outline:2px solid var(--fg);outline-offset:-2px}
+.bar.has-sel button:not(.on){opacity:.3}
 
 .status{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 8px;min-height:28px}
 #count{font-weight:600;font-variant-numeric:tabular-nums}
@@ -806,8 +809,18 @@ textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;
 .sq-st select.ot-st,.ot-nm2 select.ot-st{width:auto;height:30px;min-height:0;padding:2px 22px 2px 8px;font-size:12.5px}
 .sq-st{flex-wrap:nowrap;white-space:nowrap}
 
-.sq-add{margin:0 0 12px;border:1px dashed var(--accent);border-radius:8px;padding:0 12px}
-.sq-add>summary{cursor:pointer;padding:9px 0;font-weight:600;color:var(--accent);font-size:14px}
+.sq-add{margin:0 0 14px;border:2px solid var(--accent);border-radius:12px;padding:0;overflow:hidden;background:var(--accent-soft)}
+.sq-add>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;padding:14px 16px;font-weight:700;font-size:16px;background:var(--accent);color:var(--accent-fg);min-height:48px}
+.sq-add>summary::-webkit-details-marker{display:none}
+.sq-add>summary::before{content:"+";display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent-fg);color:var(--accent);font-size:20px;line-height:1;font-weight:800;flex:none}
+.sq-add>summary>span{flex:1;min-width:0}
+.sq-add>summary::after{content:"▾";margin-left:auto;transition:transform .2s}
+.sq-add[open]>summary::after{transform:rotate(180deg)}
+.sq-add>summary:hover{filter:brightness(1.08)}
+.sq-add>summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.sq-add>*:not(summary){margin-left:14px;margin-right:14px}
+.sq-add>*:last-child{margin-bottom:14px}
+.sq-add>summary+*{margin-top:12px}
 .sq-form{padding:0 0 12px}
 .sq-form input[type=search],.sq-form textarea{width:100%;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
 .sq-form textarea{margin:8px 0}
@@ -817,6 +830,11 @@ textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;
 .sq-res button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:7px 10px;color:var(--fg);font:inherit;cursor:pointer}
 .sq-res button:hover,.sq-res button:focus-visible{background:var(--hover)}
 .sq-res small{display:block;color:var(--muted);font-size:12px}
+.sq-res button,.sq-sel>span{display:flex;align-items:center;gap:10px}
+.sq-res button>span{min-width:0}
+.sq-ph{flex:none;width:38px;height:50px;object-fit:cover;border-radius:6px;border:1px solid var(--line);display:block}
+div.sq-ph{background:var(--accent-soft)}
+.sq-sel .sq-ph{width:34px;height:45px}
 .sq-sel{margin:8px 0 0;padding:7px 10px;border-radius:8px;background:var(--accent-soft);font-size:14px;display:flex;gap:8px;align-items:center;justify-content:space-between}
 .sq-sel button{background:transparent;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
 .sq-fa{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sq-fa .ot-hint{flex:1 1 120px;margin:0}
@@ -860,7 +878,7 @@ textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;
       </div>
     </div>
     <div class="chips" id="chips" role="group" aria-label="Parti filtresi"></div>
-    <div class="bar" id="bar" aria-hidden="true"></div>
+    <div class="bar" id="bar" role="group" aria-label="Parti dağılımı"></div>
   </section>
 
   <div class="status">
@@ -1055,7 +1073,7 @@ textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;
   <section class="gone" id="sorular" aria-labelledby="soru-h">
     <details class="gonebox" id="sorubox"><summary><h2 id="soru-h">Soru Takibi</h2><span class="cnt" id="soru-cnt"></span></summary>
     <p class="sub">Milletvekili kartlarına eklediğiniz sorular burada toplanır. Soruyu Oturma Düzeni'nde milletvekilinin koltuğuna dokunarak ya da aşağıdaki “Soru ekle” ile (koltukta olmayan milletvekili için) ekleyebilirsiniz. Durumu güncelleyin, cevabı kaydedin. Kayıtlar yalnızca bu cihazda saklanır.</p>
-    <details class="sq-add" id="sq-add"><summary>+ Soru ekle (milletvekili koltukta olmasa da)</summary>
+    <details class="sq-add" id="sq-add"><summary><span>Soru ekle<small style="display:block;font-weight:500;font-size:12.5px;line-height:1.35;margin-top:2px;opacity:.9">Oturma düzenine yerleştirilmemiş milletvekilinin sorusunu da buradan girebilirsiniz</small></span></summary>
       <div class="sq-form"><input type="search" id="sq-mq" placeholder="Milletvekili ara: ad, il veya parti" autocomplete="off" aria-label="Milletvekili ara">
       <ul class="sq-res" id="sq-mres"></ul><div class="sq-sel" id="sq-sel" hidden></div>
       <textarea id="sq-nx" rows="3" maxlength="1000" placeholder="Soruyu yazın…" aria-label="Soru"></textarea>
@@ -1264,7 +1282,8 @@ textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;
       ' <span class="n">'+(counts[k]||0)+'</span></button>').join('')+
       (allK.length>TOPP?'<button class="chip chip-more" type="button" data-more="1" aria-expanded="'+moreP+'">'+(moreP?'Daha az göster ▴':'Diğer '+restN+' parti ▾')+'</button>':'');
     barEl.innerHTML=base.length?ORDER.filter(k=>counts[k]).map(k=>
-      '<span style="width:'+(counts[k]/base.length*100)+'%;background:var(--p-'+k+')"></span>').join(''):'';
+      '<button type="button" data-p="'+k+'" class="'+(S.party===k?'on':'')+'" aria-pressed="'+(S.party===k)+'" title="'+esc(PARTY[k])+' · '+counts[k]+' (%'+(counts[k]/base.length*100).toFixed(1).replace('.',',')+')" aria-label="'+esc(PARTY[k])+': '+counts[k]+' milletvekili" style="width:'+(counts[k]/base.length*100)+'%;background:var(--p-'+k+')"></button>').join(''):'';
+    barEl.classList.toggle('has-sel',!!S.party);
 
     const active=!!(S.q||S.il||S.party);
     countEl.textContent=active?list.length+' sonuç'+(S.il?' · '+S.il:''):ROWS.length+' milletvekili';
@@ -1373,6 +1392,7 @@ textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;
   qEl.addEventListener('input',()=>{S.q=qEl.value;reset()});
   ilEl.addEventListener('change',()=>{S.il=ilEl.value;reset()});
   sortEl.addEventListener('change',()=>{S.sort=sortEl.value;reset()});
+  barEl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.party=S.party===b.dataset.p?'':b.dataset.p;reset()});
   chipsEl.addEventListener('click',e=>{
     const b=e.target.closest('.chip');if(!b)return;
     if(b.dataset.more){moreP=!moreP;render();return}
@@ -1647,12 +1667,13 @@ textarea.ot-ans{width:100%;box-sizing:border-box;margin-top:6px;padding:6px 8px;
     /* Koltukta olmayan milletvekili için soru ekleme */
     let sqSel='';
     $('sq-ns').innerHTML=SQ_ST.map(([k,v])=>'<option value="'+k+'">'+v+'</option>').join('');
+    const sqPh=r=>{const ph=PHOTOS[r.sort+'|'+r.il]||PHOTOS[r.sort];return ph?'<img class="sq-ph" src="'+ph+'" alt="" loading="lazy">':'<div class="sq-ph"></div>'};
     function sqFindMv(){
       const q=norm($('sq-mq').value.trim().replace(/\s+/g,' ')),toks=q.split(' ').filter(Boolean);
       if(!toks.length){$('sq-mres').innerHTML='';return}
-      $('sq-mres').innerHTML=ROWS.filter(r=>toks.every(t=>r.hay.includes(t))).sort(SORTS.name).slice(0,8).map(r=>'<li><button type="button" data-k="'+esc(r.key)+'"><b>'+esc(r.name)+'</b><small>'+esc(PARTY[r.p])+' · '+esc(r.il)+'</small></button></li>').join('')||'<li><small style="padding:7px 10px;display:block">Eşleşen milletvekili yok.</small></li>';
+      $('sq-mres').innerHTML=ROWS.filter(r=>toks.every(t=>r.hay.includes(t))).sort(SORTS.name).slice(0,8).map(r=>'<li><button type="button" data-k="'+esc(r.key)+'">'+sqPh(r)+'<span><b>'+esc(r.name)+'</b><small>'+esc(PARTY[r.p])+' · '+esc(r.il)+'</small></span></button></li>').join('')||'<li><small style="padding:7px 10px;display:block">Eşleşen milletvekili yok.</small></li>';
     }
-    function sqShowSel(){const r=byKey[sqSel],el=$('sq-sel');el.hidden=!r;if(r)el.innerHTML='<span><b>'+esc(r.name)+'</b> · '+esc(PARTY[r.p])+' · '+esc(r.il)+'</span><button type="button" id="sq-chg">Değiştir</button>'}
+    function sqShowSel(){const r=byKey[sqSel],el=$('sq-sel');el.hidden=!r;if(r)el.innerHTML='<span>'+sqPh(r)+'<span><b>'+esc(r.name)+'</b> · '+esc(PARTY[r.p])+' · '+esc(r.il)+'</span></span><button type="button" id="sq-chg">Değiştir</button>'}
     $('sq-mq').addEventListener('input',sqFindMv);
     $('sq-mres').addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;sqSel=b.dataset.k;$('sq-mq').value='';$('sq-mres').innerHTML='';sqShowSel();$('sq-nx').focus()});
     $('sq-sel').addEventListener('click',e=>{if(e.target.id==='sq-chg'){sqSel='';sqShowSel();$('sq-mq').focus()}});
@@ -2236,10 +2257,10 @@ document.querySelectorAll('#butcebox .st-up').forEach(function(b){b.addEventList
 </script>
 
 
-<div id="mv-ver" style="margin:18px auto 24px;text-align:center;font:12px/1.4 system-ui,sans-serif;opacity:.65">Sürüm <span id="mv-ver-no">1.3</span> · güncelleme bildirimi eklendi</div>
+<div id="mv-ver" style="margin:18px auto 24px;text-align:center;font:12px/1.4 system-ui,sans-serif;opacity:.65">Sürüm <span id="mv-ver-no">1.5</span> · 14.11.2026 · soru eklerken milletvekili fotoğrafı</div>
 <div id="mv-upd" hidden style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9999;max-width:92vw;background:#1f2a24;color:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:14px/1.4 system-ui,sans-serif;display:flex;gap:12px;align-items:center"><span id="mv-upd-t">Yeni sürüm var.</span><button type="button" id="mv-upd-b" style="background:#f0a04b;color:#1f2a24;border:0;border-radius:8px;padding:6px 12px;font-weight:600;cursor:pointer">Yenile</button><button type="button" id="mv-upd-x" aria-label="Kapat" style="background:none;border:0;color:#fff;font-size:18px;cursor:pointer">×</button></div>
 <script>
-(function(){var CUR="1.3";
+(function(){var CUR="1.5";
 var u=document.getElementById('mv-upd');u.style.display='none';
 function nv(a,b){var x=String(a).split('.'),y=String(b).split('.');for(var i=0;i<Math.max(x.length,y.length);i++){var p=+x[i]||0,q=+y[i]||0;if(p!==q)return p>q}return false}
 document.getElementById('mv-upd-b').onclick=function(){location.reload()};
