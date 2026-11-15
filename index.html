@@ -787,6 +787,7 @@ a.ico.place.cep-call{display:inline-flex;text-decoration:none}
 .ot-nt{display:flex;gap:6px}.ot-nt .ot-btn{padding:5px 12px;min-height:0}
 .ot-nfa{display:flex;align-items:center;gap:8px;justify-content:space-between}
 
+#yonbox{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6z'/><path d='M9 12l2 2 4-4'/></svg>")}
 #sorubox{--ic:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12a8 8 0 0 1-11.5 7.2L4 20l1-4.5A8 8 0 1 1 21 12z'/><path d='M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 16.5v.01'/></svg>")}
 .sq-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
 .sq-top input[type=search]{flex:1 1 200px;min-width:0;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
@@ -797,6 +798,25 @@ a.ico.place.cep-call{display:inline-flex;text-decoration:none}
 .sq-i[data-s="cevaplandi"]{border-left-color:#2e7d32}
 .sq-i[data-s="ertelendi"]{border-left-color:var(--muted)}
 .sq-i[data-s="soruldu"]{border-left-color:#c9822b}
+:root{--sq-ok:#2e7d32;--sq-ok-bg:#E6F3E8;--sq-ok-fg:#1B5E20;--sq-wait:#c9822b;--sq-wait-bg:#FBF0DE;--sq-wait-fg:#8A5410}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sq-ok:#5fd68a;--sq-ok-bg:#16301F;--sq-ok-fg:#8FE3AE;--sq-wait:#F2B35A;--sq-wait-bg:#33261A;--sq-wait-fg:#F0B369}}
+:root[data-theme="dark"]{--sq-ok:#5fd68a;--sq-ok-bg:#16301F;--sq-ok-fg:#8FE3AE;--sq-wait:#F2B35A;--sq-wait-bg:#33261A;--sq-wait-fg:#F0B369}
+.sq-i[data-s="sorulacak"]{border-left-color:var(--muted)}
+.sq-i[data-s="ertelendi"]{opacity:.8}
+.sq-i[data-s="cevaplandi"]{border-left-width:7px;border-left-color:var(--sq-ok);background:var(--sq-ok-bg)}
+.sq-i[data-w="1"]{border-left-width:7px;border-left-color:var(--sq-wait);background:var(--sq-wait-bg)}
+.sq-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;line-height:1.5;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
+.sq-badge[data-b="ok"]{color:var(--sq-ok-fg);border-color:var(--sq-ok);background:var(--surface)}
+.sq-badge[data-b="wait"]{color:var(--sq-wait-fg);border-color:var(--sq-wait);background:var(--surface)}
+.sq-i[data-s="cevaplandi"] .sq-ans{background:var(--surface);border:1px solid var(--sq-ok);border-radius:8px;padding:7px 10px;color:var(--fg)}
+.sq-i[data-s="cevaplandi"] .sq-ans b{color:var(--sq-ok-fg)}
+.sq-at{color:var(--muted);font-size:12px}
+.sq-chips .ot-btn::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:var(--muted);vertical-align:baseline}
+.sq-chips .ot-btn[data-f="hepsi"]::before{display:none}
+.sq-chips .ot-btn[data-f="cevaplandi"]::before{background:var(--sq-ok)}
+.sq-chips .ot-btn[data-f="bekleyen"]::before{background:var(--sq-wait)}
+.sq-chips .ot-btn[data-f="cevaplandi"]:not([aria-pressed="true"]){border-color:var(--sq-ok)}
+.sq-chips .ot-btn[data-f="bekleyen"]:not([aria-pressed="true"]){border-color:var(--sq-wait)}
 .sq-who{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline;font-size:12.5px;color:var(--muted)}
 .sq-mv{background:transparent;border:0;padding:0;font:inherit;font-weight:700;font-size:14px;color:var(--fg);cursor:pointer;text-decoration:underline;text-align:left}
 .sq-i p{margin:5px 0;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
@@ -837,6 +857,24 @@ div.sq-ph{background:var(--accent-soft)}
 .sq-sel .sq-ph{width:34px;height:45px}
 .sq-sel{margin:8px 0 0;padding:7px 10px;border-radius:8px;background:var(--accent-soft);font-size:14px;display:flex;gap:8px;align-items:center;justify-content:space-between}
 .sq-sel button{background:transparent;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
+.yon-l{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:6px}
+.yon-l li{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.yon-l li>span{flex:1 1 160px;min-width:0}.yon-l small{color:var(--muted);display:block}
+.yon-f{display:grid;gap:8px;padding:12px;border:1px solid var(--line);border-radius:10px}
+.yon-f input{width:100%;box-sizing:border-box;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--fg);font:inherit}
+.yon-f h3{margin:0;font-size:15px}.yon-m{min-height:1.3em;font-size:13px;color:var(--muted);margin:0;white-space:pre-wrap}
+.sq-sync{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 12px;font-size:13px;color:var(--muted)}
+.sq-sync>span{flex:1 1 180px}
+.sq-bi{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;font-size:12.5px;color:var(--muted)}
+.sq-bi select.ot-st{width:auto;max-width:100%;height:30px;min-height:0;padding:2px 22px 2px 8px;font-size:12.5px}
+.sq-bi .ot-btn{min-height:30px;padding:3px 12px;font-size:12.5px}
+.sq-sent{flex:1 1 100%}
+.sq-login{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--fg);padding:18px;max-width:min(92vw,340px)}
+.sq-login::backdrop{background:rgba(0,0,0,.5)}
+.sq-login h3{margin:0 0 10px;font-size:16px}
+.sq-login input{display:block;width:100%;box-sizing:border-box;margin:0 0 8px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg,var(--surface));color:var(--fg);font:inherit}
+.sq-login .sq-lm{min-height:1.3em;font-size:13px;color:var(--muted);margin:0 0 8px}
+.sq-login .sq-lb{display:flex;gap:8px;justify-content:flex-end}
 .sq-fa{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sq-fa .ot-hint{flex:1 1 120px;margin:0}
 .sq-out{font-weight:400;color:var(--muted);font-size:12px}
 
@@ -1072,7 +1110,8 @@ div.sq-ph{background:var(--accent-soft)}
 
   <section class="gone" id="sorular" aria-labelledby="soru-h">
     <details class="gonebox" id="sorubox"><summary><h2 id="soru-h">Soru Takibi</h2><span class="cnt" id="soru-cnt"></span></summary>
-    <p class="sub">Milletvekili kartlarına eklediğiniz sorular burada toplanır. Soruyu Oturma Düzeni'nde milletvekilinin koltuğuna dokunarak ya da aşağıdaki “Soru ekle” ile (koltukta olmayan milletvekili için) ekleyebilirsiniz. Durumu güncelleyin, cevabı kaydedin. Kayıtlar yalnızca bu cihazda saklanır.</p>
+    <p class="sub">Milletvekili kartlarına eklediğiniz sorular burada toplanır. Soruyu Oturma Düzeni'nde milletvekilinin koltuğuna dokunarak ya da aşağıdaki “Soru ekle” ile (koltukta olmayan milletvekili için) ekleyebilirsiniz. Durumu güncelleyin, cevabı kaydedin. Kayıtlar bu cihazda saklanır; yalnızca bürokrata “Gönder” dediğiniz sorular (ve cevapları) Firebase’de de tutulur.</p>
+    <div class="sq-sync" id="sq-sync"><span id="sq-sy-st">Bürokrat bağlantısı kapalı</span><button type="button" class="ot-btn" id="sq-sy-in">Giriş</button><button type="button" class="ot-btn" id="sq-sy-out" hidden>Çıkış</button></div>
     <details class="sq-add" id="sq-add"><summary><span>Soru ekle<small style="display:block;font-weight:500;font-size:12.5px;line-height:1.35;margin-top:2px;opacity:.9">Oturma düzenine yerleştirilmemiş milletvekilinin sorusunu da buradan girebilirsiniz</small></span></summary>
       <div class="sq-form"><input type="search" id="sq-mq" placeholder="Milletvekili ara: ad, il veya parti" autocomplete="off" aria-label="Milletvekili ara">
       <ul class="sq-res" id="sq-mres"></ul><div class="sq-sel" id="sq-sel" hidden></div>
@@ -1239,7 +1278,19 @@ div.sq-ph{background:var(--accent-soft)}
   const NOTEK='mv-notes-v1';
   let NOTES={};
   try{NOTES=JSON.parse(localStorage.getItem(NOTEK)||'{}')||{}}catch(_){}
-  const saveNotes=()=>{try{localStorage.setItem(NOTEK,JSON.stringify(NOTES))}catch(_){}};
+  const saveNotes=()=>{try{localStorage.setItem(NOTEK,JSON.stringify(NOTES))}catch(_){}if(window.mvFb&&window.mvFb.notes)window.mvFb.notes()};
+  window.MVN={
+    NF:['t','x','s','ts','ut','a','at','ab','to','toAd','sent'],
+    all:()=>{const o=[];Object.keys(NOTES).forEach(k=>(NOTES[k]||[]).forEach(n=>o.push(Object.assign({k},n))));return o},
+    merge:arr=>{let ch=false;const NF=window.MVN.NF;
+      arr.forEach(v=>{const k=v.k;if(!k||!v.id)return;const list=NOTES[k]||(NOTES[k]=[]),i=list.findIndex(n=>n.id===v.id),vt=v.ut||v.ts||0;
+        const st=()=>{const o={id:v.id};NF.forEach(f=>{if(v[f]!==undefined)o[f]=v[f]});return o};
+        if(v.del){if(i>=0&&(list[i].ut||list[i].ts||0)<=vt){list.splice(i,1);ch=true}}
+        else if(i<0){list.push(st());ch=true}
+        else if((list[i].ut||list[i].ts||0)<vt){list[i]=st();ch=true}
+        if(!NOTES[k].length)delete NOTES[k]});
+      if(ch){try{localStorage.setItem(NOTEK,JSON.stringify(NOTES))}catch(_){}}return ch}
+  };
   const noteN=k=>(NOTES[k]||[]).length;
   const cepTel=n=>{const d=String(n).replace(/\D/g,'');if(d.length===11&&d[0]==='0')return '+9'+d;if(d.length===10&&d[0]==='5')return '+90'+d;if(d.length===12&&d.slice(0,2)==='90')return '+'+d;return d};
   const cepFmt=n=>{const d=String(n).replace(/\D/g,'');const m=d.length===11?d:d.length===10?'0'+d:d.length===12&&d.slice(0,2)==='90'?'0'+d.slice(2):'';return m?m.replace(/^(\d{4})(\d{3})(\d{2})(\d{2})$/,'$1 $2 $3 $4'):String(n)};
@@ -1521,7 +1572,17 @@ div.sq-ph{background:var(--accent-soft)}
     const idOk=id=>/^b[1-6]-[12]-[1-4]$/.test(id);
     let seats={};
     try{const j=JSON.parse(localStorage.getItem(LS)||'{}');Object.keys(j).forEach(id=>{if(idOk(id)&&byKey[j[id]])seats[id]=j[id]})}catch(_){}
-    const save=()=>{try{localStorage.setItem(LS,JSON.stringify(seats))}catch(_){}};
+    let floor=0;
+    const save=()=>{try{localStorage.setItem(LS,JSON.stringify(seats));localStorage.setItem(LS+'-ut',String(Math.max(Date.now(),floor+1)))}catch(_){}if(window.mvFb&&window.mvFb.seats)window.mvFb.seats()};
+    window.MVS={
+      get:()=>({seats:Object.assign({},seats),ut:+(localStorage.getItem(LS+'-ut')||0)}),
+      stamp:ut=>{try{localStorage.setItem(LS+'-ut',String(ut))}catch(_){}},
+      set:(o,ut)=>{const n={};Object.keys(o||{}).forEach(id=>{if(idOk(id)&&byKey[o[id]])n[id]=o[id]});seats=n;try{localStorage.setItem(LS,JSON.stringify(seats));localStorage.setItem(LS+'-ut',String(ut))}catch(_){}render()},
+      bump:v=>{if(v>floor)floor=v},
+      name:k=>byKey[k]?byKey[k].name:'',
+      label:id=>{const q=String(id).split('-'),b=BL.find(x=>x.id===q[0]);return b?rowName(b,+q[1])+' · '+q[1]+'. sıra · '+q[2]+'. koltuk':String(id)},
+      put:(id,key)=>{if(!idOk(id))return false;if(key){if(!byKey[key])return false;const o=Object.keys(seats).find(i=>seats[i]===key);if(o)delete seats[o];seats[id]=key}else delete seats[id];save();render();return true}
+    };
     const photoOf=r=>PHOTOS[r.sort+'|'+r.il]||PHOTOS[r.sort];
     const ini=r=>r.name.split(' ').filter(Boolean).map(w=>w[0]).slice(0,2).join('').toLocaleUpperCase(TR);
     const PLUS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
@@ -1595,7 +1656,7 @@ div.sq-ph{background:var(--accent-soft)}
       '<div class="ot-nfa"><span class="ot-hint" id="ot-nm">Yalnızca bu cihazda saklanır.</span><button type="button" class="ot-btn" id="ot-na">Ekle</button></div></div></section>'+
       '<div class="ot-df-foot"><button type="button" class="ot-btn" id="ot-cchg">Koltuğu değiştir</button><button type="button" class="ot-btn ot-danger" id="ot-cclr">Koltuğu boşalt</button><button type="button" class="ot-btn" id="ot-cclose">Kapat</button></div></div>';
     document.body.appendChild(cdlg);
-    const SQ_ST=[['sorulacak','Sorulacak'],['soruldu','Soruldu'],['cevaplandi','Cevaplandı'],['ertelendi','Ertelendi']],sqSt=n=>n.s||'sorulacak';
+    const SQ_ST=[['sorulacak','Sorulacak'],['soruldu','Soruldu'],['cevaplandi','Cevaplandı'],['ertelendi','Ertelendi']],sqSt=n=>n.s||'sorulacak',sqW=n=>!!n.sent&&!n.a&&(n.s||'sorulacak')!=='cevaplandi';
     const WA_IC='<svg viewBox=\'0 0 24 24\' width=\'15\' height=\'15\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\' aria-hidden=\'true\'><path d=\'M20 11.5a8 8 0 0 1-11.9 7L3 20l1.5-4.9A8 8 0 1 1 20 11.5z\'/><path d=\'M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8a4.5 4.5 0 0 1-2-2l.8-1-1-2z\'/></svg>';
     const waOpen=t=>{const u='https://wa.me/?text='+encodeURIComponent(t);const w=window.open(u,'_blank','noopener');if(!w)location.href=u};
     const waMsg=(k,n)=>{const r=byKey[k];return '*Soru* · '+(r?r.name+' ('+PARTY[r.p]+' · '+r.il+')':k)+'\n'+n.x+'\nDurum: '+(SQ_ST.find(x=>x[0]===(n.s||'sorulacak'))||[,''])[1]+(n.a?'\nCevap: '+n.a:'')};
@@ -1620,9 +1681,9 @@ div.sq-ph{background:var(--accent-soft)}
     });
     $('ot-nl').addEventListener('click',e=>{const w=e.target.closest('.ot-wa');if(w){const n=(NOTES[cKey]||[]).find(x=>x.id===w.dataset.id);if(n)waOpen(waMsg(cKey,n));return}
       const b=e.target.closest('.ot-nd');if(!b||!confirm('Bu kayıt silinsin mi?'))return;
-      NOTES[cKey]=(NOTES[cKey]||[]).filter(n=>n.id!==b.dataset.id);if(!NOTES[cKey].length)delete NOTES[cKey];saveNotes();renderNotes();render();renderSoru()});
+      if(window.mvFb)window.mvFb.drop(b.dataset.id,cKey);NOTES[cKey]=(NOTES[cKey]||[]).filter(n=>n.id!==b.dataset.id);if(!NOTES[cKey].length)delete NOTES[cKey];saveNotes();renderNotes();render();renderSoru()});
     $('ot-nl').addEventListener('change',e=>{const el=e.target,n=(NOTES[cKey]||[]).find(x=>x.id===el.dataset.id);if(!n)return;
-      if(el.classList.contains('ot-st'))n.s=el.value;else if(el.classList.contains('ot-ans'))n.a=el.value.trim().slice(0,1000);else return;n.ut=Date.now();saveNotes();renderSoru()});
+      if(el.classList.contains('ot-st'))n.s=el.value;else if(el.classList.contains('ot-ans')){n.a=el.value.trim().slice(0,1000);n.at=Date.now();n.ab=''}else return;n.ut=Date.now();saveNotes();renderSoru()});
     $('ot-cx').addEventListener('click',()=>cdlg.close());$('ot-cclose').addEventListener('click',()=>cdlg.close());
     cdlg.addEventListener('click',e=>{if(e.target===cdlg)cdlg.close()});
     $('ot-cchg').addEventListener('click',()=>{const id=cSeat;cdlg.close();openSeat(id)});
@@ -1637,26 +1698,44 @@ div.sq-ph{background:var(--accent-soft)}
     let sqF='hepsi';
     const sqLbl=k=>(SQ_ST.find(x=>x[0]===k)||[,k])[1];
     function sqAll(){const out=[];Object.keys(NOTES).forEach(k=>{const r=byKey[k];(NOTES[k]||[]).forEach(n=>{if(n.t==='soru')out.push({k,r,n})})});return out}
+    window.MVQ={
+      team:(()=>{try{return JSON.parse(localStorage.getItem('mv-team')||'[]')||[]}catch(_){return[]}})(),
+      all:()=>sqAll().map(x=>({id:x.n.id,k:x.k,ad:x.r?x.r.name:x.k,pa:x.r?PARTY[x.r.p]:'',il:x.r?x.r.il:'',x:x.n.x,ts:x.n.ts,a:x.n.a,at:x.n.at,to:x.n.to,toAd:x.n.toAd,sent:x.n.sent})),
+      patch:(id,pt)=>{for(const k of Object.keys(NOTES)){const n=NOTES[k].find(y=>y.id===id);if(n){Object.assign(n,pt);n.ut=Date.now();saveNotes();renderSoru();return true}}return false},
+      pull:(id,v)=>{for(const k of Object.keys(NOTES)){const n=NOTES[k].find(y=>y.id===id);if(n){if(v.at&&v.at>(n.at||0)){n.a=String(v.a||'').slice(0,1000);n.at=v.at;n.ab=v.by||'';n.s='cevaplandi';n.ut=Date.now();saveNotes();renderSoru();return true}return false}}return false},
+      setTeam:t=>{window.MVQ.team=t;try{localStorage.setItem('mv-team',JSON.stringify(t))}catch(_){}renderSoru()},
+      refresh:()=>renderSoru()
+    };
+    window.addEventListener('mv-sync',()=>{try{renderSoru();render()}catch(_){}});
+    function sqBi(x){const n=x.n,T=window.MVQ.team.slice();if(n.to&&!T.some(t=>t.uid===n.to))T.push({uid:n.to,ad:n.toAd||'(bilinmiyor)'});
+      return '<div class="sq-bi"><select class="ot-st sq-b" data-k="'+esc(x.k)+'" data-id="'+n.id+'" aria-label="Bürokrat"><option value="">Bürokrat seç…</option>'+T.map(t=>'<option value="'+esc(t.uid)+'"'+(n.to===t.uid?' selected':'')+'>'+esc(t.ad+(t.birim?' · '+t.birim:''))+'</option>').join('')+'</select>'+
+        '<button type="button" class="ot-btn sq-send" data-id="'+n.id+'">'+(n.sent?'Tekrar gönder':'Gönder')+'</button>'+(n.sent?'<button type="button" class="ot-btn sq-recall" data-id="'+n.id+'">Geri çek</button><span class="sq-sent">Gönderildi: '+esc(n.toAd||'')+' · '+esc(fmtTs(n.sent))+(n.a?'':' · cevap bekleniyor')+'</span>':'')+'</div>'}
     function renderSoru(){
       const list=$('sq-list');if(!list)return;
-      const all=sqAll(),cnt={hepsi:all.length};SQ_ST.forEach(([k])=>cnt[k]=all.filter(x=>sqSt(x.n)===k).length);
-      $('sq-chips').innerHTML=[['hepsi','Tümü']].concat(SQ_ST).map(([k,v])=>'<button type="button" class="ot-btn" data-f="'+k+'" aria-pressed="'+(sqF===k)+'">'+v+' ('+cnt[k]+')</button>').join('');
-      $('soru-cnt').textContent=all.length?all.length+' soru · '+cnt.sorulacak+' sorulacak · '+cnt.cevaplandi+' cevaplandı':'Henüz soru eklenmedi';
+      const all=sqAll(),cnt={hepsi:all.length,bekleyen:all.filter(x=>sqW(x.n)).length};SQ_ST.forEach(([k])=>cnt[k]=all.filter(x=>sqSt(x.n)===k).length);
+      $('sq-chips').innerHTML=[['hepsi','Tümü'],['bekleyen','Cevap bekleyen']].concat(SQ_ST).map(([k,v])=>'<button type="button" class="ot-btn" data-f="'+k+'" aria-pressed="'+(sqF===k)+'">'+v+' ('+cnt[k]+')</button>').join('');
+      $('soru-cnt').textContent=all.length?all.length+' soru · '+cnt.sorulacak+' sorulacak · '+cnt.cevaplandi+' cevaplandı'+(cnt.bekleyen?' · '+cnt.bekleyen+' cevap bekliyor':''):'Henüz soru eklenmedi';
       const q=norm($('sq-q').value.trim().replace(/\s+/g,' ')),toks=q.split(' ').filter(Boolean),ord={sorulacak:0,soruldu:1,ertelendi:2,cevaplandi:3};
-      const hit=all.filter(x=>(sqF==='hepsi'||sqSt(x.n)===sqF)&&toks.every(t=>norm([x.r?x.r.name:x.k,x.r?PARTY[x.r.p]:'',x.r?x.r.il:'',x.n.x,x.n.a||''].join(' ')).includes(t)))
+      const hit=all.filter(x=>(sqF==='hepsi'||(sqF==='bekleyen'?sqW(x.n):sqSt(x.n)===sqF))&&toks.every(t=>norm([x.r?x.r.name:x.k,x.r?PARTY[x.r.p]:'',x.r?x.r.il:'',x.n.x,x.n.a||''].join(' ')).includes(t)))
         .sort((a,b)=>ord[sqSt(a.n)]-ord[sqSt(b.n)]||b.n.ts-a.n.ts);
-      list.innerHTML=hit.length?hit.map(x=>'<li class="sq-i" data-s="'+sqSt(x.n)+'"><div class="sq-who"><button type="button" class="sq-mv" data-k="'+esc(x.k)+'">'+esc(x.r?x.r.name:x.k)+'</button>'+(x.r?'<span>'+esc(PARTY[x.r.p])+' · '+esc(x.r.il)+(Object.keys(seats).some(i=>seats[i]===x.k)?'':' · <i class="sq-out">koltukta değil</i>')+'</span>':'')+
+      list.innerHTML=hit.length?hit.map(x=>'<li class="sq-i" data-s="'+sqSt(x.n)+'"'+(sqW(x.n)?' data-w="1"':'')+'><div class="sq-who">'+(sqSt(x.n)==='cevaplandi'?'<span class="sq-badge" data-b="ok">✓ Cevaplandı</span>':sqW(x.n)?'<span class="sq-badge" data-b="wait">⏳ Cevap bekleniyor</span>':'<span class="sq-badge">'+esc((SQ_ST.find(t=>t[0]===sqSt(x.n))||[])[1]||'')+'</span>')+'<button type="button" class="sq-mv" data-k="'+esc(x.k)+'">'+esc(x.r?x.r.name:x.k)+'</button>'+(x.r?'<span>'+esc(PARTY[x.r.p])+' · '+esc(x.r.il)+(Object.keys(seats).some(i=>seats[i]===x.k)?'':' · <i class="sq-out">koltukta değil</i>')+'</span>':'')+
         '<span class="sq-st"><span>'+esc(fmtTs(x.n.ts))+'</span><select class="ot-st" data-k="'+esc(x.k)+'" data-id="'+x.n.id+'" aria-label="Durum">'+SQ_ST.map(([k,v])=>'<option value="'+k+'"'+(sqSt(x.n)===k?' selected':'')+'>'+v+'</option>').join('')+'</select><button type="button" class="ot-nd sq-wa wa" data-k="'+esc(x.k)+'" data-id="'+x.n.id+'">'+WA_IC+'WhatsApp</button></span></div>'+
-        '<p>'+esc(x.n.x).replace(/\n/g,'<br>')+'</p>'+(x.n.a?'<p class="sq-ans"><b>Cevap:</b> '+esc(x.n.a).replace(/\n/g,'<br>')+'</p>':'')+'</li>').join(''):'<li class="ot-n-empty">'+(all.length?'Bu süzgece uyan soru yok.':'Soru eklemek için yukarıdaki “Soru ekle”yi kullanın ya da Oturma Düzeni’nde milletvekilinin koltuğuna dokunun.')+'</li>';
+        '<p>'+esc(x.n.x).replace(/\n/g,'<br>')+'</p>'+(x.n.a?'<p class="sq-ans"><b>Cevap'+(x.n.ab?' ('+esc(x.n.toAd||x.n.ab)+')':'')+':</b> '+esc(x.n.a).replace(/\n/g,'<br>')+(x.n.at?' <span class="sq-at">· '+esc(fmtTs(x.n.at))+'</span>':'')+'</p>':'')+sqBi(x)+'</li>').join(''):'<li class="ot-n-empty">'+(all.length?'Bu süzgece uyan soru yok.':'Soru eklemek için yukarıdaki “Soru ekle”yi kullanın ya da Oturma Düzeni’nde milletvekilinin koltuğuna dokunun.')+'</li>';
     }
     $('sq-chips').addEventListener('click',e=>{const b=e.target.closest('button[data-f]');if(b){sqF=b.dataset.f;renderSoru()}});
     $('sq-q').addEventListener('input',renderSoru);
-    $('sq-list').addEventListener('click',e=>{const w=e.target.closest('.sq-wa');if(w){const n=(NOTES[w.dataset.k]||[]).find(x=>x.id===w.dataset.id);if(n)waOpen(waMsg(w.dataset.k,n));return}
+    $('sq-list').addEventListener('click',e=>{
+      const sb=e.target.closest('.sq-send'),rb=e.target.closest('.sq-recall');
+      if(sb||rb){const id=(sb||rb).dataset.id,F=window.mvFb;if(!F){alert('Bağlantı modülü yüklenemedi.');return}
+        if(sb){const q=window.MVQ.all().find(y=>y.id===id);if(!q||!q.to){alert('Önce listeden bir bürokrat seçin.');return}F.send(id)}else if(confirm('Soru bürokrattan geri çekilsin mi? (Yazdığı cevap da silinir)'))F.recall(id);return}
+      const w=e.target.closest('.sq-wa');if(w){const n=(NOTES[w.dataset.k]||[]).find(x=>x.id===w.dataset.id);if(n)waOpen(waMsg(w.dataset.k,n));return}
       const b=e.target.closest('.sq-mv');if(b&&window.mvOpenCard)window.mvOpenCard(b.dataset.k)});
     $('sq-wall').addEventListener('click',()=>{const p=sqAll().filter(x=>['sorulacak','soruldu'].includes(sqSt(x.n))).sort((a,b)=>a.n.ts-b.n.ts);if(!p.length){alert('Cevap bekleyen soru yok.');return}
       let t='*Cevap bekleyen sorular ('+p.length+')*\n',used=0;for(const x of p){const line='\n'+(used+1)+'. '+(x.r?x.r.name+' ('+PARTY[x.r.p]+'): ':'')+x.n.x;if((t+line).length>3500)break;t+=line;used++}
       if(used<p.length)t+='\n\n… ve '+(p.length-used)+' soru daha (listeyi uygulamadan görün).';waOpen(t)});
-    $('sq-list').addEventListener('change',e=>{const el=e.target;if(!el.classList.contains('ot-st'))return;
+    $('sq-list').addEventListener('change',e=>{const el=e.target;
+      if(el.classList.contains('sq-b')){const t=window.MVQ.team.find(y=>y.uid===el.value);const n=(NOTES[el.dataset.k]||[]).find(x=>x.id===el.dataset.id);if(n){n.to=el.value||undefined;n.toAd=t?t.ad:undefined;n.ut=Date.now();saveNotes();renderSoru()}return}
+      if(!el.classList.contains('ot-st'))return;
       const n=(NOTES[el.dataset.k]||[]).find(x=>x.id===el.dataset.id);if(!n)return;n.s=el.value;n.ut=Date.now();saveNotes();renderSoru()});
     $('sq-csv').addEventListener('click',()=>{
       const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"',rows=[['Milletvekili','Parti','İl','Soru','Durum','Cevap','Tarih']];
@@ -2257,10 +2336,34 @@ document.querySelectorAll('#butcebox .st-up').forEach(function(b){b.addEventList
 </script>
 
 
-<div id="mv-ver" style="margin:18px auto 24px;text-align:center;font:12px/1.4 system-ui,sans-serif;opacity:.65">Sürüm <span id="mv-ver-no">1.5</span> · 14.11.2026 · soru eklerken milletvekili fotoğrafı</div>
+<dialog class="sq-login" id="sq-login"><form id="sq-lf" autocomplete="on"><h3>Giriş</h3>
+      <input id="sq-lu" name="username" autocomplete="username" placeholder="Kullanıcı adı" autocapitalize="none" required>
+      <input id="sq-lp" name="password" type="password" autocomplete="current-password" placeholder="Şifre" required>
+      <p class="sq-lm" id="sq-lm" role="status"></p>
+      <div class="sq-lb"><button type="button" class="ot-btn" id="sq-lx">Vazgeç</button><button type="submit" class="ot-btn" id="sq-lg">Giriş</button></div></form></dialog>
+<section class="gone" id="yonetim" aria-labelledby="yon-h">
+  <details class="gonebox" id="yonbox"><summary><h2 id="yon-h">Yönetici Paneli</h2><span class="cnt" id="yon-cnt"></span><span class="cnt" id="yon-lb"></span></summary>
+  <p class="sub">Yönetici girişi yaptıktan sonra bürokrat ve soru gönderici hesapları buradan eklenir ve kaldırılır. Bürokratlar Soru Takibi’ndeki “Bürokrat seç” listesinde görünür. Soru göndericiler yönetici değildir: yalnızca soru gönderir ve kendi gönderdiklerinin cevabını görür.</p>
+  <div class="sq-sync"><span id="yon-st">Yönetici girişi yapılmadı</span><button type="button" class="ot-btn" id="yon-in">Yönetici girişi</button><button type="button" class="ot-btn" id="yon-out" hidden>Çıkış</button></div>
+  <div id="yon-body" hidden>
+    <section aria-labelledby="yon-lh"><h3 id="yon-lh" style="margin:0 0 6px;font-size:15px">Oturma düzeni değişiklikleri <span id="yon-lc"></span></h3><p class="sub">Linki bilen herkes koltuk değiştirebilir. Burada kimin neyi değiştirdiği görünür (ad, kişinin yazdığı addır; doğrulanmaz).</p><ul class="yon-l" id="yon-ll"></ul><div class="sq-sync"><button type="button" class="ot-btn" id="yon-lseen">Görüldü say</button><button type="button" class="ot-btn ot-danger" id="yon-lclr">Kayıtları temizle</button></div></section>
+    <ul class="yon-l" id="yon-l"></ul>
+    <form class="yon-f" id="yon-f" autocomplete="off"><h3>Kişi ekle</h3>
+      <select id="yon-rol" aria-label="Rol"><option value="burokrat">Bürokrat (soruları cevaplar)</option><option value="gonderen">Soru gönderici (bürokrata soru gönderir, yönetici değildir)</option></select>
+      <input id="yon-ad" placeholder="Ad Soyad" maxlength="60" required>
+      <input id="yon-bi" placeholder="Birim (isteğe bağlı)" maxlength="60">
+      <input id="yon-ku" placeholder="Kullanıcı adı (küçük harf, boşluksuz)" maxlength="30" autocapitalize="none" pattern="[a-z0-9._\-]{3,30}" title="3-30 karakter: küçük harf, rakam, nokta, tire, alt çizgi" required>
+      <input id="yon-pw" type="text" placeholder="Şifre (en az 6 karakter)" minlength="6" maxlength="40" autocomplete="off" required>
+      <p class="yon-m" id="yon-m" role="status"></p>
+      <button type="submit" class="ot-btn" id="yon-add">Ekle</button><button type="button" class="ot-btn" id="yon-cp" hidden>Giriş bilgilerini kopyala</button>
+    </form>
+  </div></details>
+</section>
+<p style="margin:18px 16px 0;text-align:center;font:14px/1.5 system-ui,sans-serif"><a href="cevap.html" style="display:inline-block;padding:10px 16px;border:1px solid var(--accent);border-radius:10px;color:var(--accent);font-weight:700;text-decoration:none">Bürokrat girişi: size iletilen soruları cevaplayın →</a></p>
+<div id="mv-ver" style="margin:18px auto 24px;text-align:center;font:12px/1.4 system-ui,sans-serif;opacity:.65">Sürüm <span id="mv-ver-no">1.9.7</span> · 15.11.2026 · ana ekrana yüklenebilir uygulama (hizmet çalışanı + manifest)</div>
 <div id="mv-upd" hidden style="position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9999;max-width:92vw;background:#1f2a24;color:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:14px/1.4 system-ui,sans-serif;display:flex;gap:12px;align-items:center"><span id="mv-upd-t">Yeni sürüm var.</span><button type="button" id="mv-upd-b" style="background:#f0a04b;color:#1f2a24;border:0;border-radius:8px;padding:6px 12px;font-weight:600;cursor:pointer">Yenile</button><button type="button" id="mv-upd-x" aria-label="Kapat" style="background:none;border:0;color:#fff;font-size:18px;cursor:pointer">×</button></div>
 <script>
-(function(){var CUR="1.5";
+(function(){var CUR="1.9.7";
 var u=document.getElementById('mv-upd');u.style.display='none';
 function nv(a,b){var x=String(a).split('.'),y=String(b).split('.');for(var i=0;i<Math.max(x.length,y.length);i++){var p=+x[i]||0,q=+y[i]||0;if(p!==q)return p>q}return false}
 document.getElementById('mv-upd-b').onclick=function(){location.reload()};
@@ -2271,5 +2374,181 @@ if(j&&j.version&&nv(j.version,CUR)){document.getElementById('mv-upd-t').textCont
 chk();setInterval(chk,600000);document.addEventListener('visibilitychange',function(){if(!document.hidden)chk()});
 })();
 </script>
+<script type="module">
+const CFG={apiKey:"AIzaSyBCMJA7iaqEltPZvO57ebUfvKVxLTj0PzU",authDomain:"milletvekili-rehberi.firebaseapp.com",projectId:"milletvekili-rehberi",appId:"1:995182301350:web:e7fdd46b3ed453e491a467"};
+const B='https://www.gstatic.com/firebasejs/10.14.1/',$=id=>document.getElementById(id),LSF='mv-fb';
+let au,fs,auth,db,appM,secApp=null,lastCred='',user=null,sender=null,unsub=null,ready=null,remote=new Set(),pending=null,subs=[],lastN=new Map(),notesReady=false,seatsReady=false,tn=null,ts=null,cloud=null,gBusy=false,gAgain=false,logs=[],logInit=false;
+const H=o=>JSON.stringify(o,Object.keys(o).sort());
+const cleanN=n=>{const o={k:n.k};window.MVN.NF.forEach(f=>{if(n[f]!==undefined&&n[f]!==null&&n[f]!=='')o[f]=n[f]});return o};
+const DELK='mv-notes-del';
+const delList=()=>{try{return JSON.parse(localStorage.getItem(DELK)||'[]')||[]}catch(_){return[]}};
+const setDel=l=>{try{localStorage.setItem(DELK,JSON.stringify(l))}catch(_){}};
+function pushNotes(){if(!user||!notesReady)return;
+  for(const n of window.MVN.all()){const c=cleanN(n),h=H(c);if(lastN.get(n.id)===h)continue;lastN.set(n.id,h);fs.setDoc(fs.doc(db,'yonetim_notlar',n.id),c).catch(()=>lastN.delete(n.id))}
+  const dl=delList();if(dl.length){dl.forEach(d=>fs.setDoc(fs.doc(db,'yonetim_notlar',d.id),{k:d.k,del:true,ut:d.ut}).catch(()=>{}));setDel([])}}
+function pushSeats(){if(!user||!seatsReady)return;const g=window.MVS.get(),ut=g.ut||Date.now();
+  fs.setDoc(fs.doc(db,'yonetim','koltuk'),{seats:g.seats,ut}).then(()=>{if(!g.ut)window.MVS.stamp(ut)}).catch(()=>{})}
+const setCloud=v=>{cloud={seats:v.seats||{},ut:v.ut||0};window.MVS.bump(cloud.ut)};
+const GN='mv-zi-ad',GD='mv-zi-id';
+function guestName(){let n='';try{n=localStorage.getItem(GN)||''}catch(_){}
+  if(!n){n=(prompt('Oturma düzenini değiştiriyorsunuz. Değişiklik herkese görünür ve yöneticiye kimin yaptığıyla birlikte bildirilir.\n\nAdınız:')||'').trim().replace(/\s+/g,' ').slice(0,40);if(n)try{localStorage.setItem(GN,n)}catch(_){}}
+  return n}
+function devId(){let d='';try{d=localStorage.getItem(GD)||''}catch(_){}
+  if(!d){d=Math.random().toString(36).slice(2,10);try{localStorage.setItem(GD,d)}catch(_){}}return d}
+async function pushGuest(){
+  if(user||!fs||!db)return;
+  if(gBusy){gAgain=true;return}
+  const g=window.MVS.get(),b=g.seats;
+  if(!cloud){window.MVS.set({},0);window.dispatchEvent(new Event('mv-sync'));alert('Oturma düzeni henüz buluttan yüklenmedi. Biraz sonra tekrar deneyin.');return}
+  const a=cloud.seats,ids=new Set(Object.keys(a).concat(Object.keys(b))),ch=[];
+  ids.forEach(id=>{if((a[id]||'')!==(b[id]||''))ch.push(id)});
+  if(!ch.length)return;
+  const revert=()=>{window.MVS.set(a,cloud.ut);window.dispatchEvent(new Event('mv-sync'))};
+  const kim=guestName();if(!kim){revert();return}
+  gBusy=true;
+  try{
+    const ut=Math.max(Date.now(),cloud.ut+1),batch=fs.writeBatch(db),ref=fs.doc(db,'yonetim','koltuk'),args=[];
+    ch.forEach(id=>{args.push(new fs.FieldPath('seats',id),b[id]?b[id]:fs.deleteField())});
+    batch.update(ref,new fs.FieldPath('ut'),ut,...args);
+    const cihaz=devId();
+    ch.forEach(id=>batch.set(fs.doc(fs.collection(db,'yonetim_degisiklik')),{ts:fs.serverTimestamp(),kim,cihaz,koltuk:id,yer:window.MVS.label(id),eski:a[id]||'',yeni:b[id]||'',eskiAd:window.MVS.name(a[id]),yeniAd:window.MVS.name(b[id])}));
+    await batch.commit();
+    cloud={seats:Object.assign({},b),ut};window.MVS.stamp(ut);window.MVS.bump(ut)}
+  catch(e){revert();alert('Değişiklik kaydedilemedi: '+(e.code||e.message))}
+  finally{gBusy=false;if(gAgain){gAgain=false;pushGuest()}}}
+const ZD=new Intl.DateTimeFormat('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+const eh=x=>String(x==null?'':x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SEEN='mv-log-seen',seenAt=()=>{try{return+localStorage.getItem(SEEN)||0}catch(_){return 0}};
+const tsOf=d=>d&&d.ts&&d.ts.toMillis?d.ts.toMillis():0;
+function toast(t){let e=$('mv-lt');if(!e){e=document.createElement('div');e.id='mv-lt';e.setAttribute('role','status');e.style.cssText='position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:9999;max-width:92vw;background:#1f2a24;color:#fff;border-radius:12px;padding:10px 14px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:14px/1.4 system-ui,sans-serif';document.body.appendChild(e)}
+  e.textContent=t;e.hidden=false;clearTimeout(e._t);e._t=setTimeout(()=>{e.hidden=true},9000)}
+function renderLog(){
+  const sn=seenAt(),n=logs.filter(l=>l.t>sn).length;
+  $('yon-lb').textContent=n?n+' yeni koltuk değişikliği':'';$('yon-lc').textContent=logs.length?'('+logs.length+')':'';
+  $('yon-ll').innerHTML=logs.length?logs.map(l=>'<li'+(l.t>sn?' style="border-color:var(--accent)"':'')+'><span><b>'+eh(l.kim)+'</b> · '+(l.t?eh(ZD.format(new Date(l.t))):'')+'<small>'+eh(l.yer||l.koltuk)+': '+eh(l.eskiAd||'boş')+' → '+eh(l.yeniAd||'boş')+' · cihaz '+eh(l.cihaz)+'</small></span><button type="button" class="ot-btn yon-undo" data-id="'+eh(l.id)+'">Geri al</button></li>').join(''):'<li><span>Henüz ziyaretçi değişikliği yok.</span></li>'}
+function onLog(snap){
+  const fresh=[];if(logInit)snap.docChanges().forEach(c=>{if(c.type==='added'&&!c.doc.metadata.hasPendingWrites)fresh.push(c.doc.data())});
+  logs=snap.docs.map(d=>Object.assign({id:d.id,t:tsOf(d.data())},d.data()));logInit=true;renderLog();
+  if(fresh.length){const l=fresh[fresh.length-1];toast('Oturma düzeni değişti: '+l.kim+' · '+(l.yer||l.koltuk)+' → '+(l.yeniAd||'boş')+(fresh.length>1?' (+'+(fresh.length-1)+' değişiklik daha)':''))}}
+const say=t=>{$('sq-sy-st').textContent=t;$('yon-st').textContent=t};
+const btns=(on,adm=true)=>{['sq-sy','yon'].forEach(p=>{$(p==='yon'?'yon-in':'sq-sy-in').hidden=on;$(p==='yon'?'yon-out':'sq-sy-out').hidden=!on});$('yon-body').hidden=!(on&&adm);if(!on){$('yon-cnt').textContent=''}};
+const mail=u=>u.trim().toLowerCase().replace(/\s+/g,'')+'@mv-rehberi.app';
+const flag=v=>{try{v?localStorage.setItem(LSF,'1'):localStorage.removeItem(LSF)}catch(_){}};
+function init(){return ready||(ready=(async()=>{
+  const [app,a,f]=await Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'firebase-firestore.js')]);
+  au=a;fs=f;appM=app;const ap=app.initializeApp(CFG);auth=a.getAuth(ap);db=f.getFirestore(ap);a.onAuthStateChanged(auth,onAuth)})().catch(e=>{ready=null;say('Bağlantı kurulamadı (internet?)');throw e}))}
+async function loadTeam(adm=true){
+  const col=fs.collection(db,'kullanicilar');
+  const t=await fs.getDocs(adm?fs.query(col,fs.where('rol','in',['burokrat','gonderen'])):fs.query(col,fs.where('rol','==','burokrat')));
+  const A=t.docs.map(d=>({uid:d.id,ad:d.data().ad||d.id,birim:d.data().birim||'',kul:d.data().kullanici||'',rol:d.data().rol})).sort((a,b)=>a.ad.localeCompare(b.ad,'tr'));
+  const L=A.filter(x=>x.rol==='burokrat');
+  window.MVQ.setTeam(L);
+  if(!adm)return;
+  const e=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const G=A.length-L.length;
+  $('yon-cnt').textContent=L.length+' bürokrat'+(G?' · '+G+' soru gönderici':'');
+  $('yon-l').innerHTML=A.length?A.map(x=>'<li><span><b>'+e(x.ad)+'</b><small>'+(x.rol==='gonderen'?'Soru gönderici · ':'Bürokrat · ')+e(x.birim)+(x.birim&&x.kul?' · ':'')+(x.kul?'kullanıcı adı: '+e(x.kul):'')+'</small></span><button type="button" class="ot-btn yon-rm" data-uid="'+e(x.uid)+'" data-ad="'+e(x.ad)+'">Kaldır</button></li>').join(''):'<li><span>Henüz kimse eklenmedi.</span></li>'}
+function guestSeats(){
+  subs.push(fs.onSnapshot(fs.doc(db,'yonetim','koltuk'),s=>{if(!s.exists()){cloud=null;return}const v=s.data(),g=window.MVS.get(),rut=v.ut||0;
+    setCloud(v);if(gBusy)return;
+    if(H(v.seats||{})!==H(g.seats)||rut!==g.ut){window.MVS.set(v.seats||{},rut);window.dispatchEvent(new Event('mv-sync'))}},()=>{}))}
+function watchQ(qy,un){
+  unsub=fs.onSnapshot(qy,snap=>{remote=new Set();let n=0;snap.forEach(d=>{remote.add(d.id);if(window.MVQ.pull(d.id,d.data()))n++});
+    say('Bağlı: '+un+' · '+remote.size+' soru bürokratlarda'+(n?' · '+n+' yeni cevap':''))},e=>say('Cevaplar okunamadı: '+(e.code||e.message)))}
+async function onAuth(u){
+  if(unsub){unsub();unsub=null}
+  subs.forEach(f=>f());subs=[];notesReady=seatsReady=false;lastN=new Map();cloud=null;logs=[];logInit=false;sender=null;
+  if(!u){user=null;btns(false);say('Bürokrat bağlantısı kapalı');
+    /* Giriş yapmamış herkes: yöneticinin oturma düzenini salt okunur izler (yerel düzenin üstüne yazılır). */
+    guestSeats();
+    return}
+  try{
+    const me=await fs.getDoc(fs.doc(db,'kullanicilar',u.uid));
+    const rl=me.exists()?me.data().rol:'';
+    if(rl!=='admin'&&rl!=='gonderen'){say('Bu hesap bu sayfa için yetkili değil.');await au.signOut(auth);flag(false);return}
+    if(rl==='gonderen'){
+      /* Soru gönderici: yönetici değil. Yalnızca bürokrata soru gönderir, kendi gönderdiklerinin cevabını görür; oturma düzeninde ziyaretçi gibi davranır. */
+      user=null;sender=u;flag(true);btns(true,false);const sn=u.email.split('@')[0];say('Bağlı: '+sn+' · soru gönderme yetkisi');
+      await loadTeam(false);guestSeats();
+      watchQ(fs.query(fs.collection(db,'sorular'),fs.where('gonderen','==',u.uid)),sn);
+      if(pending){const id=pending;pending=null;api.send(id)}
+      return}
+    user=u;flag(true);btns(true);
+    const un=u.email.split('@')[0];say('Bağlı: '+un);
+    await loadTeam();
+    watchQ(fs.collection(db,'sorular'),un);
+    subs.push(fs.onSnapshot(fs.collection(db,'yonetim_notlar'),snap=>{const arr=[];snap.forEach(d=>{const v=d.data();if(!v.del)lastN.set(d.id,H(cleanN(v)));arr.push(Object.assign({id:d.id},v))});
+      const ch=window.MVN.merge(arr);notesReady=true;if(ch){window.dispatchEvent(new Event('mv-sync'))}pushNotes()},e=>say('Notlar okunamadı: '+(e.code||e.message))));
+    subs.push(fs.onSnapshot(fs.query(fs.collection(db,'yonetim_degisiklik'),fs.orderBy('ts','desc'),fs.limit(100)),onLog,e=>say('Değişiklik kayıtları okunamadı: '+(e.code||e.message))));
+    subs.push(fs.onSnapshot(fs.doc(db,'yonetim','koltuk'),s=>{const g=window.MVS.get();
+      if(!s.exists()){seatsReady=true;if(Object.keys(g.seats).length)pushSeats();return}
+      setCloud(s.data());const v=s.data(),rut=v.ut||0,same=H(v.seats||{})===H(g.seats);
+      if(rut>g.ut&&!same){
+        if(g.ut===0&&Object.keys(g.seats).length&&!confirm('Bu cihazdaki oturma düzeni buluttakinden farklı. Buluttaki kullanılsın mı?\n\nTamam: buluttaki yüklenir.\nİptal: bu cihazdaki buluta yazılır.')){seatsReady=true;pushSeats();return}
+        window.MVS.set(v.seats||{},rut);window.dispatchEvent(new Event('mv-sync'));seatsReady=true}
+      else if(rut>g.ut){window.MVS.stamp(rut);seatsReady=true}
+      else if(g.ut>rut&&!same){seatsReady=true;pushSeats()}
+      else seatsReady=true},e=>say('Oturma düzeni okunamadı: '+(e.code||e.message))));
+    if(pending){const id=pending;pending=null;api.send(id)}
+  }catch(e){say('Giriş sonrası hata: '+(e.code||e.message))}
+}
+const api={
+  async login(){if(!ready){try{await init()}catch(_){return}}$('sq-lm').textContent='';$('sq-login').showModal();$('sq-lu').focus()},
+  async send(id){
+    const who=user||sender;if(!who){pending=id;return api.login()}
+    const q=window.MVQ.all().find(y=>y.id===id);if(!q||!q.to)return;
+    try{await fs.setDoc(fs.doc(db,'sorular',id),{k:q.k,ad:q.ad,pa:q.pa,il:q.il,x:q.x,ts:q.ts,to:q.to,toAd:q.toAd||'',gon:Date.now(),gonderen:who.uid},{merge:true});
+      window.MVQ.patch(id,{sent:Date.now()});say('Soru '+(q.toAd||'bürokrata')+' gönderildi.')}
+    catch(e){alert('Gönderilemedi: '+(e.code||e.message))}},
+  async recall(id){if(!(user||sender)){alert('Önce giriş yapın.');return}
+    try{await fs.deleteDoc(fs.doc(db,'sorular',id));window.MVQ.patch(id,{sent:undefined})}catch(e){alert('Geri çekilemedi: '+(e.code||e.message))}},
+  drop(id,k){if((user||sender)&&remote.has(id))fs.deleteDoc(fs.doc(db,'sorular',id)).catch(()=>{});
+    if(k){const l=delList();l.push({id,k,ut:Date.now()});setDel(l);lastN.delete(id);if(user)setTimeout(pushNotes,50)}},
+  notes(){if(!user)return;clearTimeout(tn);tn=setTimeout(pushNotes,1200)},
+  seats(){if(user){clearTimeout(ts);ts=setTimeout(pushSeats,1000)}else pushGuest()}
+};
+window.mvFb=api;
+$('sq-sy-in').addEventListener('click',api.login);$('yon-in').addEventListener('click',api.login);
+$('yon-out').addEventListener('click',()=>$('sq-sy-out').click());
+$('yon-l').addEventListener('click',async e=>{const b=e.target.closest('.yon-rm');if(!b||!user)return;
+  if(!confirm(b.dataset.ad+' kaldırılsın mı? Hesabı bu sayfaya erişemez; gönderilen soruları listede kalır.'))return;
+  try{await fs.deleteDoc(fs.doc(db,'kullanicilar',b.dataset.uid));await loadTeam()}catch(er){alert('Kaldırılamadı: '+(er.code||er.message))}});
+$('yon-lseen').addEventListener('click',()=>{try{localStorage.setItem(SEEN,String(Date.now()))}catch(_){}renderLog()});
+$('yon-lclr').addEventListener('click',async()=>{if(!user||!logs.length||!confirm('Tüm değişiklik kayıtları silinsin mi?'))return;
+  try{for(const l of logs)await fs.deleteDoc(fs.doc(db,'yonetim_degisiklik',l.id))}catch(er){alert('Silinemedi: '+(er.code||er.message))}});
+$('yon-ll').addEventListener('click',async e=>{const b=e.target.closest('.yon-undo');if(!b||!user)return;const l=logs.find(x=>x.id===b.dataset.id);if(!l)return;
+  if(!confirm((l.yer||l.koltuk)+' koltuğu eski haline ('+(l.eskiAd||'boş')+') döndürülsün mü? Bu kayıt silinir.'))return;
+  if(!window.MVS.put(l.koltuk,l.eski||'')){alert('Geri alınamadı.');return}
+  try{await fs.deleteDoc(fs.doc(db,'yonetim_degisiklik',l.id))}catch(_){}});
+$('yon-f').addEventListener('submit',async e=>{e.preventDefault();if(!user)return;
+  const m=$('yon-m'),ad=$('yon-ad').value.trim(),bi=$('yon-bi').value.trim(),ku=$('yon-ku').value.trim().toLowerCase(),pw=$('yon-pw').value;
+  if(!/^[a-z0-9._-]{3,30}$/.test(ku)){m.textContent='Kullanıcı adı 3-30 karakter: küçük harf, rakam, nokta, tire, alt çizgi.';return}
+  if(pw.length<6){m.textContent='Şifre en az 6 karakter olmalı.';return}
+  $('yon-add').disabled=true;m.textContent='Ekleniyor…';$('yon-cp').hidden=true;
+  try{
+    if(!secApp)secApp=appM.initializeApp(CFG,'ikinci');
+    const sa=au.getAuth(secApp);let uid;
+    try{uid=(await au.createUserWithEmailAndPassword(sa,mail(ku),pw)).user.uid}
+    catch(er){
+      if(er.code==='auth/email-already-in-use'){
+        try{uid=(await au.signInWithEmailAndPassword(sa,mail(ku),pw)).user.uid}
+        catch(_){throw Object.assign(new Error('x'),{code:'bu-ad-var'})}}
+      else throw er}
+    await au.signOut(sa);
+    await fs.setDoc(fs.doc(db,'kullanicilar',uid),{rol:$('yon-rol').value==='gonderen'?'gonderen':'burokrat',ad:ad.slice(0,60),birim:bi.slice(0,60),kullanici:ku,ekleyen:user.uid,ts:Date.now()});
+    lastCred=($('yon-rol').value==='gonderen'?'Uygulama (Soru Takibi bölümündeki Giriş düğmesi; soru gönderme yetkisi): '+new URL('./',location.href).href:'Soru cevaplama sayfası: '+new URL('cevap.html',location.href).href)+'\nKullanıcı adı: '+ku+'\nŞifre: '+pw;
+    m.textContent=ad+' eklendi. Giriş bilgilerini kopyalayıp kendisine gönderin.';$('yon-cp').hidden=false;
+    $('yon-ad').value=$('yon-bi').value=$('yon-ku').value=$('yon-pw').value='';await loadTeam()}
+  catch(er){const c=er.code||er.message;m.textContent=c==='bu-ad-var'?'Bu kullanıcı adı zaten kayıtlı ve şifre uymuyor. Farklı bir kullanıcı adı seçin.':/weak/.test(c)?'Şifre çok zayıf.':/operation-not-allowed/.test(c)?'Konsolda E-posta/Şifre girişi açık değil.':/permission/.test(c)?'İzin yok: kuralların güncel olduğundan emin olun (firebase deploy).':'Eklenemedi: '+c}
+  finally{$('yon-add').disabled=false}});
+$('yon-cp').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(lastCred);$('yon-m').textContent='Kopyalandı. Şifre bir daha gösterilmez.'}catch(_){$('yon-m').textContent=lastCred}});
+$('sq-sy-out').addEventListener('click',async()=>{if(auth){flag(false);await au.signOut(auth)}});
+$('sq-lx').addEventListener('click',()=>$('sq-login').close());
+$('sq-lf').addEventListener('submit',async e=>{e.preventDefault();const m=$('sq-lm');m.textContent='Giriş yapılıyor…';
+  try{await au.signInWithEmailAndPassword(auth,mail($('sq-lu').value),$('sq-lp').value);$('sq-lp').value='';$('sq-login').close()}
+  catch(er){m.textContent=/invalid|wrong|user-not-found|credential/.test(er.code||'')?'Kullanıcı adı veya şifre hatalı.':'Giriş yapılamadı: '+(er.code||er.message)}});
+init().catch(()=>{});
+</script>
+<script>if("serviceWorker" in navigator&&location.protocol==="https:")window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})});</script>
 </body>
 </html>

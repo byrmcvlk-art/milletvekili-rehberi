@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Soru Cevaplama</title>
+<style>
+:root{--bg:#f6f7f5;--sf:#fff;--fg:#1c2420;--mu:#5d6b64;--ln:#d9dfdb;--ac:#1f7a55;--acfg:#fff;--ok:#e3f3ea;--er:#b3261e}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1512;--sf:#18211c;--fg:#e8efea;--mu:#9baba2;--ln:#2a3830;--ac:#5fd3a0;--acfg:#08150f;--ok:#173024;--er:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:6px 0 2px}
+.sub{color:var(--mu);font-size:14px;margin:0 0 14px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:14px;margin:0 0 12px}
+input,textarea,button{font:inherit}
+input,textarea{width:100%;padding:10px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--fg);margin:0 0 8px}
+textarea{min-height:90px;resize:vertical}
+button{border:1px solid var(--ln);background:var(--sf);color:var(--fg);padding:9px 16px;border-radius:8px;cursor:pointer;min-height:42px}
+button.p{background:var(--ac);color:var(--acfg);border-color:var(--ac);font-weight:600}
+button[disabled]{opacity:.6;cursor:default}
+.top{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;margin:10px 0 12px}
+.tabs button[aria-pressed=true]{background:var(--ac);color:var(--acfg);border-color:var(--ac)}
+.who{font-weight:700}.meta{color:var(--mu);font-size:13px}
+.q{margin:8px 0;white-space:pre-wrap}
+.done{border-left:4px solid var(--ac)}
+.msg{min-height:1.3em;font-size:14px;color:var(--er)}
+.ok{color:var(--ac)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>Soru Cevaplama</h1>
+<p class="sub" id="sub">Size iletilen soruları buradan cevaplayabilirsiniz.</p>
+<p class="sub"><a href="./">← Milletvekili rehberine git</a></p>
+
+<form id="lf" class="card" autocomplete="on">
+  <input id="u" name="username" autocomplete="username" autocapitalize="none" placeholder="Kullanıcı adı" required>
+  <input id="p" name="password" type="password" autocomplete="current-password" placeholder="Şifre" required>
+  <p class="msg" id="lm" role="status"></p>
+  <button class="p" type="submit">Giriş</button>
+</form>
+
+<section id="app" hidden>
+  <div class="top"><div><b id="ad"></b> <span class="meta" id="bi"></span></div><button id="out" type="button">Çıkış</button></div>
+  <div class="tabs" id="tabs"><button type="button" data-f="bek" aria-pressed="true">Bekleyen (<span id="nb">0</span>)</button><button type="button" data-f="cev" aria-pressed="false">Cevaplanan (<span id="nc">0</span>)</button></div>
+  <div id="list"></div>
+</section>
+</main>
+
+<script type="module">
+const CFG={apiKey:"AIzaSyBCMJA7iaqEltPZvO57ebUfvKVxLTj0PzU",authDomain:"milletvekili-rehberi.firebaseapp.com",projectId:"milletvekili-rehberi",appId:"1:995182301350:web:e7fdd46b3ed453e491a467"};
+const B='https://www.gstatic.com/firebasejs/10.14.1/',$=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const mail=u=>u.trim().toLowerCase().replace(/\s+/g,'')+'@mv-rehberi.app';
+const fmt=ts=>ts?new Date(ts).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+let au,fs,auth,db,unsub=null,Q=[],F='bek',un='';
+const [app,a,f]=await Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'firebase-firestore.js')]);
+au=a;fs=f;const ap=app.initializeApp(CFG);auth=a.getAuth(ap);db=f.getFirestore(ap);
+
+function draw(){
+  const bek=Q.filter(q=>!q.a),cev=Q.filter(q=>q.a);$('nb').textContent=bek.length;$('nc').textContent=cev.length;
+  const L=(F==='bek'?bek:cev).sort((x,y)=>(F==='bek'?x.ts-y.ts:(y.at||0)-(x.at||0)));
+  $('list').innerHTML=L.length?L.map(q=>'<article class="card'+(q.a?' done':'')+'" data-id="'+esc(q.id)+'"><div class="who">'+esc(q.ad)+'</div><div class="meta">'+esc(q.pa)+' · '+esc(q.il)+' · '+esc(fmt(q.gon||q.ts))+'</div><div class="q">'+esc(q.x)+'</div>'+
+    '<textarea maxlength="1000" placeholder="Cevabınızı yazın…" aria-label="Cevap">'+esc(q.a||'')+'</textarea><button class="p sv" type="button">'+(q.a?'Cevabı güncelle':'Cevabı gönder')+'</button> <span class="msg ok"></span>'+(q.at?'<div class="meta">Son cevap: '+esc(fmt(q.at))+'</div>':'')+'</article>').join(''):'<p class="sub">'+(F==='bek'?'Bekleyen soru yok.':'Henüz cevaplanan soru yok.')+'</p>'}
+
+$('list').addEventListener('click',async e=>{const b=e.target.closest('.sv');if(!b)return;
+  const card=b.closest('article'),t=card.querySelector('textarea').value.trim(),m=card.querySelector('.msg');
+  if(!t){m.className='msg';m.textContent='Cevap boş olamaz.';return}
+  b.disabled=true;m.className='msg';m.textContent='';
+  try{await fs.updateDoc(fs.doc(db,'sorular',card.dataset.id),{a:t.slice(0,1000),at:Date.now(),by:un,s:'cevaplandi'});m.className='msg ok';m.textContent='Kaydedildi.'}
+  catch(er){m.textContent='Kaydedilemedi: '+(er.code||er.message)}finally{b.disabled=false}});
+$('tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-f]');if(!b)return;F=b.dataset.f;$('tabs').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()});
+
+a.onAuthStateChanged(auth,async u=>{
+  if(unsub){unsub();unsub=null}
+  if(!u){$('app').hidden=true;$('lf').hidden=false;$('sub').textContent='Size iletilen soruları buradan cevaplayabilirsiniz.';return}
+  try{
+    const me=await fs.getDoc(fs.doc(db,'kullanicilar',u.uid));
+    if(!me.exists()||me.data().rol!=='burokrat'){$('lm').textContent='Bu hesap bu sayfa için tanımlı değil.';await a.signOut(auth);return}
+    un=u.email.split('@')[0];$('ad').textContent=me.data().ad||un;$('bi').textContent=me.data().birim||'';
+    $('lf').hidden=true;$('app').hidden=false;$('sub').textContent='Size iletilen sorular:';
+    unsub=fs.onSnapshot(fs.query(fs.collection(db,'sorular'),fs.where('to','==',u.uid)),s=>{Q=s.docs.map(d=>Object.assign({id:d.id},d.data()));draw()},er=>{$('list').innerHTML='<p class="msg">Sorular okunamadı: '+esc(er.code||er.message)+'</p>'});
+  }catch(er){$('lm').textContent='Hata: '+(er.code||er.message)}
+});
+$('lf').addEventListener('submit',async e=>{e.preventDefault();const m=$('lm');m.textContent='Giriş yapılıyor…';
+  try{await a.signInWithEmailAndPassword(auth,mail($('u').value),$('p').value);$('p').value='';m.textContent=''}
+  catch(er){m.textContent=/invalid|wrong|user-not-found|credential/.test(er.code||'')?'Kullanıcı adı veya şifre hatalı.':'Giriş yapılamadı: '+(er.code||er.message)}});
+$('out').addEventListener('click',()=>a.signOut(auth));
+</script>
+</body>
+</html>
